@@ -10,5 +10,5 @@ try:
     print("Result:", result)
 except Exception as e:
     print("Error:", str(e))
-    import traceback
+/usr/local/bin/python3 /Users/Lucas/mcgill_scraper/test.py    import traceback
     traceback.print_exc()

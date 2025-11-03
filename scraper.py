@@ -110,18 +110,20 @@ def parse_course_page(html: str, url: str = "") -> dict:
 
     # Extract prerequisites
     prereq_edges = []
+    prereq_text = ""  # <-- Initialize safely
     prereq_tag = soup.find(text=re.compile(r'Prerequisite[s]?:', re.I))
     if prereq_tag:
-        prereq_text = prereq_tag.parent.text
+        prereq_text = prereq_tag.parent.text.strip()
         prereq_courses = re.findall(r'([A-Z]{4}[- ]?\d{3})', prereq_text)
         for prereq in prereq_courses:
             prereq_edges.append({'src_course_id': prereq, 'dst_course_id': course_data.get('id'), 'kind': 'prereq',})
     
     # Extract corequisites (if any)
     coreq_edges = []
+    coreq_text = ""  # <-- Initialize safely
     coreq_tags = soup.find_all(text=re.compile(r'Corequisite[s]?:', re.I))
     for coreq_tag in coreq_tags:
-        coreq_text = coreq_tag.parent.text
+        coreq_text = coreq_tag.parent.text.strip()
         coreq_courses = re.findall(r'([A-Z]{4}[- ]?\d{3})', coreq_text)
         for coreq in coreq_courses:
             coreq_edges.append({'src_course_id': coreq, 'dst_course_id': course_data.get('id'), 'kind': 'coreq',})
@@ -129,6 +131,8 @@ def parse_course_page(html: str, url: str = "") -> dict:
     # Add to output
     course_data['prereq_edges'] = prereq_edges
     course_data['coreq_edges'] = coreq_edges
+    course_data['prereq_text'] = prereq_text
+    course_data['coreq_text'] = coreq_text
     return course_data
 
 # Add this function to the end of your scraper.py file

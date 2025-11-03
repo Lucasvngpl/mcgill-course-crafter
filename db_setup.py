@@ -22,6 +22,11 @@ class Course(Base):
     offered_winter: Mapped[bool] = mapped_column(Boolean, default=False)
     offered_summer: Mapped[bool] = mapped_column(Boolean, default=False)
 
+    # Store entire corequisite and prerequisite sentence, not just course IDs
+    prereq_text: Mapped[str] = mapped_column(Text, default="")
+    coreq_text: Mapped[str] = mapped_column(Text, default="")
+
+
 # 3) Table for prerequisites (edges between courses)
 class PrereqEdge(Base):
     __tablename__ = "prereq_edge"
