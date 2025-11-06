@@ -1,14 +1,7 @@
-from course_logic import can_take_course
+from db_connection import Session
+from db_setup import PrereqEdge
 
-# Add error handling
-try:
-    completed = ["COMP 202", "COMP 250", "MATH 240"]
-    current = ["COMP 251"]
-    
-    print("Checking prerequisites for COMP 360...")
-    result = can_take_course(completed, current, "COMP 360")
-    print("Result:", result)
-except Exception as e:
-    print("Error:", str(e))
-    import traceback
-    traceback.print_exc()
+session = Session()
+edges = session.query(PrereqEdge).limit(5).all()
+for e in edges:
+    print(e.src_course_id, "→", e.dst_course_id, e.kind)

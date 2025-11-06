@@ -26,17 +26,29 @@ def main():
                 course_html = fetch_html(course_url)
                 parsed_data = parse_course_page(course_html, course_url)
                 
-                # Update just the prereq and coreq text fields
-                if 'prereq_text' in parsed_data:
-                    course.prereq_text = parsed_data['prereq_text']
-                    print(f"   ✅ Updated prereq text: {parsed_data['prereq_text'][:50]}...")
+                # Update just the prereq and coreq text fields if new data exists
+                updated = False
+                if 'prereq_text' in parsed_data and parsed_data['prereq_text']:
+                    if not course.prereq_text:
+                        course.prereq_text = parsed_data['prereq_text']
+                        print(f"   ✅ Updated prereq text: {parsed_data['prereq_text'][:50]}...")
+                        updated = True
+                    else:
+                        print("   ℹ️  Prereq text already present, not overwriting.")
                 
-                if 'coreq_text' in parsed_data:
-                    course.coreq_text = parsed_data['coreq_text']
-                    print(f"   ✅ Updated coreq text: {parsed_data['coreq_text'][:50]}...")
+                if 'coreq_text' in parsed_data and parsed_data['coreq_text']:
+                    if not course.coreq_text:
+                        course.coreq_text = parsed_data['coreq_text']
+                        print(f"   ✅ Updated coreq text: {parsed_data['coreq_text'][:50]}...")
+                        updated = True
+                    else:
+                        print("   ℹ️  Coreq text already present, not overwriting.")
                 
-                # Commit changes for each course
-                session.commit()
+                # Commit only if we wrote new data
+                if updated:
+                    session.commit()
+                else:
+                    session.rollback()
                 
             except Exception as e:
                 print(f"   ❌ Error updating {course.id}: {str(e)}")
@@ -46,3 +58,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

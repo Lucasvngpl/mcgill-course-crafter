@@ -4,6 +4,10 @@ from chromadb.utils import embedding_functions
 from db_connection import Session as DBSession
 from db_setup import Course
 from deterministic_logic import get_courses_requiring
+from langchain.retrievers.multi_query import MultiQueryRetriever
+from langchain.chat_models import ChatOpenAI
+from langchain.vectorstores import Chroma
+
 
 # Step 1️⃣ — Load courses from DB
 def load_course_docs():
@@ -16,14 +20,18 @@ def load_course_docs():
         courses = session.query(Course).all()
         documents = []
         for course in courses:
-            doc = {
+            text = " ".join(filter(None, [
+                course.title or "",
+                course.description or "",
+                course.prereq_text or "",
+                course.coreq_text or ""
+            ]))
+            documents.append({
                 "id": course.id,
+                "text": text,
                 "title": course.title,
-                "description": course.description,
-                "prerequisites": course.prereq_text,
-                "corequisites": course.coreq_text,
-            }
-            documents.append(doc)
+                "department": (course.id.split()[0] if course.id else None)
+            })
         return documents
     
 # Step 2️⃣ — Build and persist the Chroma collection
@@ -46,9 +54,10 @@ def build_vector_store():
     ids = [d["id"] for d in docs]
     # Extract the text content for embedding
     texts = [d["text"] for d in docs]
+    metadatas = [{"title": d["title"], "department": d["department"]} for d in docs]
     # Add these documents to the Chroma collection
     # A namespace or table inside Chroma where you store all related embeddings (e.g., all McGill courses).
-    collection.add(ids=ids, documents=texts)
+    collection.add(ids=ids, documents=texts, metadatas=metadatas)
     print(f"✅ Chroma vector store built with {len(docs)} courses")
 
 # Step 3️⃣ — Semantic search to find similar courses
@@ -61,7 +70,7 @@ def semantic_search(query: str, n_results: int = 5):
     embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
 
     collection = client.get_or_create_collection(
-        name="courses",
+        name="courses_collection",
         embedding_function=embedding_fn
     )
     # query means "search" Like saying: “Find courses that mean the same as this sentence.”
@@ -105,6 +114,27 @@ def hybrid_search(query: str, dept: str = None, prereq_of: str = None, n_results
         combined = [c for c in combined if c["course_id"] in prereq_targets]
 
     return combined
+
+def enrich_context(course_ids: list[str]): # Context Enrichment (post-retrieval)
+    """Fetch additional info (credits, offered_by, prereqs/coreqs) for retrieved courses.""" # given a list of course IDs, return enriched info from the DB
+    with DBSession() as session:
+        courses = session.query(Course).filter(Course.id.in_(course_ids)).all()
+        enriched = []
+        for c in courses:
+            enriched.append({
+                "id": c.id,
+                "title": c.title,
+                "department": c.offered_by,
+                "credits": float(c.credits or 0),
+                "offered_fall": c.offered_fall,
+                "offered_winter": c.offered_winter,
+                "offered_summer": c.offered_summer,
+                "prereqs": c.prereq_text,
+                "coreqs": c.coreq_text,
+                "description": c.description,
+            })
+        return enriched
+
 
 
 
