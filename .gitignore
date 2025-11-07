@@ -1,1 +1,13 @@
 .env
+__pycache__/
+*.pyc
+# .env
+# Database connection string
+DATABASE_URL=postgresql+psycopg2://mcgill:mcgill@localhost:5432/coursecraft
+
+# The Computer Science major catalog link
+CATALOG_URL=https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/computer-science/computer-science-major-bsc/#coursestext
+
+# polite delay between web requests (in seconds)
+REQUEST_DELAY=1.0
+
