@@ -17,15 +17,17 @@ print("cwd:", pathlib.Path.cwd())
 print(".env found:", bool(env_path or pathlib.Path(".env").exists()))
 print("OPENAI_API_KEY present:", bool(os.getenv("OPENAI_API_KEY")))
 from langchain_openai import ChatOpenAI
-from rag_layer import hybrid_search
-from rag_layer import enrich_context
+from rag_layer import hybrid_search, enrich_context, set_llm
 
 # quick sanity check (do NOT print the key in logs; just fail loudly if missing)
 if not os.getenv("OPENAI_API_KEY"):
     raise RuntimeError("OPENAI_API_KEY not set in environment")
 
 # 1️⃣ Initialize model
-llm = ChatOpenAI(model="gpt-5", temperature=0.2, openai_api_key=os.getenv("OPENAI_API_KEY"))
+llm = ChatOpenAI(model="gpt-5", temperature=0.7, openai_api_key=os.getenv("OPENAI_API_KEY"))
+
+# Set LLM in rag_layer for query understanding
+set_llm(llm)
 
 # 2️⃣ Prompt construction
 def generate_answer(query):
@@ -42,7 +44,10 @@ def generate_answer(query):
         for d in context_docs
     )
     prompt = f"""You are a helpful academic assistant for McGill University.
-Use only the context below to answer the student's question.
+Use only the context below to answer the student's question. If the context does not contain the answer, respond with "I don't have enough information to answer that.
+[CRITICAL RULES: 
+- Do NOT make up answers.
+- If asks for which courses require a specific course, list ALL that you find in the context."
 
 Question: {query}
 Context:

@@ -1,9 +1,19 @@
 # rag_layer.py
+import re
+from typing import Optional
 import chromadb
 from chromadb.utils import embedding_functions
 from db_connection import Session as DBSession
 from db_setup import Course
 from deterministic_logic import get_courses_requiring
+
+# Import LLM for query understanding (will be set by qa_agent)
+_llm = None
+
+def set_llm(llm_instance):
+    """Set the LLM instance for query understanding."""
+    global _llm
+    _llm = llm_instance
 
 
 
@@ -129,12 +139,136 @@ def semantic_search(query: str, n_results: int = 5):
     ]
     return out
 
+# Helper function to use LLM to understand query intent and reformulate for better retrieval
+def understand_query_for_retrieval(query: str) -> dict:
+    """Use LLM to understand the query and reformulate it for semantic search.
+    
+    Returns a dict with:
+    - reformulated_query: Better query for semantic search
+    - search_strategy: 'semantic' or 'prereq_lookup'
+    - course_code: Extracted course code if applicable
+    """
+    if not _llm:
+        # Fallback to original query if LLM not available
+        return {
+            "reformulated_query": query,
+            "search_strategy": "semantic",
+            "course_code": None
+        }
+    
+    understanding_prompt = f"""Analyze this query about McGill University courses and determine:
+1. What is the user really asking for?
+2. If asking "which courses require X", extract the course code X
+3. Reformulate the query to search for courses that would answer this question
+
+Query: "{query}"
+
+Respond in this exact JSON format:
+{{
+    "intent": "prereq_lookup" or "general_search",
+    "course_code": "COMP 250" or null,
+    "reformulated_query": "courses that have COMP 250 as a prerequisite" or the original query
+}}
+
+Examples:
+- "Which courses require COMP 250?" -> {{"intent": "prereq_lookup", "course_code": "COMP 250", "reformulated_query": "courses with COMP 250 as prerequisite"}}
+- "What is COMP 250 about?" -> {{"intent": "general_search", "course_code": "COMP 250", "reformulated_query": "What is COMP 250 about?"}}
+- "Tell me about machine learning courses" -> {{"intent": "general_search", "course_code": null, "reformulated_query": "machine learning courses"}}
+
+JSON response only:"""
+
+    try:
+        response = _llm.invoke(understanding_prompt)
+        import json
+        # Try to extract JSON from response
+        content = response.content.strip()
+        # Remove markdown code blocks if present
+        if content.startswith("```"):
+            content = content.split("```")[1]
+            if content.startswith("json"):
+                content = content[4:]
+        content = content.strip()
+        
+        result = json.loads(content)
+        return {
+            "reformulated_query": result.get("reformulated_query", query),
+            "search_strategy": result.get("intent", "general_search"),
+            "course_code": result.get("course_code")
+        }
+    except Exception as e:
+        # Fallback on error
+        print(f"LLM query understanding failed: {e}, using original query")
+        return {
+            "reformulated_query": query,
+            "search_strategy": "semantic",
+            "course_code": None
+        }
+
 # STEP 4️⃣ — Hybrid Search: Combine semantic + structured logic
 
-def hybrid_search(query: str, dept: str = None, prereq_of: str = None, n_results: int = 5):
-    """Combine semantic retrieval with structured filters from the SQL layer."""
+def hybrid_search(query: str, dept: str = None, prereq_of: str = None, n_results: int = 50): # Hybrid Search (semantic + deterministic)
+    """Combine semantic retrieval with my logic from the SQLAlchemy layer.
     
-    # First, get semantically similar courses from Chroma
+    Uses LLM to understand query intent and reformulate for better retrieval.
+    """
+    
+    # Use LLM to understand the query if prereq_of not explicitly provided
+    if not prereq_of:
+        query_understanding = understand_query_for_retrieval(query)
+        
+        # If LLM detected a prerequisite lookup, use deterministic logic
+        if query_understanding["search_strategy"] == "prereq_lookup" and query_understanding["course_code"]:
+            prereq_of = query_understanding["course_code"]
+        else:
+            # Use reformulated query for better semantic search
+            query = query_understanding["reformulated_query"]
+    
+    # If this is a prerequisite query, use both semantic search and deterministic lookup
+    if prereq_of:
+        # Semantic search: find courses that mention this course code in their text
+        # This will find courses that have it in description, prereqs, etc.
+        semantic_query = f"{prereq_of} prerequisite"
+        semantic_results = semantic_search(semantic_query, n_results=100)
+        
+        # Deterministic lookup: find courses that explicitly list it as prerequisite
+        prereq_targets = get_courses_requiring(prereq_of) or []
+        
+        # Combine both approaches - prioritize deterministic matches but include semantic matches
+        all_course_ids = set(prereq_targets)
+        for r in semantic_results:
+            all_course_ids.add(r["course_id"])
+        
+        if not all_course_ids:
+            return []
+        
+        # Fetch full metadata/enrichment for all targets
+        enriched = enrich_context(list(all_course_ids))
+        
+        # Score: deterministic matches get score 0.0, semantic matches keep their scores
+        semantic_scores = {r["course_id"]: r["score"] for r in semantic_results}
+        deterministic_matches = set(prereq_targets)
+        
+        combined = []
+        for e in enriched:
+            course_id = e["id"]
+            # Use semantic score if available, otherwise 0.0 for deterministic matches
+            score = semantic_scores.get(course_id, 0.0)
+            # Boost score slightly for deterministic matches
+            if course_id in deterministic_matches:
+                score = min(score, 0.0)  # Ensure deterministic matches are ranked highest
+            
+            combined.append({
+                "course_id": course_id,
+                "score": score,
+                **{k: v for k, v in e.items() if k != "id"}
+            })
+        
+        # Sort by score (lower is better for distance, but deterministic should come first)
+        combined.sort(key=lambda x: (x["course_id"] not in deterministic_matches, x["score"]))
+        return combined
+    
+    # For general queries, use semantic search with reformulated query
+    # Increased n_results to give LLM more context to work with
     results = semantic_search(query, n_results)
 
     # Connect to the same Chroma DB again (to fetch metadata)
@@ -152,11 +286,6 @@ def hybrid_search(query: str, dept: str = None, prereq_of: str = None, n_results
     # Filter by department (symbolic condition)
     if dept:
         combined = [c for c in combined if c["department"].upper() == dept.upper()]
-
-    # Filter by prerequisite relationships using the deterministic layer
-    if prereq_of:
-        prereq_targets = get_courses_requiring(prereq_of)
-        combined = [c for c in combined if c["course_id"] in prereq_targets]
 
     return combined
 
