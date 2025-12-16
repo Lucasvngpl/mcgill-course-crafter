@@ -1,6 +1,20 @@
 .env
 __pycache__/
 *.pyc
+<<<<<<< HEAD
 chroma_db/
 *.db
 node_modules/
+=======
+# .env
+# Database connection string
+DATABASE_URL=postgresql+psycopg2://mcgill:mcgill@localhost:5432/coursecraft
+
+# The Computer Science major catalog link
+CATALOG_URL=https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/computer-science/computer-science-major-bsc/#coursestext
+
+# polite delay between web requests (in seconds)
+REQUEST_DELAY=1.0
+
+OPENAI_API_KEY=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
+>>>>>>> d2350d8 (server: add course details and /query endpoint)
