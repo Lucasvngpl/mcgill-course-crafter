@@ -2,6 +2,7 @@
 __pycache__/
 *.pyc
 <<<<<<< HEAD
+<<<<<<< HEAD
 chroma_db/
 *.db
 node_modules/
@@ -18,3 +19,9 @@ REQUEST_DELAY=1.0
 
 OPENAI_API_KEY=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
 >>>>>>> d2350d8 (server: add course details and /query endpoint)
+=======
+chroma_db/
+*.db
+node_modules/
+.venv/
+>>>>>>> 84e72f5 (fix: clean up .gitignore)
