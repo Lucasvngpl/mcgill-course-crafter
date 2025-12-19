@@ -1,0 +1,90 @@
+# from db_connection import Session
+# from db_setup import Course
+# with Session() as s:
+#     course = s.query(Course).filter_by(id="BIOL 588").first()
+#     if course:
+#         print("Found:", course.id, course.title)
+#         print("Prereqs:", course.prereq_text)
+#     else:
+#         print("BIOL 588 not in database")
+
+# verifying vector store has documents
+# import chromadb
+# client = chromadb.PersistentClient(path="./chroma_db")
+# cols = client.list_collections()
+# print("Collections:", cols)
+# if cols:
+#     col = client.get_collection("courses_collection")
+#     print("Document count:", col.count())
+
+
+# from rag_layer import semantic_search
+# results = semantic_search("BIOL 588")
+# print("Results:", results)
+
+# The problem is clear: semantic_search("BIOL 588") 
+# returns BIOL 219, 434, 306, etc. but not BIOL 588
+
+# Check if BIOL 588 exists in vector store
+# import chromadb
+# client = chromadb.PersistentClient(path="./chroma_db")
+# col = client.get_collection("courses_collection")
+
+# Try to get BIOL 588 directly by ID
+# result = col.get(ids=["BIOL 588"])
+# print("Exact match 'BIOL 588':", result)
+
+# result2 = col.get(ids=["BIOL588"])
+# print("Exact match 'BIOL588':", result2)
+
+# # Search for any BIOL 5xx courses
+# results = col.get(where={"department": "BIOL"}, limit=20)
+# print("BIOL courses in store:", [r for r in results["ids"] if "5" in r])
+
+# okay so BIOL 588 is in the vector store with correct data. 
+# The problem is in semantic_search — it's not returning the right course
+
+# Step 1: Test semantic_search vs direct query
+# from rag_layer import semantic_search
+
+# # What semantic_search returns
+# print("semantic_search result:", semantic_search("BIOL 588 prerequisites"))
+
+# # Check if it's a similarity issue - try exact text
+# print("semantic_search exact:", semantic_search("Advances in Molecular/Cellular Neurobiology"))
+
+# issue confirmed, searching for the course title ("Advances in Molecular/Cellular Neurobiology") finds BIOL 588, 
+# but searching for "BIOL 588 prerequisites" doesn't
+# The semantic search doesn't understand course IDs well.
+# Add hybrid search that checks for course IDs first
+
+# Test the phrase matching
+# query = "What are the prerequisites for BIOL 588?"
+# query_lower = query.lower()
+# phrases = ["prerequisite for", "prerequisites for", "prereqs for", "what do i need for", "requirements for"]
+# print("Query:", query_lower)
+# print("Matches:", [p for p in phrases if p in query_lower])
+
+# # Test full hybrid_search
+# from rag_layer import hybrid_search
+# result = hybrid_search(query)
+# print("\nResult:", result)
+
+# Verify get_courses_requiring works
+# from deterministic_logic import get_courses_requiring
+# print("Courses requiring COMP 250:", get_courses_requiring("COMP 250"))
+# print("Courses requiring MATH 133:", get_courses_requiring("MATH 133"))
+
+
+from dotenv import load_dotenv
+load_dotenv(dotenv_path=".env")
+from qa_agent import generate_answer
+
+for q in [
+    "What are the prerequisites for BIOL 588?",
+    "What can I take after COMP 250?",
+    "I finished MATH 133, what's next?",
+]:
+    print(f"\nQ: {q}")
+    print(f"A: {generate_answer(q)}")
+

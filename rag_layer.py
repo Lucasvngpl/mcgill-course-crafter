@@ -203,6 +203,35 @@ JSON response only:"""
             "search_strategy": "semantic",
             "course_code": None
         }
+    
+
+
+_COURSE_ID_RE = re.compile(r'\b([A-Z]{3,4})[\s\-]?(\d{3}[A-Z]?)\b', re.IGNORECASE)
+
+def extract_course_id(query: str) -> Optional[str]:
+    """Extract a course ID from query, normalize to 'DEPT NNN' format."""
+    match = _COURSE_ID_RE.search(query)
+    if match:
+        return f"{match.group(1).upper()} {match.group(2).upper()}"
+    return None   
+
+
+def get_course_directly(course_id: str) -> Optional[dict]:
+    """Fetch a single course by exact ID from the database."""
+    with DBSession() as session:
+        course = session.query(Course).filter_by(id=course_id).first()
+        if course:
+            return {
+                "id": course.id,
+                "title": course.title,
+                "department": course.offered_by,
+                "credits": float(course.credits or 0),
+                "prereqs": course.prereq_text,
+                "coreqs": course.coreq_text,
+                "description": course.description,
+            }
+    return None
+
 
 # STEP 4️⃣ — Hybrid Search: Combine semantic + structured logic
 
@@ -211,82 +240,66 @@ def hybrid_search(query: str, dept: str = None, prereq_of: str = None, n_results
     
     Uses LLM to understand query intent and reformulate for better retrieval.
     """
-    
-    # Use LLM to understand the query if prereq_of not explicitly provided
-    if not prereq_of:
-        query_understanding = understand_query_for_retrieval(query)
-        
-        # If LLM detected a prerequisite lookup, use deterministic logic
-        if query_understanding["search_strategy"] == "prereq_lookup" and query_understanding["course_code"]:
-            prereq_of = query_understanding["course_code"]
-        else:
-            # Use reformulated query for better semantic search
-            query = query_understanding["reformulated_query"]
-    
-    # If this is a prerequisite query, use both semantic search and deterministic lookup
-    if prereq_of:
-        # Semantic search: find courses that mention this course code in their text
-        # This will find courses that have it in description, prereqs, etc.
-        semantic_query = f"{prereq_of} prerequisite"
-        semantic_results = semantic_search(semantic_query, n_results=100)
-        
-        # Deterministic lookup: find courses that explicitly list it as prerequisite
-        prereq_targets = get_courses_requiring(prereq_of) or []
-        
-        # Combine both approaches - prioritize deterministic matches but include semantic matches
-        all_course_ids = set(prereq_targets)
-        for r in semantic_results:
-            all_course_ids.add(r["course_id"])
-        
-        if not all_course_ids:
-            return []
-        
-        # Fetch full metadata/enrichment for all targets
-        enriched = enrich_context(list(all_course_ids))
-        
-        # Score: deterministic matches get score 0.0, semantic matches keep their scores
-        semantic_scores = {r["course_id"]: r["score"] for r in semantic_results}
-        deterministic_matches = set(prereq_targets)
-        
-        combined = []
-        for e in enriched:
-            course_id = e["id"]
-            # Use semantic score if available, otherwise 0.0 for deterministic matches
-            score = semantic_scores.get(course_id, 0.0)
-            # Boost score slightly for deterministic matches
-            if course_id in deterministic_matches:
-                score = min(score, 0.0)  # Ensure deterministic matches are ranked highest
-            
-            combined.append({
-                "course_id": course_id,
-                "score": score,
-                **{k: v for k, v in e.items() if k != "id"}
-            })
-        
-        # Sort by score (lower is better for distance, but deterministic should come first)
-        combined.sort(key=lambda x: (x["course_id"] not in deterministic_matches, x["score"]))
-        return combined
-    
-    # For general queries, use semantic search with reformulated query
-    # Increased n_results to give LLM more context to work with
-    results = semantic_search(query, n_results)
 
-    # Connect to the same Chroma DB again (to fetch metadata)
+    # ✅ FIX 1: Extract course ID from query
+    course_id = extract_course_id(query)
+
+    # ✅ FIX 2: Detect query intent
+    query_lower = query.lower()
+    is_asking_prereqs_for = course_id and any(phrase in query_lower for phrase in [
+        "prerequisite for", "prerequisites for", "prereqs for", 
+        "what do i need for", "requirements for"
+    ])
+
+    is_asking_what_requires = course_id and any(phrase in query_lower for phrase in [ 
+        "require", "need", "courses that use", "after", "next", 
+    "finished", "completed", "done with", "taken", "what can i take"
+    ]) and "for" not in query_lower
+    # ✅ This correctly excludes "prerequisites FOR X" queries
+
+    # ✅ FIX 3: Handle "prerequisites FOR X" - just fetch X's prereq_text
+    if is_asking_prereqs_for and course_id:
+        course = get_course_directly(course_id)
+        if course:
+            return [{
+                "course_id": course["id"],
+                "score": 0.0,
+                **course
+            }]
+        # Course not found, fall through to semantic search
+        # (This is intentional - we want to give semantic search a chance)
+    # ✅ FIX 4: Handle "which courses REQUIRE X" - find courses listing X as prereq
+    if is_asking_what_requires and course_id:
+        prereq_of = course_id
+
+    # Handle prereq_of (courses that require this course)
+    if prereq_of:
+        prereq_targets = get_courses_requiring(prereq_of) or []
+        if not prereq_targets:
+            return []
+        enriched = enrich_context(prereq_targets)
+        return [{"course_id": e["id"], "score": 0.0, **{k: v for k, v in e.items() if k != "id"}} for e in enriched]
+    
+    # ✅ FIX 5: If query mentions a course ID, fetch it directly first
+    if course_id:
+        course = get_course_directly(course_id)
+        if course:
+            return [{
+                "course_id": course["id"],
+                "score": 0.0,
+                **course
+            }]
+    
+    # Fall back to semantic search for general queries
+    results = semantic_search(query, n_results)
     client = chromadb.PersistentClient(path="./chroma_db")
     collection = client.get_collection("courses_collection")
-
-    # Retrieve metadata for those results (department, title, etc.)
     metadatas = collection.get(ids=[r["course_id"] for r in results])["metadatas"]
-
-    # Combine vector results with metadata
-    combined = [
-        {**r, **meta} for r, meta in zip(results, metadatas)
-    ]
-
-    # Filter by department (symbolic condition)
+    combined = [{**r, **meta} for r, meta in zip(results, metadatas)]
+    
     if dept:
         combined = [c for c in combined if c["department"].upper() == dept.upper()]
-
+    
     return combined
 
 def enrich_context(course_ids: list[str]): # Context Enrichment (post-retrieval)
