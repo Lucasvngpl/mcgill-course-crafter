@@ -175,6 +175,8 @@ Examples:
 - "What is COMP 250 about?" -> {{"intent": "general_search", "course_code": "COMP 250", "reformulated_query": "What is COMP 250 about?"}}
 - "Tell me about machine learning courses" -> {{"intent": "general_search", "course_code": null, "reformulated_query": "machine learning courses"}}
 
+
+
 JSON response only:"""
 
     try:

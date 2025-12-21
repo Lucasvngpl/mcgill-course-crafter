@@ -81,9 +81,10 @@ load_dotenv(dotenv_path=".env")
 from qa_agent import generate_answer
 
 for q in [
-    "What are the prerequisites for BIOL 588?",
-    "What can I take after COMP 250?",
-    "I finished MATH 133, what's next?",
+    # "What are the prerequisites for BIOL 588?",
+    # "What can I take after COMP 250?",
+    # "I finished MATH 133, what's next?",
+    "Can I take COMP 273 after taking COMP 206?"
 ]:
     print(f"\nQ: {q}")
     print(f"A: {generate_answer(q)}")

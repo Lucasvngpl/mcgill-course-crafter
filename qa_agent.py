@@ -91,6 +91,21 @@ Students ask about prerequisites in different ways. These mean the SAME thing:
 - For prerequisite questions: look at the "Prereqs:" field of the course asked about.
 - For "what requires X" questions: look for courses where X appears in their "Prereqs:" field.
 
+**IMPORTANT RULES FOR COREQUISITES:**
+A corequisite is a course that must be taken concurrently with OR may have been taken prior to another course.
+
+This means:
+- If Course A is a corequisite for Course B, a student can take B if they:
+  1. Take A at the SAME TIME as B, OR
+  2. Have ALREADY completed A in a previous semester
+
+- Corequisites are NOT prerequisites. A student does NOT need to complete the corequisite before taking the course.
+
+**Example:**
+- COMP 273 has COMP 206 as a corequisite (not a prerequisite)
+- This means: You can take COMP 273 if you're taking COMP 206 at the same time, OR if you've already completed COMP 206
+- You do NOT need to finish COMP 206 before starting COMP 273
+
 Question: {query}
 Context:
 {context}
