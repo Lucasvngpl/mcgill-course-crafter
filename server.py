@@ -14,10 +14,18 @@ app = FastAPI(title="CourseCraft RAG API", version="0.1")
 class QueryRequest(BaseModel):
     question: str
 
-# Allow frontend (React) access later
-app.add_middleware( # set properties for application to be accessed from frontend through CORS
+# Add CORS middleware - allow your Vercel frontend
+app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # change to your frontend domain later
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://127.0.0.1:5173",
+        "http://127.0.0.1:5174",
+        "https://mcgill-course-crafter.vercel.app",
+        "https://*.vercel.app",  # Allow all Vercel preview URLs
+    ],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
