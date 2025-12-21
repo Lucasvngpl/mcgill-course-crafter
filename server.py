@@ -15,16 +15,10 @@ class QueryRequest(BaseModel):
     question: str
 
 # Add CORS middleware - allow your Vercel frontend
+# Add CORS middleware - allow all origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:5173",
-        "http://127.0.0.1:5174",
-        "https://mcgill-course-crafter.vercel.app",
-        "https://*.vercel.app",  # Allow all Vercel preview URLs
-    ],
+    allow_origins=["*"],  # Allow all origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
