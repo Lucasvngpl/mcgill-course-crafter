@@ -46,9 +46,113 @@ def detect_query_type(query: str):
     return "prereq"
 
 
+def format_planning_response(planning_data: dict, original_query: str) -> str:
+    """Format a response for planning/recommendation queries."""
+    planning_type = planning_data.get("planning_type")
+    courses = planning_data.get("courses", [])
+    department = planning_data.get("department")
+    term = planning_data.get("term")
+    level = planning_data.get("level")
+    completed = planning_data.get("completed", [])
+    
+    if not courses:
+        return "I couldn't find any courses matching your criteria. Try being more specific about the department or term."
+    
+    def format_offering(c):
+        terms = []
+        if c.get('offered_fall'): terms.append('Fall')
+        if c.get('offered_winter'): terms.append('Winter')
+        if c.get('offered_summer'): terms.append('Summer')
+        return ', '.join(terms) if terms else 'Not specified'
+    
+    def format_course(c):
+        prereqs = c.get('prereqs') or 'None'
+        offering = format_offering(c)
+        desc = c.get('description', '')
+        # Truncate description
+        if len(desc) > 150:
+            desc = desc[:150] + '...'
+        return f"**{c['id']}** ({c.get('title', 'Unknown')})\n   - Prereqs: {prereqs}\n   - Offered: {offering}\n   - {desc}"
+    
+    # Build response based on planning type
+    if planning_type == "first_semester":
+        dept_name = department or "various departments"
+        term_str = f" in {term.capitalize()}" if term else ""
+        header = f"Here are entry-level {dept_name} courses with no prerequisites{term_str}:\n\n"
+        
+        # Highlight recommended first courses
+        recommended = []
+        others = []
+        for c in courses:
+            course_num = int(c['id'].split()[1][:3]) if c['id'].split()[1][:3].isdigit() else 999
+            if course_num < 300:  # 100-200 level
+                recommended.append(c)
+            else:
+                others.append(c)
+        
+        response = header
+        if recommended:
+            response += "**Recommended for beginners:**\n\n"
+            for c in recommended[:5]:
+                response += format_course(c) + "\n\n"
+        
+        if others and len(recommended) < 3:
+            response += "\n**Other options:**\n\n"
+            for c in others[:3]:
+                response += format_course(c) + "\n\n"
+        
+        response += "\n💡 **Tip:** For Computer Science, COMP 202 or COMP 208 are typically the first programming courses, followed by COMP 250."
+        return response
+    
+    elif planning_type == "by_level":
+        dept_name = department or "various departments"
+        level_str = f"{level}-level" if level else ""
+        term_str = f" offered in {term.capitalize()}" if term else ""
+        header = f"Here are {level_str} {dept_name} courses{term_str}:\n\n"
+        
+        response = header
+        for c in courses[:8]:
+            response += format_course(c) + "\n\n"
+        
+        return response
+    
+    elif planning_type == "available":
+        completed_str = ', '.join(completed) if completed else 'your courses'
+        dept_filter = f" in {department}" if department else ""
+        term_str = f" for {term.capitalize()}" if term else ""
+        header = f"Based on completing {completed_str}, here are courses you can take{dept_filter}{term_str}:\n\n"
+        
+        response = header
+        for c in courses[:10]:
+            response += format_course(c) + "\n\n"
+        
+        if len(courses) > 10:
+            response += f"\n...and {len(courses) - 10} more courses available."
+        
+        return response
+    
+    else:
+        # Generic recommendation
+        response = "Here are some courses that might interest you:\n\n"
+        for c in courses[:6]:
+            response += format_course(c) + "\n\n"
+        return response
+
 
 # 2️⃣ Prompt construction
 def generate_answer(query):
+    # Check for planning queries FIRST (before reverse_prereq detection)
+    # This is done early because planning queries like "What can I take after COMP 250?"
+    # should be handled differently than simple "which courses require X?" queries
+    
+    # Hybrid search handles planning detection internally
+    retrieved_docs = hybrid_search(query)
+    
+    # Check if this is a planning query
+    if retrieved_docs and retrieved_docs[0].get("is_planning_query"):
+        return format_planning_response(retrieved_docs[0], query)
+    
+    # Now check for other query types
     query_type = detect_query_type(query)
     
     # Extract course ID
@@ -60,20 +164,49 @@ def generate_answer(query):
         if courses:
             return f"Courses that require {course_id}: {', '.join(courses)}"
         return f"No courses in the database list {course_id} as a prerequisite."
-
-
-
-
-    # Hybrid search to retrieve relevant documents
-    retrieved_docs = hybrid_search(query)
+    
+    # Check if we need clarification (ambiguous course title)
+    if retrieved_docs and retrieved_docs[0].get("needs_clarification"):
+        alternatives = retrieved_docs[0].get("alternatives", [])
+        if alternatives:
+            # Fetch titles for all alternatives
+            alt_info = []
+            for alt_id in alternatives:
+                from rag_layer import get_course_directly
+                alt_course = get_course_directly(alt_id)
+                if alt_course:
+                    alt_info.append(f"- {alt_id} ({alt_course.get('title', 'Unknown')}) - {alt_course.get('department', 'Unknown')}")
+                else:
+                    alt_info.append(f"- {alt_id}")
+            
+            return (
+                f"I found multiple courses with that title. Please specify which one you mean by including the course code:\n\n"
+                + "\n".join(alt_info)
+                + f"\n\nFor example, you can ask: \"{query.replace('?', '')} (COMP 310)?\" or just ask about a specific course code."
+            )
 
     # 2️⃣ Enrich retrieved docs
     top_ids = [r["course_id"] for r in retrieved_docs]
     context_docs = enrich_context(top_ids)
 
-    # 3️⃣ Build context string
+    # 3️⃣ Build context string with offering information
+    def format_offering(d):
+        """Format the offering terms for a course."""
+        terms = []
+        if d.get('offered_fall'):
+            terms.append('Fall')
+        if d.get('offered_winter'):
+            terms.append('Winter')
+        if d.get('offered_summer'):
+            terms.append('Summer')
+        return ', '.join(terms) if terms else 'Not specified'
+    
     context = "\n\n".join(
-        f"{d['id']} ({d['credits']} credits, {d['department']}) - {d['description']}\nPrereqs: {d['prereqs'] or 'None'}\nCoreqs: {d['coreqs'] or 'None'}"
+        f"{d['id']} ({d.get('title', 'Unknown Title')}) - {d['credits']} credits, {d['department']}\n"
+        f"Description: {d['description']}\n"
+        f"Prereqs: {d['prereqs'] or 'None'}\n"
+        f"Coreqs: {d['coreqs'] or 'None'}\n"
+        f"Offered: {format_offering(d)}"
         for d in context_docs
     )
     prompt = f"""You are a helpful academic assistant for McGill University.
@@ -90,6 +223,11 @@ Students ask about prerequisites in different ways. These mean the SAME thing:
 - When listing courses, include ALL matches from the context.
 - For prerequisite questions: look at the "Prereqs:" field of the course asked about.
 - For "what requires X" questions: look for courses where X appears in their "Prereqs:" field.
+
+**RESPONSE FORMAT:**
+- Always include both course code AND title: "COMP 250 (Introduction to Computer Science)"
+- When listing prerequisites, format as: "Prerequisites: COMP 202 (Foundations of Programming)"
+- Never show just the code without the name. Look at course title in context.
 
 **IMPORTANT RULES FOR COREQUISITES:**
 A corequisite is a course that must be taken concurrently with OR may have been taken prior to another course.
