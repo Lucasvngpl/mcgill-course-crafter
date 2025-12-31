@@ -35,10 +35,13 @@ def detect_query_type(query: str):
     """Detect if user is asking for reverse prereqs."""
     reverse_patterns = [
         r"what can i take after",
+        r"what should i take after",
         r"what courses? require",
         r"i finished .+,? what'?s next",
         r"after .+,? what",
         r"courses? that need",
+        r"what('s| is) next after",
+        r"take after",
     ]
     for pattern in reverse_patterns:
         if re.search(pattern, query.lower()):
@@ -162,22 +165,24 @@ def generate_answer(query):
         course_id = f"{match.group(1)} {match.group(2)}"
         courses = get_courses_requiring(course_id)
         if courses:
-            # Get titles for each course
+            # Get titles for each course (simple format)
             from rag_layer import get_course_directly
             course_list = []
             for cid in courses:
                 course_info = get_course_directly(cid)
                 if course_info and course_info.get('title') and 'Placeholder' not in course_info.get('title', ''):
-                    course_list.append(f"{cid} ({course_info['title']})")
+                    course_list.append(f"• {cid} ({course_info['title']})")
                 else:
-                    course_list.append(cid)
-            # Also get the title of the source course
+                    course_list.append(f"• {cid}")
+            
+            # Get source course title
             source_info = get_course_directly(course_id)
             if source_info and source_info.get('title') and 'Placeholder' not in source_info.get('title', ''):
                 source_str = f"{course_id} ({source_info['title']})"
             else:
                 source_str = course_id
-            return f"Courses that require {source_str}:\n• " + "\n• ".join(course_list)
+            
+            return f"After completing {source_str}, you can take:\n\n" + "\n".join(course_list)
         return f"No courses in the database list {course_id} as a prerequisite."
     
     # Check if we need clarification (ambiguous course title)

@@ -26,4 +26,7 @@ from qa_agent import generate_answer
 print("Key loaded:", bool(os.getenv("OPENAI_API_KEY")))
 
 #print(generate_answer('Which courses require COMP 202?'))
-print(generate_answer('What are the prerequisites for BIOL 588?'))
+print(generate_answer('What can I take after COMP 250?'))
+print(generate_answer('What should I take after MATH 133?'))
+print(generate_answer('First semester CS courses?'))
+print(generate_answer('200-level COMP courses?'))

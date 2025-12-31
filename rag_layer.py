@@ -645,9 +645,8 @@ def detect_planning_query(query: str) -> Optional[dict]:
     ]
     
     available_patterns = [
-        r'(after|with|having|completed?|done|finished|took)\s+[A-Z]{3,4}\s*\d{3}',
-        r'can\s+i\s+take',
-        r'what\s+(can|should)\s+i\s+take\s+(next|now)',
+        # Only match when multiple courses are mentioned (e.g., "after COMP 250 and MATH 133")
+        r'(after|with|having|completed?|done|finished|took)\s+[A-Z]{3,4}\s*\d{3}.+[A-Z]{3,4}\s*\d{3}',
         r'available\s+to\s+(me|take)',
     ]
     
