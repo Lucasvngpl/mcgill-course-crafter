@@ -162,7 +162,22 @@ def generate_answer(query):
         course_id = f"{match.group(1)} {match.group(2)}"
         courses = get_courses_requiring(course_id)
         if courses:
-            return f"Courses that require {course_id}: {', '.join(courses)}"
+            # Get titles for each course
+            from rag_layer import get_course_directly
+            course_list = []
+            for cid in courses:
+                course_info = get_course_directly(cid)
+                if course_info and course_info.get('title') and 'Placeholder' not in course_info.get('title', ''):
+                    course_list.append(f"{cid} ({course_info['title']})")
+                else:
+                    course_list.append(cid)
+            # Also get the title of the source course
+            source_info = get_course_directly(course_id)
+            if source_info and source_info.get('title') and 'Placeholder' not in source_info.get('title', ''):
+                source_str = f"{course_id} ({source_info['title']})"
+            else:
+                source_str = course_id
+            return f"Courses that require {source_str}:\n• " + "\n• ".join(course_list)
         return f"No courses in the database list {course_id} as a prerequisite."
     
     # Check if we need clarification (ambiguous course title)
