@@ -1,4 +1,3 @@
-
 import pathlib
 import re
 from dotenv import find_dotenv, load_dotenv
@@ -30,12 +29,44 @@ llm = ChatOpenAI(model="gpt-5", temperature=0.7, openai_api_key=os.getenv("OPENA
 # Set LLM in rag_layer for query understanding
 set_llm(llm)
 
+# Course nickname mapping
+COURSE_ALIASES = {
+    # Math courses
+    "calc 1": "MATH 140", "calculus 1": "MATH 140",
+    "calc 2": "MATH 141", "calculus 2": "MATH 141",
+    "calc 3": "MATH 222", "calculus 3": "MATH 222",
+    "linear algebra": "MATH 133", "lin alg": "MATH 133",
+    "discrete math": "MATH 240", "discrete": "MATH 240",
+    "ode": "MATH 323", "pde": "MATH 324",
+    "real analysis": "MATH 242",
+    # CS courses
+    "intro to cs": "COMP 202", "intro cs": "COMP 202",
+    "data structures": "COMP 250",
+    "algorithms": "COMP 251",
+    "operating systems": "COMP 310", "os": "COMP 310",
+    "databases": "COMP 421",
+    "ai": "COMP 424",
+    "machine learning": "COMP 551", "ml": "COMP 551",
+    "compilers": "COMP 520",
+    "computer graphics": "COMP 557", "graphics": "COMP 557",
+}
+
+def replace_aliases(query: str) -> str:
+    """Replace course nicknames with actual course codes."""
+    result = query
+    # Sort by length (longest first) to avoid partial replacements
+    for alias in sorted(COURSE_ALIASES.keys(), key=len, reverse=True):
+        pattern = r'\b' + re.escape(alias) + r'\b'
+        if re.search(pattern, result, re.IGNORECASE):
+            result = re.sub(pattern, COURSE_ALIASES[alias], result, flags=re.IGNORECASE)
+    return result
+
 
 def detect_query_type(query: str):
     """Detect the type of query user is asking."""
     query_lower = query.lower()
     
-    # Prerequisite chain question: "should I take X before Y"
+    # Prerequisite chain question: "should i take X before Y"
     prereq_chain_patterns = [
         r'should i take .+ before',
         r'do i need .+ before',
@@ -159,6 +190,9 @@ def format_planning_response(planning_data: dict, original_query: str) -> str:
 
 # 2️⃣ Prompt construction
 def generate_answer(query):
+    # Replace course nicknames with actual codes first
+    query = replace_aliases(query)
+    
     # Check for planning queries FIRST (before reverse_prereq detection)
     # This is done early because planning queries like "What can I take after COMP 250?"
     # should be handled differently than simple "which courses require X?" queries
@@ -312,6 +346,28 @@ def generate_answer(query):
     prompt = f"""You are a helpful academic assistant for McGill University.
 Use only the context below to answer the student's question.
 
+[COMMON COURSE NICKNAMES]
+Students often use nicknames for courses. Here are the mappings:
+- "Calc 1" / "Calculus 1" = MATH 140
+- "Calc 2" / "Calculus 2" = MATH 141  
+- "Calc 3" / "Calculus 3" = MATH 222
+- "Linear Algebra" / "Lin Alg" = MATH 133
+- "Discrete Math" / "Discrete" = MATH 240
+- "ODE" = MATH 323
+- "PDE" = MATH 324
+- "Real Analysis" = MATH 242
+- "Intro to CS" / "Intro CS" = COMP 202
+- "Data Structures" = COMP 250
+- "Algorithms" = COMP 251
+- "Operating Systems" / "OS" = COMP 310
+- "Databases" = COMP 421
+- "AI" = COMP 424
+- "Machine Learning" / "ML" = COMP 551
+- "Compilers" = COMP 520
+- "Computer Graphics" / "Graphics" = COMP 557
+
+When a student uses a nickname, treat it as the corresponding course code.
+
 [UNDERSTANDING STUDENT QUESTIONS]
 Students ask about prerequisites in different ways. These mean the SAME thing:
 - "What are the prerequisites for X?" = "What do I need before X?" = "What's required for X?"
@@ -357,5 +413,5 @@ Answer clearly and concisely:
 # 4️⃣ Test
 if __name__ == "__main__":
     print(generate_answer("Which courses require COMP 250?"))
-        
-    
+
+
