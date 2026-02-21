@@ -4,6 +4,7 @@ python-dotenv
 sqlalchemy
 psycopg2-binary
 chromadb
+sentence-transformers
 langchain
 langchain-openai
 openai
