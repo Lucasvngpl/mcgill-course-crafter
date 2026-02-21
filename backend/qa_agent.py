@@ -1,21 +1,12 @@
 import pathlib
+import os
 import re
-from dotenv import find_dotenv, load_dotenv
+from dotenv import load_dotenv
 from deterministic_logic import get_courses_requiring
 
-# Load .env explicitly (use absolute path to be safe) BEFORE importing libs
-load_dotenv("/Users/Lucas/mcgill_scraper/.env", override=True)
-import os
-# load .env BEFORE importing modules that may read OPENAI_API_KEY
-env_path = find_dotenv()
-if env_path:
-    load_dotenv(env_path)
-else:
-    load_dotenv()  # fallback to default .env in cwd
-# debug (safe): show working dir and whether key is present (does NOT print the key)
-print("cwd:", pathlib.Path.cwd())
-print(".env found:", bool(env_path or pathlib.Path(".env").exists()))
-print("OPENAI_API_KEY present:", bool(os.getenv("OPENAI_API_KEY")))
+# Load .env from the backend directory (works locally; on Railway, env vars are set in dashboard)
+env_path = pathlib.Path(__file__).parent / ".env"
+load_dotenv(env_path, override=True)
 from langchain_openai import ChatOpenAI
 from rag_layer import hybrid_search, enrich_context, set_llm
 
@@ -60,6 +51,21 @@ def replace_aliases(query: str) -> str:
         if re.search(pattern, result, re.IGNORECASE):
             result = re.sub(pattern, COURSE_ALIASES[alias], result, flags=re.IGNORECASE)
     return result
+
+
+def clean_title(title: str, course_id: str = "") -> str:
+    """Return a usable title, replacing placeholder/missing titles with empty string."""
+    if not title or title.startswith("Placeholder for") or title == "N/A":
+        return ""
+    return title
+
+
+def format_course_label(course_id: str, title: str) -> str:
+    """Format a course as 'CODE (Title)' or just 'CODE' if title is placeholder/missing."""
+    clean = clean_title(title, course_id)
+    if clean:
+        return f"{course_id} ({clean})"
+    return course_id
 
 
 def detect_query_type(query: str):
@@ -189,7 +195,11 @@ def format_planning_response(planning_data: dict, original_query: str) -> str:
 
 
 # 2️⃣ Prompt construction
-def generate_answer(query):
+def generate_answer(query, user_context=None):
+    # user_context is an optional string like "[STUDENT PROFILE]\nYear: U1\nMajor: CS\n..."
+    # When present, it gets injected into the LLM prompt so responses are personalized
+    # When None (anonymous user), the LLM responds generically
+
     # Replace course nicknames with actual codes first
     query = replace_aliases(query)
     
@@ -229,16 +239,8 @@ def generate_answer(query):
             target_title = target.get('title', '')
             first_title = first_info.get('title', '') if first_info else ''
             
-            # Format course strings (skip placeholder titles)
-            if 'Placeholder' in target_title or not target_title:
-                target_str = second_course
-            else:
-                target_str = f"{second_course} ({target_title})"
-                
-            if 'Placeholder' in first_title or not first_title:
-                first_str = first_course
-            else:
-                first_str = f"{first_course} ({first_title})"
+            target_str = format_course_label(second_course, target_title)
+            first_str = format_course_label(first_course, first_title)
             
             # Check if prereq AND coreq data is missing
             if not prereqs and not coreqs:
@@ -284,17 +286,11 @@ def generate_answer(query):
             course_list = []
             for cid in courses:
                 course_info = get_course_directly(cid)
-                if course_info and course_info.get('title') and 'Placeholder' not in course_info.get('title', ''):
-                    course_list.append(f"• {cid} ({course_info['title']})")
-                else:
-                    course_list.append(f"• {cid}")
-            
+                course_list.append(f"• {format_course_label(cid, course_info.get('title', '') if course_info else '')}")
+
             # Get source course title
             source_info = get_course_directly(course_id)
-            if source_info and source_info.get('title') and 'Placeholder' not in source_info.get('title', ''):
-                source_str = f"{course_id} ({source_info['title']})"
-            else:
-                source_str = course_id
+            source_str = format_course_label(course_id, source_info.get('title', '') if source_info else '')
             
             return f"After completing {source_str}, you can take:\n\n" + "\n".join(course_list)
         return f"No courses in the database list {course_id} as a prerequisite."
@@ -319,9 +315,24 @@ def generate_answer(query):
                 + f"\n\nFor example, you can ask: \"{query.replace('?', '')} (COMP 310)?\" or just ask about a specific course code."
             )
 
-    # 2️⃣ Enrich retrieved docs
+    # 2️⃣ Enrich retrieved docs + fetch prerequisite courses for fuller context
     top_ids = [r["course_id"] for r in retrieved_docs]
     context_docs = enrich_context(top_ids)
+
+    # Also fetch any courses mentioned in prereq/coreq text so the LLM can reason
+    # about the full prerequisite chain (e.g., "Should I take X in first year?")
+    from rag_layer import extract_all_course_ids, get_course_directly
+    existing_ids = set(d["id"] for d in context_docs)
+    extra_ids = set()
+    for d in context_docs:
+        for field in [d.get("prereqs", ""), d.get("coreqs", "")]:
+            if field:
+                for cid in extract_all_course_ids(field):
+                    if cid not in existing_ids:
+                        extra_ids.add(cid)
+    if extra_ids:
+        extra_docs = enrich_context(list(extra_ids))
+        context_docs.extend(extra_docs)
 
     # 3️⃣ Build context string with offering information
     def format_offering(d):
@@ -336,8 +347,8 @@ def generate_answer(query):
         return ', '.join(terms) if terms else 'Not specified'
     
     context = "\n\n".join(
-        f"{d['id']} ({d.get('title', 'Unknown Title')}) - {d['credits']} credits, {d['department']}\n"
-        f"Description: {d['description']}\n"
+        f"{format_course_label(d['id'], d.get('title', ''))} - {d['credits']} credits, {d['department']}\n"
+        f"Description: {d['description'] if d.get('description') and d['description'] != 'N/A' else 'No description available.'}\n"
         f"Prereqs: {d['prereqs'] or 'None'}\n"
         f"Coreqs: {d['coreqs'] or 'None'}\n"
         f"Offered: {format_offering(d)}"
@@ -381,9 +392,16 @@ Students ask about prerequisites in different ways. These mean the SAME thing:
 - For "what requires X" questions: look for courses where X appears in their "Prereqs:" field.
 
 **RESPONSE FORMAT:**
-- Always include both course code AND title: "COMP 250 (Introduction to Computer Science)"
+- When the course title is available, include both code AND title: "COMP 250 (Introduction to Computer Science)"
+- When a course has no title listed in the context (just a course code with no parentheses), use the code only — do NOT say "title not provided" or make up a title.
 - When listing prerequisites, format as: "Prerequisites: COMP 202 (Foundations of Programming)"
-- Never show just the code without the name. Look at course title in context.
+
+**TIMING & YEAR QUESTIONS:**
+When a student asks "should I take X in first year or second year?" or "when should I take X?":
+- Look at the course's prerequisites and corequisites
+- Think about when those prereqs are typically completed (100-level = first year, 200-level = second year, etc.)
+- Give a specific recommendation based on the prereq chain, e.g.: "COMP 307 requires COMP 206 and COMP 250, which are typically first-year courses. So second year is the earliest you could take it."
+- Do NOT list unrelated entry-level courses. Focus on the specific course asked about.
 
 **IMPORTANT RULES FOR COREQUISITES:**
 A corequisite is a course that must be taken concurrently with OR may have been taken prior to another course.
@@ -400,7 +418,7 @@ This means:
 - This means: You can take COMP 273 if you're taking COMP 206 at the same time, OR if you've already completed COMP 206
 - You do NOT need to finish COMP 206 before starting COMP 273
 
-Question: {query}
+{f"{user_context}" + chr(10) + chr(10) if user_context else ""}Question: {query}
 Context:
 {context}
 Answer clearly and concisely:

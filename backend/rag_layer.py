@@ -332,16 +332,34 @@ def find_course_by_title(query: str) -> tuple[Optional[str], Optional[list[str]]
     return None, None
 
 
+def extract_all_course_ids(query: str) -> list[str]:
+    """Extract ALL course IDs from query, normalized to 'DEPT NNN' format.
+
+    Examples:
+    - "Can I take PHYS 230 and PHYS 258?" → ["PHYS 230", "PHYS 258"]
+    - "COMP 250" → ["COMP 250"]
+    """
+    matches = _COURSE_ID_RE.findall(query)
+    seen = set()
+    result = []
+    for dept, num in matches:
+        course_id = f"{dept.upper()} {num.upper()}"
+        if course_id not in seen:
+            seen.add(course_id)
+            result.append(course_id)
+    return result
+
+
 def extract_course_id(query: str) -> tuple[Optional[str], Optional[list[str]]]:
     """Extract a course ID from query, normalize to 'DEPT NNN' format.
-    
+
     Supports both course codes and titles.
-    
+
     Examples:
     - "COMP 250" → ("COMP 250", None)
     - "What are the prerequisites for Introduction to Computer Science?" → ("COMP 250", None)
     - "What is Operating Systems about?" → ("COMP 310", ["COMP 310", "ECSE 427"]) -- ambiguous
-    
+
     Returns a tuple of:
     - course_id: The matched course ID
     - alternatives: List of alternative course IDs if ambiguous, None otherwise
@@ -350,12 +368,12 @@ def extract_course_id(query: str) -> tuple[Optional[str], Optional[list[str]]]:
     match = _COURSE_ID_RE.search(query)
     if match:
         return f"{match.group(1).upper()} {match.group(2).upper()}", None
-    
+
     # Second, try to find by course title (may be ambiguous)
     course_id, alternatives = find_course_by_title(query)
     if course_id:
         return course_id, alternatives
-  
+
     return None, None
 
 
@@ -700,7 +718,11 @@ def hybrid_search(query: str, dept: str = None, prereq_of: str = None, n_results
     """
 
     # ✅ NEW: Check for planning/recommendation queries first
-    planning = detect_planning_query(query)
+    # BUT: skip planning detection if query mentions a specific course code
+    # e.g., "Should I take COMP 307 first year?" should fetch COMP 307 and let the LLM reason,
+    # NOT return a generic "entry-level courses" list
+    has_specific_course = bool(_COURSE_ID_RE.search(query))
+    planning = detect_planning_query(query) if not has_specific_course else None
     if planning and planning.get("type"):
         planning_type = planning["type"]
         department = planning.get("department") or dept
@@ -784,20 +806,24 @@ def hybrid_search(query: str, dept: str = None, prereq_of: str = None, n_results
         enriched = enrich_context(prereq_targets)
         return [{"course_id": e["id"], "score": 0.0, **{k: v for k, v in e.items() if k != "id"}} for e in enriched]
     
-    # ✅ FIX 5: If query mentions a course ID, fetch it directly first
-    if course_id:
-        course = get_course_directly(course_id)
-        if course:
-            result = {
-                "course_id": course["id"],
-                "score": 0.0,
-                **course
-            }
-            # Add disambiguation info if ambiguous
+    # ✅ FIX 5: If query mentions course IDs, fetch ALL of them directly
+    all_course_ids = extract_all_course_ids(query)
+    if all_course_ids:
+        results = []
+        for cid in all_course_ids:
+            course = get_course_directly(cid)
+            if course:
+                results.append({
+                    "course_id": course["id"],
+                    "score": 0.0,
+                    **course
+                })
+        if results:
+            # Add disambiguation info if the first course was ambiguous
             if alternatives and len(alternatives) > 1:
-                result["needs_clarification"] = True
-                result["alternatives"] = alternatives
-            return [result]
+                results[0]["needs_clarification"] = True
+                results[0]["alternatives"] = alternatives
+            return results
     
     # Fall back to semantic search for general queries
     results = semantic_search(query, n_results)

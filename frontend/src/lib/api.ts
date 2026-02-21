@@ -2,13 +2,21 @@
 // URL of your FastAPI backend
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"; // Fallback to localhost if env variable is not set
 
-export async function askQuestion(question: string): Promise<string> {
-    const response = await fetch(`${API_BASE_URL}/query`, { // Send a POST request to the /query endpoint
+// token is optional — if provided, backend can identify the user and personalize responses
+export async function askQuestion(question: string, token?: string | null): Promise<string> {
+    // Build headers — always include Content-Type, optionally include auth token
+    const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+    };
+    // If user is signed in, attach their Supabase JWT so backend can identify them
+    if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    const response = await fetch(`${API_BASE_URL}/query`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json", // Specify JSON content type as we are sending JSON data which is essentially a string
-        },
-        body: JSON.stringify({ question }), // Send the question from user in the request body
+        headers,
+        body: JSON.stringify({ question }),
     });
     
     if (!response.ok) {

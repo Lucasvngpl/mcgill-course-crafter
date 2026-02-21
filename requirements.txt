@@ -10,3 +10,5 @@ openai
 requests
 beautifulsoup4
 lxml
+pydantic
+PyJWT[crypto]

@@ -12,3 +12,4 @@ frontend/.env
 # General
 .DS_Store
 *.log
+*.sql
