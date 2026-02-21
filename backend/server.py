@@ -16,18 +16,36 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+import threading
+
+# Track whether the vector store is ready (for /query to check)
+vector_store_ready = threading.Event()
+
+
+def _build_vector_store_sync():
+    """Build ChromaDB in a background thread so the server can start immediately."""
+    try:
+        from rag_layer import build_vector_store
+        build_vector_store()
+        print("[STARTUP] Vector store built successfully")
+    except Exception as e:
+        print(f"[STARTUP] ERROR building vector store: {e}")
+    finally:
+        vector_store_ready.set()
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # On startup: build ChromaDB vector store if it doesn't exist yet
     # (Railway has an ephemeral filesystem, so this runs on every deploy)
     chroma_path = pathlib.Path(__file__).parent / "chroma_db"
     if not chroma_path.exists():
-        print("[STARTUP] ChromaDB not found, building vector store...")
-        from rag_layer import build_vector_store
-        build_vector_store()
-        print("[STARTUP] Vector store built successfully")
+        print("[STARTUP] ChromaDB not found, building in background...")
+        thread = threading.Thread(target=_build_vector_store_sync, daemon=True)
+        thread.start()
     else:
         print("[STARTUP] ChromaDB already exists, skipping build")
+        vector_store_ready.set()
     yield
 
 
@@ -143,6 +161,9 @@ app.add_middleware(
 
 @app.post("/query")
 async def handle_query(request: Request, body: QueryRequest):
+    # Wait up to 120s for vector store to finish building (first deploy only)
+    if not vector_store_ready.wait(timeout=120):
+        raise HTTPException(status_code=503, detail="Server is still starting up. Please try again in a minute.")
     try:
         # Try to identify the user (returns None for anonymous users)
         user_id = get_user_id_from_token(request)
