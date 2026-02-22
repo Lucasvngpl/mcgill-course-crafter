@@ -1,7 +1,5 @@
-// Receives the answer (or loading / error), Displays a styled card
-// src/components/AnswerCard.tsx
-// A presentational component: it doesn't call the API.
-// It just displays "question" + "answer" and a couple simple actions.
+import { useState } from "react";
+import { toast } from "sonner";
 
 type AnswerCardProps = {
   question: string;
@@ -16,108 +14,89 @@ export default function AnswerCard({
   loading = false,
   error = null,
 }: AnswerCardProps) {
+  const [copied, setCopied] = useState(false);
+
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      // For learning: you can replace this alert with a nicer toast later
-      alert("Copied!");
+      setCopied(true);
+      toast.success("Copied to clipboard");
+      setTimeout(() => setCopied(false), 2000);
     } catch {
-      alert("Copy failed (browser permissions)");
+      toast.error("Copy failed");
     }
   };
 
   return (
-    <div className="flex w-full flex-col gap-4">
-      {/* --- User message bubble --- */}
-      <div className="w-full max-w-2xl rounded-radius border border-outline bg-surface-alt p-6 text-left">
-        {/* Header row: avatar + name */}
-        <div className="flex items-center gap-2 text-on-surface-strong">
-          {/* Simple avatar circle (no external image needed) */}
-          <div className="flex size-8 items-center justify-center rounded-full bg-outline text-xs font-bold text-on-surface-strong">
-            U
-          </div>
-          <span className="text-sm font-bold">You</span>
-        </div>
+    <div className="flex flex-col gap-4 py-2">
 
-        {/* Body: the user's question */}
-        <p className="mt-4 text-sm text-on-surface sm:pl-10 sm:mt-0">
-          {question || "Ask something to get started..."}
-        </p>
-
-        {/* Actions row */}
-        <div className="mt-2 flex items-center gap-2 sm:pl-10">
-          <button
-            type="button"
-            onClick={() => copyToClipboard(question)}
-            className="rounded-full p-1 text-on-surface/75 hover:bg-surface/50 hover:text-on-surface
-                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            title="Copy your question"
-            aria-label="Copy your question"
-            disabled={!question}
-          >
-            {/* Copy icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-4">
-              <path
-                fillRule="evenodd"
-                d="M13.887 3.182c.396.037.79.08 1.183.128C16.194 3.45 17 4.414 17 5.517V16.75A2.25 2.25 0 0 1 14.75 19h-9.5A2.25 2.25 0 0 1 3 16.75V5.517c0-1.103.806-2.068 1.93-2.207.393-.048.787-.09 1.183-.128A3.001 3.001 0 0 1 9 1h2c1.373 0 2.531.923 2.887 2.182ZM7.5 4A1.5 1.5 0 0 1 9 2.5h2A1.5 1.5 0 0 1 12.5 4v.5h-5V4Z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
+      {/* User message — right aligned pill bubble */}
+      <div className="flex justify-end">
+        <div className="max-w-[75%] rounded-2xl rounded-br-sm bg-[#2a2d2f] px-4 py-3 text-sm leading-relaxed text-[#e3e3e3]">
+          {question}
         </div>
       </div>
 
-      {/* --- AI message bubble --- */}
-      <div className="w-full max-w-2xl rounded-radius border border-outline bg-surface-alt p-6 text-left">
-        {/* Header row: “AI badge” + name */}
-        <div className="flex items-center gap-2 text-on-surface-strong">
-          <span className="flex size-8 items-center justify-center rounded-full bg-primary text-on-primary">
-            {/* Robot-ish icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-5">
-              <path d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.6 26.6 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.93.93 0 0 1-.765.935c-.845.147-2.34.346-4.235.346s-3.39-.2-4.235-.346A.93.93 0 0 1 3 9.219zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a25 25 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25 25 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135" />
-              <path d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2zM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5" />
-            </svg>
-          </span>
-          <span className="text-sm font-bold">CourseCraft AI</span>
-        </div>
+      {/* AI message — left aligned with avatar */}
+      <div className="flex items-start gap-3 pr-8">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="mt-0.5 size-5 shrink-0 text-[#9aa0a6]">
+          <path fillRule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a3.375 3.375 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a3.375 3.375 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z" clipRule="evenodd" />
+        </svg>
 
-        {/* Body: loading / error / answer */}
-        <div className="mt-4 text-sm text-on-surface sm:pl-10 sm:mt-0">
-          {loading && <p className="opacity-75">Generating…</p>}
+        <div className="flex-1 min-w-0">
+          <p className="mb-2 text-xs font-medium text-[#9aa0a6]">CourseCraft AI</p>
 
+          {/* Typing indicator */}
+          {loading && (
+            <div className="flex items-center gap-1.5 h-5">
+              {[0, 0.15, 0.3].map((delay, i) => (
+                <span
+                  key={i}
+                  className="size-2 rounded-full bg-[#9aa0a6] animate-bounce"
+                  style={{ animationDelay: `${delay}s`, animationDuration: "1s" }}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Error */}
           {!loading && error && (
-            <p className="text-danger">
-              {error}
-            </p>
+            <p className="text-sm text-red-400">{error}</p>
           )}
 
-          {!loading && !error && (
-            <p className="whitespace-pre-wrap">{answer || "No answer yet."}</p>
-          )}
-        </div>
+          {/* Answer */}
+          {!loading && !error && answer && (
+            <>
+              <p className="text-sm leading-relaxed text-[#e3e3e3] whitespace-pre-wrap">{answer}</p>
 
-        {/* Actions row */}
-        <div className="mt-2 flex items-center gap-2 sm:pl-10">
-          <button
-            type="button"
-            onClick={() => copyToClipboard(answer)}
-            className="rounded-full p-1 text-on-surface/75 hover:bg-surface/50 hover:text-on-surface
-                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            title="Copy answer"
-            aria-label="Copy answer"
-            disabled={!answer || loading}
-          >
-            {/* Copy icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-4">
-              <path
-                fillRule="evenodd"
-                d="M13.887 3.182c.396.037.79.08 1.183.128C16.194 3.45 17 4.414 17 5.517V16.75A2.25 2.25 0 0 1 14.75 19h-9.5A2.25 2.25 0 0 1 3 16.75V5.517c0-1.103.806-2.068 1.93-2.207.393-.048.787-.09 1.183-.128A3.001 3.001 0 0 1 9 1h2c1.373 0 2.531.923 2.887 2.182ZM7.5 4A1.5 1.5 0 0 1 9 2.5h2A1.5 1.5 0 0 1 12.5 4v.5h-5V4Z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
+              {/* Copy button */}
+              <button
+                type="button"
+                onClick={() => copyToClipboard(answer)}
+                className="mt-2 flex items-center gap-1.5 text-xs text-[#9aa0a6] transition hover:text-[#e3e3e3]"
+              >
+                {copied ? (
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-3.5 text-green-400">
+                      <path fillRule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-green-400">Copied</span>
+                  </>
+                ) : (
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-3.5">
+                      <path d="M3.5 3.5A1.5 1.5 0 0 1 5 2h4.879a1.5 1.5 0 0 1 1.06.44l2.122 2.12A1.5 1.5 0 0 1 13.5 5.62V11.5a1.5 1.5 0 0 1-1.5 1.5h-1v-3.379a3 3 0 0 0-.879-2.121L7.5 4.879A3 3 0 0 0 5.379 4H3.5v-.5Z" />
+                      <path d="M2.5 5A1.5 1.5 0 0 0 1 6.5v7A1.5 1.5 0 0 0 2.5 15h7A1.5 1.5 0 0 0 11 13.5v-3.879a1.5 1.5 0 0 0-.44-1.06L8.44 6.439A1.5 1.5 0 0 0 7.378 6H2.5Z" />
+                    </svg>
+                    Copy
+                  </>
+                )}
+              </button>
+            </>
+          )}
         </div>
       </div>
+
     </div>
   );
 }

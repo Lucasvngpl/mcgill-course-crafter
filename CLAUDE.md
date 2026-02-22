@@ -88,11 +88,16 @@ User message → Save to chat_messages
 
 1. ~~Set up Supabase project~~ DONE
 2. ~~Migrate course data from Railway to Supabase~~ DONE (8065 courses)
-3. ~~Update backend DATABASE_URL to point to Supabase~~ DONE (local only, production Railway still needs update)
-4. Enable Supabase Auth (Google/GitHub OAuth) <-- NEXT STEP
-5. Add user tables to Supabase (profiles, history, plans)
-6. Build frontend auth (Supabase JS SDK - `signInWithOAuth`, auth context, protected routes)
-7. Build planning features (onboarding chat, timeline view, profile page)
+3. ~~Update backend DATABASE_URL to point to Supabase~~ DONE
+4. ~~Enable Supabase Auth (Google OAuth)~~ DONE
+5. ~~Add user tables to Supabase (profiles, history, plans)~~ DONE
+6. ~~Build frontend auth (Supabase JS SDK - signInWithOAuth, auth listener)~~ DONE
+7. ~~Wire up backend JWT verification (ES256 + JWKS)~~ DONE
+8. ~~Deploy to Railway + Vercel with Supabase~~ DONE
+9. Beautify chat UI (animations, dark glassmorphism, message bubbles) <-- CURRENT
+10. Build planning features (routing, onboarding chat, timeline view, profile page)
+11. Add fact extraction to LLM response flow
+12. Scrape program/major requirements from eCalendar
 
 ## Key Files
 
@@ -111,9 +116,10 @@ User message → Save to chat_messages
 
 ## Future Ideas (Don't Forget)
 
-1. **Course exemptions table** - `course_exemptions` table (course_id, credential_type, subject, level, min_score). Scrape McGill's exemption pages to populate. Enables instant lookup: "IB Math HL 6 → exempt from MATH 140, MATH 141" without LLM.
-2. **Major transfer advisor** - Handle questions like "which of my CS courses would transfer if I switched to Math?" Requires scraping degree requirements per major.
-3. **user_facts catch-all table** - Flexible key-value store for things that don't fit in structured tables (scheduling constraints, preferences, misc context). Add if the free-text "notes" field on profiles isn't enough.
+1. **High school course exemptions** - `course_exemptions` table (course_id, credential_type, subject, level, min_score). Scrape McGill's exemption pages to populate. Enables instant lookup: "IB Math HL 6 → exempt from MATH 140, MATH 141" without LLM. Could also use AI to parse HS transcripts for incoming students.
+2. **Program/major requirements** - Scrape degree requirement pages from eCalendar (like the CS major CATALOG_URL already in .env). Store required courses per major so the LLM can answer "what courses do I need for X major?" Currently a gap — the DB has courses but not program structures.
+3. **Major transfer advisor** - Handle questions like "which of my CS courses would transfer if I switched to Math?" Requires scraping degree requirements per major.
+4. **user_facts catch-all table** - Flexible key-value store for things that don't fit in structured tables (scheduling constraints, preferences, misc context). Add if the free-text "notes" field on profiles isn't enough.
 
 ## Important Patterns
 
