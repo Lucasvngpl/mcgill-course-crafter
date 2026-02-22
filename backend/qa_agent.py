@@ -15,7 +15,7 @@ if not os.getenv("OPENAI_API_KEY"):
     raise RuntimeError("OPENAI_API_KEY not set in environment")
 
 # 1️⃣ Initialize model
-llm = ChatOpenAI(model="gpt-5", temperature=0.7, openai_api_key=os.getenv("OPENAI_API_KEY"))
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.7, openai_api_key=os.getenv("OPENAI_API_KEY"))
 
 # Set LLM in rag_layer for query understanding
 set_llm(llm)
