@@ -210,6 +210,20 @@ JSON response only:"""
 
 _COURSE_ID_RE = re.compile(r'\b([A-Z]{3,4})[\s\-]?(\d{3}[A-Z]?)\b', re.IGNORECASE)
 
+# Common English words that look like department codes (3-4 uppercase letters) but aren't.
+# Without this, "WHAT 200-level courses" would match as course code "WHAT 200".
+_DEPT_FALSE_POSITIVES = frozenset({
+    'WHAT', 'THAT', 'HAVE', 'THIS', 'WHEN', 'THEN', 'WITH', 'FROM',
+    'TAKE', 'GIVE', 'FIND', 'LIST', 'SHOW', 'NEED', 'WANT', 'LIKE',
+    'DOES', 'EACH', 'MANY', 'MORE', 'MUCH', 'MOST', 'NEXT', 'SOME',
+    'SUCH', 'VERY', 'WELL', 'WILL', 'THEY', 'THEM', 'YOUR', 'YEAR',
+    'ALSO', 'INTO', 'OVER', 'LAST', 'LONG', 'LOOK', 'MAKE', 'JUST',
+    'KNOW', 'LESS', 'MUST', 'NONE', 'ONLY', 'PLAN', 'REAL', 'SAME',
+    'TELL', 'TEST', 'TIME', 'TRUE', 'TURN', 'TYPE', 'WAIT', 'WORK',
+    'OPEN', 'HOLD', 'STAY', 'STOP', 'STEP', 'BOTH', 'EVEN', 'WERE',
+    'BEEN', 'KEEP', 'WENT', 'BEST', 'PICK', 'SKIP', 'HELP', 'DONE',
+})
+
 # Cache for course titles to avoid repeated DB queries
 _title_to_id_cache: dict = {}
 _id_to_title_cache: dict = {}  # Reverse lookup
@@ -609,14 +623,50 @@ def detect_planning_query(query: str) -> Optional[dict]:
     
     # Extract department
     dept_patterns = [
+        # Computer Science & Engineering
         (r'\b(cs|comp(?:uter)?(?:\s+science)?)\b', 'COMP'),
+        (r'\b(software\s+engineering?|swe)\b', 'ECSE'),
+        (r'\b(ecse|electrical(?:\s+engineering)?|ece)\b', 'ECSE'),
+        (r'\b(mech(?:anical)?(?:\s+engineering)?)\b', 'MECH'),
+        (r'\b(civil(?:\s+engineering)?|cive)\b', 'CIVE'),
+        (r'\b(mining(?:\s+engineering)?|mimi)\b', 'MIMI'),
+        # Sciences
         (r'\b(math(?:ematics)?)\b', 'MATH'),
         (r'\b(phys(?:ics)?)\b', 'PHYS'),
-        (r'\b(ecse|electrical|ece)\b', 'ECSE'),
-        (r'\b(biol(?:ogy)?)\b', 'BIOL'),
         (r'\b(chem(?:istry)?)\b', 'CHEM'),
-        (r'\b(psyc(?:hology)?)\b', 'PSYC'),
+        (r'\b(biol(?:ogy)?)\b', 'BIOL'),
+        (r'\b(biochem(?:istry)?|bioc)\b', 'BIOC'),
+        (r'\b(neurosci(?:ence)?|nrsc)\b', 'NRSC'),
+        (r'\b(microbiol(?:ogy)?|immunol(?:ogy)?|mimm)\b', 'MIMM'),
+        (r'\b(anat(?:omy)?)\b', 'ANAT'),
+        (r'\b(physiol(?:ogy)?|phgy)\b', 'PHGY'),
+        (r'\b(atmospheric|oceanograph(?:y|ic)?|atoc)\b', 'ATOC'),
+        (r'\b(earth\s+(?:and\s+)?planetary|epsc)\b', 'EPSC'),
+        (r'\b(pharmac(?:y|ology)|phar)\b', 'PHAR'),
+        # Social Sciences
         (r'\b(econ(?:omics)?)\b', 'ECON'),
+        (r'\b(psyc(?:hology)?)\b', 'PSYC'),
+        (r'\b(soci(?:ology)?)\b', 'SOCI'),
+        (r'\b(anth(?:ropology)?)\b', 'ANTH'),
+        (r'\b(poli(?:tical)?\s*sci(?:ence)?|political\s+science)\b', 'POLI'),
+        (r'\b(geog(?:raphy)?)\b', 'GEOG'),
+        (r'\b(ling(?:uistics)?)\b', 'LING'),
+        (r'\b(kine(?:siology)?)\b', 'KINE'),
+        (r'\b(social\s+work|swrk)\b', 'SWRK'),
+        (r'\b(nutr(?:ition)?|diet(?:etics)?)\b', 'NUTR'),
+        # Humanities
+        (r'\b(hist(?:ory)?)\b', 'HIST'),
+        (r'\b(english|engl)\b', 'ENGL'),
+        (r'\b(french\s+(?:language|lit|studies?)|fren)\b', 'FREN'),
+        (r'\b(phil(?:osophy)?)\b', 'PHIL'),
+        (r'\b(relig(?:ion|ious\s+stud(?:ies)?))\b', 'RELI'),
+        (r'\b(art\s+hist(?:ory)?|arth)\b', 'ARTH'),
+        (r'\b(music|musc)\b', 'MUSC'),
+        # Professional / Other
+        (r'\b(mgmt|management)\b', 'MGMT'),
+        (r'\b(nurs(?:ing)?)\b', 'NURS'),
+        (r'\b(envir(?:onmental)?(?:\s+stud(?:ies)?)?|envi)\b', 'ENVI'),
+        (r'\b(educ(?:ation)?|edpe|edsl)\b', 'EDPE'),
     ]
     for pattern, dept in dept_patterns:
         if re.search(pattern, query_lower):
@@ -631,9 +681,11 @@ def detect_planning_query(query: str) -> Optional[dict]:
     elif 'summer' in query_lower:
         result["term"] = "summer"
     
-    # Extract level/year
+    # Extract level/year (U2/U3/U4 are McGill-specific year notations)
     level_patterns = [
-        (r'\b(first|1st|freshman)\s*(year|semester)?\b', 100),
+        (r'\bu2\b', 200),
+        (r'\bu3\b', 300),
+        (r'\bu4\b', 400),
         (r'\b(second|2nd|sophomore)\s*(year)?\b', 200),
         (r'\b(third|3rd|junior)\s*(year)?\b', 300),
         (r'\b(fourth|4th|senior)\s*(year)?\b', 400),
@@ -652,6 +704,9 @@ def detect_planning_query(query: str) -> Optional[dict]:
     
     # Detect query type
     first_semester_patterns = [
+        r'\bu0\b',                          # McGill U0 (Foundation Program) → entry-level
+        r'\bu1\b',                          # McGill U1 (first year) → entry-level courses
+        r'foundation\s+program',
         r'first\s*(semester|year)',
         r'start(ing)?\s*(with|out)',
         r'begin(ning|ner)?',
@@ -699,7 +754,14 @@ def detect_planning_query(query: str) -> Optional[dict]:
     if any(re.search(p, query_lower) for p in recommendation_patterns):
         result["type"] = "recommendation"
         return result
-    
+
+    # Even with no specific type, return partial result if we have dept/term info.
+    # This lets hybrid_search inject relevant department courses into the LLM context
+    # for queries like "What COMP courses are offered in fall?" that don't match
+    # any specific pattern but clearly mention a department.
+    if result["department"] or result["term"]:
+        return result
+
     return None
 
 
@@ -721,7 +783,10 @@ def hybrid_search(query: str, dept: str = None, prereq_of: str = None, n_results
     # BUT: skip planning detection if query mentions a specific course code
     # e.g., "Should I take COMP 307 first year?" should fetch COMP 307 and let the LLM reason,
     # NOT return a generic "entry-level courses" list
-    has_specific_course = bool(_COURSE_ID_RE.search(query))
+    # A "specific course" means a real department code (e.g. COMP, MATH) + number.
+    # Filter out common English words that match the pattern (e.g. "WHAT 200-level").
+    _raw_matches = _COURSE_ID_RE.findall(query.upper())
+    has_specific_course = any(dept not in _DEPT_FALSE_POSITIVES for dept, _ in _raw_matches)
     planning = detect_planning_query(query) if not has_specific_course else None
     if planning and planning.get("type"):
         planning_type = planning["type"]
@@ -729,37 +794,34 @@ def hybrid_search(query: str, dept: str = None, prereq_of: str = None, n_results
         term = planning.get("term")
         
         if planning_type == "first_semester":
-            # Entry-level courses with no prerequisites
-            courses = get_entry_level_courses(department=department, term=term, limit=10)
+            # Fetch entry-level courses and pass them as context to the LLM
+            courses = get_entry_level_courses(department=department, term=term, limit=12)
             if courses:
-                # Mark as planning query for special formatting
-                for c in courses:
-                    c["course_id"] = c["id"]
-                    c["score"] = 0.0
-                return [{"is_planning_query": True, "planning_type": "first_semester", 
-                         "department": department, "term": term, "courses": courses}]
-        
+                return [{"course_id": c["id"], "score": 0.0} for c in courses]
+
         elif planning_type == "by_level":
             level = planning.get("level", 100)
             if department:
-                courses = get_courses_by_level(department=department, level=level, term=term, limit=10)
+                courses = get_courses_by_level(department=department, level=level, term=term, limit=12)
                 if courses:
-                    for c in courses:
-                        c["course_id"] = c["id"]
-                        c["score"] = 0.0
-                    return [{"is_planning_query": True, "planning_type": "by_level",
-                             "department": department, "level": level, "term": term, "courses": courses}]
-        
+                    return [{"course_id": c["id"], "score": 0.0} for c in courses]
+
         elif planning_type == "available":
             completed = planning.get("completed", [])
             if completed:
                 courses = get_available_courses(completed_courses=completed, department=department, term=term, limit=15)
                 if courses:
-                    for c in courses:
-                        c["course_id"] = c["id"]
-                        c["score"] = 0.0
-                    return [{"is_planning_query": True, "planning_type": "available",
-                             "completed": completed, "department": department, "term": term, "courses": courses}]
+                    return [{"course_id": c["id"], "score": 0.0} for c in courses]
+
+        elif planning_type == "recommendation":
+            if department:
+                level = planning.get("level")
+                if level and level >= 200:
+                    courses = get_courses_by_level(department=department, level=level, term=term, limit=12)
+                else:
+                    courses = get_entry_level_courses(department=department, term=term, limit=12)
+                if courses:
+                    return [{"course_id": c["id"], "score": 0.0} for c in courses]
 
     # ✅ FIX 1: Extract course ID from query (may be ambiguous)
     course_id, alternatives = extract_course_id(query)
@@ -826,9 +888,22 @@ def hybrid_search(query: str, dept: str = None, prereq_of: str = None, n_results
             return results
     
     # Fall back to semantic search for general queries
-    # Note: metadata (title, department) is not needed here — generate_answer calls
-    # enrich_context() separately which fetches full course details from the DB.
     combined = semantic_search(query, n_results)
+
+    # Context enrichment: if a department was identified but no structured route matched,
+    # inject that department's courses so the LLM has relevant data to reason with.
+    # This handles vague or unusually phrased questions (e.g. "I'm a U1 geography student,
+    # what should I take?" or "What COMP courses run in fall?") without needing a rigid
+    # pattern for every possible phrasing. enrich_context() will attach full details
+    # (prereqs, offered terms, descriptions) so the LLM can filter and recommend correctly.
+    if planning and planning.get("department"):
+        dept = planning.get("department")
+        dept_courses = get_entry_level_courses(department=dept, limit=15)
+        existing_ids = {r["course_id"] for r in combined}
+        for c in dept_courses:
+            if c["id"] not in existing_ids:
+                combined.append({"course_id": c["id"], "score": 0.5})
+
     return combined
 
 def enrich_context(course_ids: list[str]): # Context Enrichment (post-retrieval)

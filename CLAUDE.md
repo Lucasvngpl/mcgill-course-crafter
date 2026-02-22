@@ -57,10 +57,12 @@ A full-stack RAG-powered course planning assistant for McGill University student
 ### Database Tables
 
 **Existing:**
+
 - `courses` - 8065 McGill courses (id, title, description, credits, prereq_text, etc.)
 - `prereq_edge` - prerequisite relationships (empty - relationships live in prereq_text)
 
 **New (To Be Created):**
+
 - `auth.users` - Supabase manages this automatically (id, email, etc.)
 - `user_profiles` - 1:1 with user. year_standing, major, minor, program, interests, constraints, notes (free text catch-all), onboarding_completed
 - `academic_history` - 1:many. course_id, grade, term, year, status (completed/in_progress/planned), source (manual/extracted)
@@ -97,7 +99,49 @@ User message → Save to chat_messages
 9. Beautify chat UI (animations, dark glassmorphism, message bubbles) <-- CURRENT
 10. Build planning features (routing, onboarding chat, timeline view, profile page)
 11. Add fact extraction to LLM response flow
-12. Scrape program/major requirements from eCalendar
+12. Institutional knowledge expansion (see Institutional Knowledge Roadmap below)
+13. Conversational ask-back (LLM requests clarification when needed)
+14. Scrape program/major requirements + U0/U1/exemption rules from eCalendar
+
+## Institutional Knowledge Roadmap
+
+The system currently knows individual courses well but is blind to the institutional layer that surrounds them — the stuff a real advisor would know. Things like what U0 status means, whether a student needs a foundation year, program requirements, and HS exemption rules. Without this, planning questions like "as a U0 Science student, should I take CHEM 110 this semester?" can't be answered properly.
+
+The goal is not to hardcode handlers for specific question patterns. The LLM should just _know_ all of this context and reason with it naturally, the way a knowledgeable upper-year student or advisor would.
+
+For example, once you scrape the eCalendar program/major requirement pages for business and store that context, the LLM will just know "management major → Desautels → here are the relevant course prefixes and required courses" the same way a real advisor would — without needing any hardcoded regex mappings, which we ideally want to avoid entirely. That's the right fix for MGMT and the whole class of similar problems.
+
+> **Scraping strategy is TBD** — which eCalendar pages to target, how to structure the data, and how to chunk it for retrieval all need further discussion before implementation.
+
+### Step 1: Institutional Knowledge Scraping
+
+Scrape and store the broader McGill context that surrounds individual courses:
+
+- **Program/major requirements** — eCalendar degree requirement pages per faculty/major: what courses are required, in what order, with what constraints (already in Future Ideas, now elevated)
+- **U0/U1 rules** — what each status means per faculty, and what it implies for course selection and sequencing
+- **Foundation year requirements** — e.g. Science U0 students lacking certain HS credits must complete specific foundation courses before advancing to U1
+- **High school exemptions** — IB/AP/CEGEP credit rules that let students skip specific courses (already in Future Ideas, now elevated)
+- **Faculty-specific progression rules** — things like "U1 Engineering students must complete X before registering for Y"
+
+Data format, target URLs, and storage schema: **TBD — needs discussion.**
+
+### Step 2: RAG Layer Enhancement for Institutional Context
+
+Once institutional documents are scraped, load them into ChromaDB alongside course data:
+
+- Tag each chunk by type: `program_req`, `faculty_rule`, `exemption_rule`, `foundation_year`, `course`
+- On query, retrieve across all chunk types so the LLM sees both course info and institutional context together
+- No hardcoded logic — just richer retrieval feeding a smarter prompt
+
+### Step 3: Conversational Ask-Back
+
+Allow the assistant to ask a clarifying question instead of guessing when it lacks enough context:
+
+- Add an optional `follow_up_question` field to the LLM response structure
+- If the LLM can't answer confidently without more info, it returns a question rather than a hedged non-answer
+- Frontend renders this as a natural chat message — not a form or popup
+- The student's reply feeds into the next message as additional context
+- Example: "Should I take COMP 302 next semester?" → "What are you taking this semester? I want to make sure you meet the prereqs before recommending it."
 
 ## Key Files
 
