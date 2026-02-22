@@ -38,8 +38,8 @@ def _build_vector_store_sync():
 async def lifespan(app: FastAPI):
     # On startup: build ChromaDB vector store if it doesn't exist yet
     # (Railway has an ephemeral filesystem, so this runs on every deploy)
-    chroma_path = pathlib.Path(__file__).parent / "chroma_db"
-    if not chroma_path.exists():
+    chroma_sqlite = pathlib.Path(__file__).parent / "chroma_db" / "chroma.sqlite3"
+    if not chroma_sqlite.exists():
         print("[STARTUP] ChromaDB not found, building in background...")
         thread = threading.Thread(target=_build_vector_store_sync, daemon=True)
         thread.start()
