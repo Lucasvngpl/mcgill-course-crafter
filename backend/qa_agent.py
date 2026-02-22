@@ -219,6 +219,7 @@ def generate_answer(query, user_context=None):
     
     # Extract course ID
     match = re.search(r'\b([A-Z]{3,4})[\s\-]?(\d{3}[A-Z]?)\b', query.upper())
+    course_id = f"{match.group(1)} {match.group(2)}" if match else ""
     
     # Handle "should I take X before Y" questions
     if query_type == "prereq_chain":
@@ -390,6 +391,7 @@ Students ask about prerequisites in different ways. These mean the SAME thing:
 - When listing courses, include ALL matches from the context.
 - For prerequisite questions: look at the "Prereqs:" field of the course asked about.
 - For "what requires X" questions: look for courses where X appears in their "Prereqs:" field.
+- If doesn't have description available, instead of saying "No description available." say "The course exists in the database but I can't find it's description. Please check the [McGill eCalendar](https://www.mcgill.ca/study/2024-2025/courses/{course_id.replace(' ', '-').lower()}) directly."
 
 **RESPONSE FORMAT:**
 - When the course title is available, include both code AND title: "COMP 250 (Introduction to Computer Science)"

@@ -26,8 +26,10 @@ export default function App() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Auth
+  
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+    const { data: { subscription } } = supabase.auth.onAuthStateChange( // Listen for auth  changes to update user and access 
       (_event, session) => {
         setUser(session?.user ?? null);
         setAccessToken(session?.access_token ?? null);
@@ -42,14 +44,15 @@ export default function App() {
   }, [messages, loading]);
 
   const handleSignIn = async () => {
-    await supabase.auth.signInWithOAuth({ provider: "google" });
+    await supabase.auth.signInWithOAuth({ provider: "google" }); // This is where we trigger Google OAuth sign-in 
   };
 
-  const handleSignOut = async () => {
+  const handleSignOut = async () => { // Sign the user out 
     await supabase.auth.signOut();
   };
 
-  const handleSubmit = async (question: string) => {
+  const handleSubmit = async (question: string) => { // When a user submits a question, we add it to the messages list with an empty answer and set loading to true. 
+  // We then call the askQuestion API function from our backend with the question and access token. If we get an answer back, we update the last message with the answer. If there's an error, we update the last message with the error message. Finally, we set loading to false.
     setMessages((prev) => [...prev, { question, answer: "", error: null }]);
     setLoading(true);
     try {
@@ -71,6 +74,9 @@ export default function App() {
       setLoading(false);
     }
   };
+
+
+  // UI
 
   return (
     <div className="flex h-screen flex-col bg-[#131314] text-[#e3e3e3]">

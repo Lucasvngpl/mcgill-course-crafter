@@ -826,15 +826,9 @@ def hybrid_search(query: str, dept: str = None, prereq_of: str = None, n_results
             return results
     
     # Fall back to semantic search for general queries
-    results = semantic_search(query, n_results)
-    client = chromadb.PersistentClient(path="./chroma_db")
-    collection = client.get_collection("courses_collection")
-    metadatas = collection.get(ids=[r["course_id"] for r in results])["metadatas"]
-    combined = [{**r, **meta} for r, meta in zip(results, metadatas)]
-    
-    if dept:
-        combined = [c for c in combined if c["department"].upper() == dept.upper()]
-    
+    # Note: metadata (title, department) is not needed here — generate_answer calls
+    # enrich_context() separately which fetches full course details from the DB.
+    combined = semantic_search(query, n_results)
     return combined
 
 def enrich_context(course_ids: list[str]): # Context Enrichment (post-retrieval)
