@@ -2,7 +2,7 @@
 
 ## What This Project Is
 
-A full-stack RAG-powered course planning assistant for McGill University students. Users ask questions about courses, prerequisites, and planning. The system uses hybrid search (ChromaDB vectors + PostgreSQL deterministic queries) and GPT-4o-mini to generate answers.
+A full-stack RAG-powered course planning assistant for McGill University students. Users ask questions about courses, prerequisites, and planning. The system uses hybrid search (ChromaDB vectors + PostgreSQL deterministic queries) and GPT-4o-mini to generate answers. The creator, Lucas, is building this project to get real student users but also as a learning exercise in AI engineering and full-stack so we should walk him through the steps not just blindly write code withou comments or expalantions because we want to teach him.
 
 ## Architecture
 
@@ -20,18 +20,20 @@ A full-stack RAG-powered course planning assistant for McGill University student
 - **Entry:** `frontend/src/main.tsx` → `frontend/src/App.tsx`
 - **Components:** `frontend/src/components/QueryForm.tsx`, `AnswerCard.tsx`
 - **API client:** `frontend/src/lib/api.ts`
-- **NO routing currently** - single-page chat interface
+- **Auth client:** `frontend/src/lib/supabase.ts`
+- **Animations:** framer-motion (message entrance), sonner (toasts)
+- **Routing:** react-router-dom — to be added next, currently single-page
 
-### Database (PostgreSQL)
+### Database (PostgreSQL — Supabase)
 
-- **Current tables:** `courses` (8000+ courses), `prereq_edge` (prerequisite relationships)
-- **No user tables yet**
+- **Course tables:** `courses` (8065 courses), `prereq_edge` (prereq relationships)
+- **User tables:** `user_profiles`, `user_courses`, `chat_messages` (live in Supabase)
 
 ### Deployment
 
 - **Frontend:** Vercel
-- **Backend:** Railway (Procfile: `cd backend && uvicorn server:app`)
-- **Database:** Supabase PostgreSQL (migrated from Railway). Railway still active in production - needs env var update when ready.
+- **Backend:** Railway (`cd backend && uvicorn server:app`)
+- **Database:** Supabase PostgreSQL (single DB for courses + users)
 
 ## Current Implementation Status
 
@@ -61,13 +63,13 @@ A full-stack RAG-powered course planning assistant for McGill University student
 - `courses` - 8065 McGill courses (id, title, description, credits, prereq_text, etc.)
 - `prereq_edge` - prerequisite relationships (empty - relationships live in prereq_text)
 
-**New (To Be Created):**
+**User tables (created, live in Supabase):**
 
-- `auth.users` - Supabase manages this automatically (id, email, etc.)
-- `user_profiles` - 1:1 with user. year_standing, major, minor, program, interests, constraints, notes (free text catch-all), onboarding_completed
-- `academic_history` - 1:many. course_id, grade, term, year, status (completed/in_progress/planned), source (manual/extracted)
-- `course_plans` - 1:many. course_id, term, year, notes
-- `chat_messages` - 1:many. role (user/assistant), content, created_at, session_id
+- `auth.users` - managed by Supabase automatically
+- `user_profiles` - 1:1 with user. year_standing, major, minor, program, interests, constraints, notes, onboarding_completed
+- `user_courses` - 1:many. course_id, grade, term, year, status (completed/in_progress/planned), source (manual/extracted)
+- `course_plans` - 1:many. course_id, term, year, notes (not yet wired to frontend)
+- `chat_messages` - 1:many. role (user/assistant), content, created_at, session_id (not yet wired)
 
 ### Message Flow (Hybrid Chat + Fact Extraction)
 
@@ -96,12 +98,11 @@ User message → Save to chat_messages
 6. ~~Build frontend auth (Supabase JS SDK - signInWithOAuth, auth listener)~~ DONE
 7. ~~Wire up backend JWT verification (ES256 + JWKS)~~ DONE
 8. ~~Deploy to Railway + Vercel with Supabase~~ DONE
-9. Beautify chat UI (animations, dark glassmorphism, message bubbles) <-- CURRENT
-10. Build planning features (routing, onboarding chat, timeline view, profile page)
+9. ~~Beautify chat UI (animations, dark glassmorphism, message bubbles)~~ DONE
+10. Build planning features (routing, onboarding chat, timeline view, profile page) — **DEFERRED until after Step 12** — full design plan saved in `planning-features-plan.md`
 11. Add fact extraction to LLM response flow
-12. Institutional knowledge expansion (see Institutional Knowledge Roadmap below)
+12. Institutional knowledge expansion (see Institutional Knowledge Roadmap below) <-- NEXT
 13. Conversational ask-back (LLM requests clarification when needed)
-14. Scrape program/major requirements + U0/U1/exemption rules from eCalendar
 
 ## Institutional Knowledge Roadmap
 
@@ -145,11 +146,13 @@ Allow the assistant to ask a clarifying question instead of guessing when it lac
 
 ## Key Files
 
-- `IMPLEMENTATION_PLAN.md` - Detailed implementation plan with code examples
-- `backend/db_setup.py` - Current SQLAlchemy models
-- `backend/server.py` - API endpoints
-- `frontend/src/lib/api.ts` - Frontend API client
-- `frontend/src/App.tsx` - Main React component (will become router)
+- `backend/db_setup.py` - SQLAlchemy models (Course, PrereqEdge, UserProfile, UserCourse, ChatMessage)
+- `backend/server.py` - FastAPI app, JWT auth, user context injection
+- `backend/rag_layer.py` - Hybrid search (ChromaDB semantic + SQL deterministic)
+- `backend/qa_agent.py` - LLM prompt construction via LangChain
+- `frontend/src/App.tsx` - Main React component (will become router root)
+- `frontend/src/lib/api.ts` - Frontend API client (sends Bearer token)
+- `frontend/src/lib/supabase.ts` - Supabase client singleton
 
 ## User Context
 
@@ -160,10 +163,11 @@ Allow the assistant to ask a clarifying question instead of guessing when it lac
 
 ## Future Ideas (Don't Forget)
 
-1. **High school course exemptions** - `course_exemptions` table (course_id, credential_type, subject, level, min_score). Scrape McGill's exemption pages to populate. Enables instant lookup: "IB Math HL 6 → exempt from MATH 140, MATH 141" without LLM. Could also use AI to parse HS transcripts for incoming students.
-2. **Program/major requirements** - Scrape degree requirement pages from eCalendar (like the CS major CATALOG_URL already in .env). Store required courses per major so the LLM can answer "what courses do I need for X major?" Currently a gap — the DB has courses but not program structures.
-3. **Major transfer advisor** - Handle questions like "which of my CS courses would transfer if I switched to Math?" Requires scraping degree requirements per major.
-4. **user_facts catch-all table** - Flexible key-value store for things that don't fit in structured tables (scheduling constraints, preferences, misc context). Add if the free-text "notes" field on profiles isn't enough.
+1. **HS transcript parsing** - AI parses uploaded IB/AP/CEGEP transcripts and maps to McGill exemptions automatically. For incoming students who don't know which courses they're exempt from.
+2. **user_facts catch-all table** - Flexible key-value store for things that don't fit in structured tables (scheduling constraints like "no 8am classes", misc preferences). Add if the `notes` field on profiles isn't enough.
+3. **Program requirement scraping** — now tracked in the Institutional Knowledge Roadmap above.
+4. **Major transfer advisor** — also tracked in the Institutional Knowledge Roadmap above.
+5. **MCP Server** - Expose the RAG pipeline as an MCP server so the course knowledge base works inside other apps (Claude Desktop, Cursor, etc.) without replacing the web UI. Use MCP Resources to expose course/program data. Low lift once the core product is solid.
 
 ## Important Patterns
 
