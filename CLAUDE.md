@@ -169,6 +169,64 @@ Allow the assistant to ask a clarifying question instead of guessing when it lac
 4. **Major transfer advisor** — also tracked in the Institutional Knowledge Roadmap above.
 5. **MCP Server** - Expose the RAG pipeline as an MCP server so the course knowledge base works inside other apps (Claude Desktop, Cursor, etc.) without replacing the web UI. Use MCP Resources to expose course/program data. Low lift once the core product is solid.
 
+## Agent Workflow
+
+### 1. Plan Before Building
+
+- Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
+- Write detailed specs upfront to reduce ambiguity
+- If something goes sideways mid-implementation, STOP and re-plan — don't keep pushing
+- Use plan mode for verification steps, not just building
+
+### 2. Subagent Strategy
+
+- Use subagents to keep the main context window clean
+- Offload research, exploration, and parallel analysis to subagents
+- One focused task per subagent
+
+### 3. Self-Improvement Loop
+
+- After ANY correction from the user: update `tasks/lessons.md` with the pattern
+- Write a rule that prevents the same mistake from happening again
+- Review `tasks/lessons.md` at the start of each session for relevant lessons
+
+### 4. Verification Before Done
+
+- Never mark a task complete without proving it works
+- Ask: "Would a staff engineer approve this?"
+- Run tests, check logs, demonstrate correctness
+
+### 5. Demand Elegance (Balanced)
+
+- For non-trivial changes: pause and ask "is there a more elegant way?"
+- If a fix feels hacky, implement the elegant solution instead
+- Skip this for simple, obvious fixes — don't over-engineer
+- Challenge your own work before presenting it
+
+### 6. Autonomous Bug Fixing
+
+- When given a bug report: just fix it — no hand-holding needed
+- Point at logs, errors, and failing tests, then resolve them
+- Always explain _what_ is broken and _why_ the fix works (Lucas is learning)
+
+## Task Management
+
+When working on a multi-step task:
+
+1. **Plan First** — write plan to `tasks/todo.md` with checkable items, using askUserQuestion too. interview me in detail using the AskUserQuestionTool about literally anything: technical implementation, UI & UX, concerns, tradeoffs, etc. but make sure the questions are not obvious
+   and be very in-depth and continue interviewing me continually until it's complete,
+2. **Verify Plan** — check in with Lucas before starting implementation
+3. **Track Progress** — mark items complete as you go
+4. **Explain Changes** — give a high-level summary at each step
+5. **Document Results** — add a review section to `tasks/todo.md` when done
+6. **Capture Lessons** — update `tasks/lessons.md` after any correction
+
+## Core Principles
+
+- **Simplicity First** — make every change as simple as possible, impact minimal code
+- **No Laziness** — find root causes, no temporary fixes, senior developer standards
+- **Minimal Impact** — changes should only touch what's necessary, avoid introducing bugs
+
 ## Important Patterns
 
 - Course IDs are formatted like "COMP-250" in the database
