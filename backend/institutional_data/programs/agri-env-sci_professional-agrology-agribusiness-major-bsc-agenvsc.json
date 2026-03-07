@@ -1,0 +1,24 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Professional Agrology for Agribusiness Specialization (B.Sc.(Ag.Env.Sc.)) (24 credits)",
+  "program_type": "major",
+  "description": "This Specialization is required for students who wish to qualify for membership in the Ordre des agronomes du Qu\u00e9bec (OAQ). It cannot be taken alone; it must be taken with the Major in Agricultural Economics and the Agribusiness Specialization. This Specialization focuses on working in the professional agribusiness industry and covers agricultural legislation as well as professional conduct. For information on academic advising, see: http://www.mcgill.ca/macdonald/studentinfo/advising .",
+  "required_courses": [
+    "AGRI 310",
+    "AGRI 330",
+    "AGRI 430",
+    "AGRI 490",
+    "ANSC 458"
+  ],
+  "complementary_courses": [
+    "AEBI 212",
+    "LSCI 202",
+    "LSCI 204",
+    "LSCI 211",
+    "LSCI 230",
+    "PLNT 200",
+    "PLNT 302",
+    "PLNT 434"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/natural-resource-sciences/professional-agrology-agribusiness-major-bsc-agenvsc/"
+}

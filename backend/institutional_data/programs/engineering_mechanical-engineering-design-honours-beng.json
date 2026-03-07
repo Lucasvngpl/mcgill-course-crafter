@@ -1,0 +1,21 @@
+{
+  "faculty": "Faculty of Engineering",
+  "program_name": "Mechanical Engineering - Design Honours (B.Eng.) (15 credits)",
+  "program_type": "honours",
+  "description": "",
+  "required_courses": [
+    "MECH 498",
+    "MECH 499"
+  ],
+  "complementary_courses": [
+    "ARCH 515",
+    "CHEE 453",
+    "MECH 497",
+    "MECH 528",
+    "MECH 530",
+    "MECH 543",
+    "MECH 565",
+    "MECH 579"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/mechanical-engineering/mechanical-engineering-design-honours-beng/"
+}

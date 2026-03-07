@@ -1,0 +1,15 @@
+{
+  "faculty": "Faculty of Arts",
+  "program_name": "Anthropology Major Concentration (B.A.) (36 credits)",
+  "program_type": "major",
+  "description": "The Major concentration is especially appropriate for students who aim to take courses across several sub-disciplinary or topical concentrations, and for whom specialization is premature. There are no prerequisites for admission to the Major Concentration Anthropology. Students are encouraged to take a course in quantitative methods (listed under the Honours program), but this course cannot count as part of this concentration. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning. Degree Requirements \u2014 B.A. & Sc. students This program is offered as part of a Bachelor of Arts & Science (B.A. & Sc.) degree. To graduate, students must satisfy both their program requirements and their degree requirements. The program requirements (i.e., the specific courses that make up this program) are listed under the Course Tab (above). The degree requirements\u2014including the mandatory Foundation program, appropriate degree structure, and any additional components\u2014are outlined on the Degree Requirements page . Students are responsible for ensuring that this program fits within the overall structure of their degree and that all degree requirements are met. Consult the Degree Planning Guide on the SOUSA website for additional guidance.",
+  "required_courses": [],
+  "complementary_courses": [
+    "ANTH 352",
+    "ANTH 355",
+    "ANTH 357",
+    "ANTH 358",
+    "ANTH 359"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/anthropology/anthropology-major-concentration-ba/"
+}

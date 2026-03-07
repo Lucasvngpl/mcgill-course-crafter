@@ -1,0 +1,20 @@
+{
+  "faculty": "Faculty of Arts",
+  "program_name": "Classics Joint Honours Component (B.A. & Sc.) (36 credits)",
+  "program_type": "joint_honours",
+  "description": "Students wishing to study at the Honours level in two disciplines can combine Joint Honours program components in any two Arts disciplines. For a list of available Joint Honours programs, see \"Overview of Programs Offered\" and \"Joint Honours Programs\". The Joint Honours Component Classics emphasizes the study of ancient Greek and Latin: proficiency in both languages is required, advanced coursework is required in at least one of the classical languages. The program is designed for students who wish to pursue graduate studies in classics or related disciplines (such as ancient History), or for graduate programs that require proficiency in ancient languages. According to Faculty regulations, Honours students must maintain a minimum CGPA of 3.00 and maintain a minimum program GPA of 3.00. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning. Degree Requirements \u2014 B.A. & Sc. students This program is offered as part of a Bachelor of Arts & Science (B.A. & Sc.) degree. To graduate, students must satisfy both their program requirements and their degree requirements. The program requirements (i.e., the specific courses that make up this program) are listed under the Course Tab (above). The degree requirements\u2014including the mandatory Foundation program, appropriate degree structure, and any additional components\u2014are outlined on the Degree Requirements page . Students are responsible for ensuring that this program fits within the overall structure of their degree and that all degree requirements are met. Consult the Degree Planning Guide on the SOUSA website for additional guidance.",
+  "required_courses": [
+    "CLAS 201",
+    "CLAS 310",
+    "CLAS 320",
+    "CLAS 500"
+  ],
+  "complementary_courses": [
+    "CLAS 410",
+    "CLAS 412",
+    "CLAS 420",
+    "CLAS 422",
+    "CLAS 429"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts-science/programs/history-classical-studies/classics-joint-honours-component-ba/"
+}

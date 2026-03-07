@@ -1,0 +1,28 @@
+{
+  "faculty": "Faculty of Science",
+  "program_name": "Chemistry Major (B.Sc.) (59 credits)",
+  "program_type": "major",
+  "description": "",
+  "required_courses": [
+    "CHEM 213",
+    "CHEM 242",
+    "CHEM 252",
+    "CHEM 267",
+    "CHEM 273",
+    "CHEM 281",
+    "CHEM 302",
+    "CHEM 332",
+    "CHEM 345",
+    "CHEM 355",
+    "CHEM 365",
+    "CHEM 367",
+    "CHEM 377",
+    "CHEM 381",
+    "CHEM 392",
+    "CHEM 493",
+    "MATH 222",
+    "PHYS 242"
+  ],
+  "complementary_courses": [],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/chemistry/chemistry-major-bsc/"
+}

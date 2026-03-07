@@ -1,0 +1,25 @@
+{
+  "faculty": "Desautels Faculty of Management",
+  "program_name": "Economics for Management Students Major (B.Com.) (69 credits)",
+  "program_type": "major",
+  "description": "The B.Com.; Major in Economics for Management Students is a planned sequence of courses designed to permit a degree of specialization in economics, including microeconomics (focusing on the study of the behaviour of individual economic agents and how the interaction of individuals results in market outcomes) and macroeconomics (focusing on economy-wide issues such as unemployment rates, money supply and inflation, as well as public policies to influence such macroeconomic aggregates). Topics include: econometrics, economic history, economic development, environmental economics, industrial organization, international trade and finance, labour economics, money and banking, and public finance.",
+  "required_courses": [
+    "MGCR 211",
+    "MGCR 222",
+    "MGCR 233",
+    "MGCR 250",
+    "MGCR 331",
+    "MGCR 341",
+    "MGCR 352",
+    "MGCR 372",
+    "MGCR 382",
+    "MGCR 423",
+    "MGCR 460",
+    "ECON 332",
+    "ECON 333",
+    "MGCR 271",
+    "MGSC 372"
+  ],
+  "complementary_courses": [],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/management/programs/majors/economics-management-students-major-bcom/"
+}

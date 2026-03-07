@@ -1,0 +1,43 @@
+{
+  "faculty": "Faculty of Arts",
+  "program_name": "English - Cultural Studies Joint Honours Component (B.A.) (36 credits)",
+  "program_type": "joint_honours",
+  "description": "Students who wish to study at the Honours level in two Arts disciplines may apply to combine Joint Honours program components from two Arts disciplines. For a list of available Joint Honours programs, see \"Overview of Programs Offered\" and \"Joint Honours Programs\". Applications to do a Joint Honours program in English and another subject in the Faculty of Arts should be submitted once a minimum of 9 credits, and no more than 18 credits, have been completed in English. There are normally two possible application dates for Joint Honours in English: either by the end of January (by which time first-term courses are completed and the grades are available), or at the same time as the Honours application date, typically in mid-April. (Only students who will have completed more than 18 credits in English by the end of January may apply in the Fall.) Applications will be considered by the Department's Honours Committee on the basis of the student's program GPA, at a minimum of 3.50. The application form is available in the Department's General Office (Arts 155), and the specific submission requirements are described by that form. The maintenance of a 3.50 program GPA is required for continuation in Joint Honours. Graduation with Joint Honours requires a minimum CGPA of 3.00, a minimum program GPA of 3.50, and a minimum mark of B+ on the Honours Essay. Graduation with First Class Joint Honours in English requires a minimum CGPA of 3.50, a minimum program GPA of 3.70, and a minimum mark of A on the Honours Essay. Each academic year, there is a special adviser for Joint Honours students, and the receptionist in the General Office can provide their name and contact information. The Department's website http://www.mcgill.ca/english/ provides additional information on the Joint Honours program and applications, and this website should also be consulted prior to contacting the Adviser. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning.",
+  "required_courses": [
+    "ENGL 275",
+    "ENGL 277",
+    "ENGL 359"
+  ],
+  "complementary_courses": [
+    "ENGL 315",
+    "ENGL 381",
+    "ENGL 409",
+    "ENGL 416",
+    "ENGL 417",
+    "ENGL 418",
+    "ENGL 444",
+    "ENGL 481",
+    "ENGL 516",
+    "ENGL 317",
+    "ENGL 318",
+    "ENGL 319",
+    "ENGL 322",
+    "ENGL 346",
+    "ENGL 352",
+    "ENGL 350",
+    "ENGL 351",
+    "ENGL 363",
+    "ENGL 374",
+    "ENGL 444",
+    "ENGL 451",
+    "ENGL 480",
+    "ENGL 444",
+    "ENGL 454",
+    "ENGL 479",
+    "ENGL 484",
+    "ENGL 489",
+    "ENGL 490",
+    "ENGL 492"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/english/english-cultural-studies-joint-honours-component-ba/"
+}

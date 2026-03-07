@@ -1,0 +1,40 @@
+{
+  "faculty": "Faculty of Science",
+  "program_name": "Statistics Major Concentration (B.A. & Sc.) (46 credits)",
+  "program_type": "major",
+  "description": "The program provides training in statistics with a mathematical core. Taken together with the B.A.; Supplementary Minor Concentration in Statistics, these two programs constitute an equivalent of the B.Sc.; Major in Statistics program offered by the Faculty of Science. With satisfactory performance in an appropriate selection of courses, these two programs can lead to the accreditation \"A.Stat\" from the Statistical Society of Canada, which is regarded as the entry level requirement for a statistician practicing in Canada. Students interested in this accreditation should consult an academic advisor. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning. Degree Requirements \u2014 B.A. & Sc. students This program is offered as part of a Bachelor of Arts & Science (B.A. & Sc.) degree. To graduate, students must satisfy both their program requirements and their degree requirements. The program requirements (i.e., the specific courses that make up this program) are listed under the Course Tab (above). The degree requirements\u2014including the mandatory Foundation program, appropriate degree structure, and any additional components\u2014are outlined on the Degree Requirements page . Students are responsible for ensuring that this program fits within the overall structure of their degree and that all degree requirements are met. Consult the Degree Planning Guide on the SOUSA website for additional guidance.",
+  "required_courses": [
+    "MATH 133",
+    "MATH 140",
+    "MATH 141",
+    "MATH 203",
+    "MATH 204",
+    "MATH 208",
+    "MATH 222",
+    "MATH 223",
+    "MATH 242",
+    "MATH 323",
+    "MATH 324"
+  ],
+  "complementary_courses": [
+    "COMP 551",
+    "MATH 308",
+    "MATH 410",
+    "MATH 420",
+    "MATH 423",
+    "MATH 427",
+    "MATH 447",
+    "MATH 523",
+    "MATH 524",
+    "MATH 525",
+    "MATH 526",
+    "MATH 545",
+    "MATH 556",
+    "MATH 557",
+    "MATH 558",
+    "MATH 559",
+    "MATH 598",
+    "WCOM 314"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts-science/programs/mathematics-statistics/statistics-major-concentration-ba/"
+}

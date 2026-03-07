@@ -1,0 +1,37 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Applied Ecology Specialization (B.Sc.(Ag.Env.Sc.)) (24 credits)",
+  "program_type": "major",
+  "description": "Food, water, air, the materials we use, and much of the diversity of life and recreation we enjoy are products of ecological systems. We manage ecosystems to provide these services and our use and mis-use often degrades the ability of ecosystems to provide the benefits and services we value. In the Applied Ecology specialization you will develop your ability to understand how ecosystems function. You will apply systems thinking to the challenge of managing ecosystems for agriculture, forestry, fisheries, protected areas and urban development. You will learn concepts and tools that help you to deal with the complexity that an ecosystem perspective brings. The goal of this specialization is to provide students with an opportunity to further develop their understanding of the ecosystem processes, ecology, and systems thinking necessary to understand, design and manage our interaction with the environment. For information on academic advising, see: http://www.mcgill.ca/macdonald/studentinfo/advising",
+  "required_courses": [
+    "ENVB 305",
+    "ENVB 437",
+    "ENVB 529"
+  ],
+  "complementary_courses": [
+    "AGRI 340",
+    "BREE 327",
+    "ENTO 330",
+    "ENTO 340",
+    "ENVB 301",
+    "ENVB 313",
+    "ENVB 415",
+    "ENVB 500",
+    "ENVB 506",
+    "ENVB 530",
+    "MICR 331",
+    "MICR 450",
+    "PLNT 304",
+    "PLNT 426",
+    "PLNT 460",
+    "SOIL 300",
+    "SOIL 326",
+    "SOIL 535",
+    "WILD 302",
+    "WILD 307",
+    "WILD 350",
+    "WILD 420",
+    "WILD 421"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/natural-resource-sciences/applied-ecology-major-bsc-agenvsc/"
+}

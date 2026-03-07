@@ -1,0 +1,27 @@
+{
+  "faculty": "Faculty of Science",
+  "program_name": "Mathematics Joint Honours Component (B.A. & Sc.) (36 credits)",
+  "program_type": "joint_honours",
+  "description": "Students who wish to study at the Honours level in two Arts disciplines may apply to combine Joint Honours program components from two Arts disciplines. For a list of available Joint Honours programs, see \"Overview of Programs Offered\" and \"Joint Honours Programs\". To remain in the Joint Honours program and receive the Joint Honours degree, a student must maintain the standards set by each discipline, as well as by the Faculty. In the Mathematics courses of the program a GPA of 3.00 and a CGPA of 3.00 must be maintained. Students who have difficulty in maintaining the required level should change to another program before entering their final year. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning. Degree Requirements \u2014 B.A. & Sc. students This program is offered as part of a Bachelor of Arts & Science (B.A. & Sc.) degree. To graduate, students must satisfy both their program requirements and their degree requirements. The program requirements (i.e., the specific courses that make up this program) are listed under the Course Tab (above). The degree requirements\u2014including the mandatory Foundation program, appropriate degree structure, and any additional components\u2014are outlined on the Degree Requirements page . Students are responsible for ensuring that this program fits within the overall structure of their degree and that all degree requirements are met. Consult the Degree Planning Guide on the SOUSA website for additional guidance.",
+  "required_courses": [
+    "MATH 235",
+    "MATH 251",
+    "MATH 255"
+  ],
+  "complementary_courses": [
+    "MATH 242",
+    "MATH 254",
+    "MATH 248",
+    "MATH 358",
+    "MATH 325",
+    "MATH 356",
+    "MATH 357",
+    "MATH 454",
+    "MATH 455",
+    "MATH 456",
+    "MATH 457",
+    "MATH 458",
+    "MATH 466"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts-science/programs/mathematics-statistics/mathematics-joint-honours-component-bs/"
+}

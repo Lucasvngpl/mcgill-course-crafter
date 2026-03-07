@@ -1,4 +1,6 @@
 # rag_layer.py
+import json
+import pathlib
 import re
 from typing import Optional
 import chromadb
@@ -6,6 +8,9 @@ from chromadb.utils import embedding_functions
 from db_connection import Session as DBSession
 from db_setup import Course
 from deterministic_logic import get_courses_requiring
+
+# Path to the institutional knowledge JSON files scraped from the course catalogue
+INSTITUTIONAL_DATA_DIR = pathlib.Path(__file__).parent / "institutional_data" / "programs"
 
 # Import LLM for query understanding (will be set by qa_agent)
 _llm = None
@@ -20,10 +25,6 @@ def set_llm(llm_instance):
 # Step 1️⃣ — Load courses from DB
 def load_course_docs():
     """Extracts all course information from the database and prepares it for vectorization."""
-    '''read course rows from Postgres and turn them into in-memory documents'''
-    '''opens a DB session, queries all Course rows, builds a list of dicts with id, title, 
-       description, prereq_text, coreq_text and returns it.'''
-
     with DBSession() as session:
         courses = session.query(Course).all()
         documents = []
@@ -34,19 +35,107 @@ def load_course_docs():
                 course.prereq_text or "",
                 course.coreq_text or ""
             ]))
+
+            # Infer course level from the number in the course ID (e.g. "COMP 250" → 250 → upper)
+            # This metadata lets the LLM reason about year/difficulty without hardcoding anything.
+            level = "unknown"
+            if course.id:
+                num_match = re.search(r'\d{3}', course.id)
+                if num_match:
+                    num = int(num_match.group())
+                    if num < 300:
+                        level = "intro"      # 100–299: first/second year accessible
+                    elif num < 500:
+                        level = "upper"      # 300–499: upper-year, usually has prereqs
+                    else:
+                        level = "graduate"   # 500+: grad level
+
             documents.append({
                 "id": course.id,
                 "text": text,
                 "title": course.title,
-                "department": (course.id.split()[0] if course.id else None)
+                "department": (course.id.split()[0] if course.id else None),
+                "level": level,
             })
         return documents
 
+
+def load_institutional_docs() -> list[dict]:
+    """Load scraped program requirement JSON files and convert them to prose chunks.
+
+    Each JSON file represents one McGill program (major/honours). We convert it into
+    a single prose string that embeds well and gives the LLM rich context about
+    what the program requires and what it leads to.
+
+    Returns a list of dicts with 'id', 'text', and 'metadata' keys.
+    """
+    if not INSTITUTIONAL_DATA_DIR.exists():
+        return []
+
+    docs = []
+    for json_file in sorted(INSTITUTIONAL_DATA_DIR.glob("*.json")):
+        try:
+            with open(json_file) as f:
+                prog = json.load(f)
+        except Exception:
+            continue
+
+        program_name = prog.get("program_name", "")
+        faculty = prog.get("faculty", "")
+        program_type = prog.get("program_type", "major")
+        description = prog.get("description", "")
+        required = prog.get("required_courses", [])
+        complementary = prog.get("complementary_courses", [])
+        source_url = prog.get("source_url", "")
+
+        # Build a natural-language prose chunk. Using a readable format so
+        # both semantic search and the LLM get the most out of the text.
+        parts = [f"The {program_name} at {faculty}"]
+
+        if description:
+            # Truncate very long descriptions to keep chunk size manageable
+            desc_short = description[:600].rsplit(" ", 1)[0]  # break at word boundary
+            parts.append(f"Program description: {desc_short}.")
+
+        if required:
+            parts.append(f"Required courses: {', '.join(required)}.")
+
+        if complementary:
+            parts.append(f"Complementary/elective courses: {', '.join(complementary)}.")
+
+        prose = " ".join(parts)
+
+        # Use a namespaced ID so we can detect program chunks downstream
+        doc_id = f"program::{json_file.stem}"
+
+        docs.append({
+            "id": doc_id,
+            "text": prose,
+            "metadata": {
+                "type": "program_req",
+                "faculty": faculty,
+                "program": program_name,
+                "source_url": source_url,
+                # Store the full prose so semantic_search() can return it directly
+                # without an extra DB round-trip.
+                "prose": prose,
+            }
+        })
+
+    return docs
+
 # Step 2️⃣ — Build and persist the Chroma collection
 def build_vector_store():
-    """embed those documents with a SentenceTransformer model and persist them into a Chroma DB"""
-    '''creates a PersistentClient at ./chroma_db, creates an embedding function (all‑MiniLM‑L6‑v2), 
-    gets/creates a Chroma collection, loads docs from DB, extracts ids and (intended) texts, and adds them to the collection'''
+    """Embed all documents (courses + institutional program chunks) and persist to ChromaDB.
+
+    Two types of chunks live in the same collection:
+    - Course chunks: one per course (from PostgreSQL). metadata type="course"
+    - Program chunks: one per major/honours program (from JSON files). metadata type="program_req"
+
+    Both compete in the same top-K retrieval. Program chunks win when the query is
+    about program requirements ("what does the CS major require?"); course chunks win
+    for course-specific queries ("what is COMP 302 about?").
+    """
     client = chromadb.PersistentClient(path="./chroma_db")
     embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
     collection = client.get_or_create_collection(
@@ -54,11 +143,11 @@ def build_vector_store():
         embedding_function=embedding_fn
     )
 
-    docs = load_course_docs() or []
-    # filter & normalize, dedupe by id (keep first occurrence)
+    # ── Course documents (from PostgreSQL) ───────────────────────────────────
+    raw_course_docs = load_course_docs() or []
     seen = set()
-    clean_docs = []
-    for d in docs:
+    course_docs = []
+    for d in raw_course_docs:
         _id = d.get("id")
         if _id is None:
             continue
@@ -66,18 +155,30 @@ def build_vector_store():
         if not _id or _id in seen:
             continue
         seen.add(_id)
-        clean_docs.append({
+        course_docs.append({
             "id": _id,
             "text": str(d.get("text", "")),
-            "title": str(d.get("title", "") or ""),
-            "department": str(d.get("department", "") or "")
+            "metadata": {
+                "type": "course",
+                "title": str(d.get("title", "") or ""),
+                "department": str(d.get("department", "") or ""),
+                "level": str(d.get("level", "unknown")),
+            }
         })
 
-    ids = [d["id"] for d in clean_docs]
-    texts = [d["text"] for d in clean_docs]
-    metadatas = [{"title": d["title"], "department": d["department"]} for d in clean_docs]
+    # ── Institutional program documents (from JSON files) ────────────────────
+    # These are loaded from institutional_data/programs/*.json, scraped from the
+    # McGill course catalogue. Each file is one major/honours program.
+    inst_docs = load_institutional_docs()
 
-    print(f"Preparing to index {len(ids)} documents (original {len(docs)})")
+    all_docs = course_docs + inst_docs
+    ids = [d["id"] for d in all_docs]
+    texts = [d["text"] for d in all_docs]
+    metadatas = [d["metadata"] for d in all_docs]
+
+    print(f"Preparing to index {len(ids)} documents "
+          f"({len(course_docs)} courses + {len(inst_docs)} program chunks)")
+
     if not ids:
         print("No valid documents to index. Exiting.")
         return
@@ -86,57 +187,127 @@ def build_vector_store():
         print("Length mismatch after cleaning — aborting.")
         return
 
-    # Try bulk add first, avoiding Chroma max-batch-size errors
-
+    # Use upsert so this function is safe to re-run without deleting the existing DB.
+    # upsert = update if exists, insert if not. Existing course embeddings are re-computed
+    # (same text → same vectors) but the metadata gets the new `type` and `level` fields.
     try:
         batch_size = min(5000, len(ids))
         for i in range(0, len(ids), batch_size):
-            batch_ids = ids[i:i+batch_size]
-            batch_texts = texts[i:i+batch_size]
-            batch_metadatas = metadatas[i:i+batch_size]
-            collection.add(ids=batch_ids, documents=batch_texts, metadatas=batch_metadatas)
-        print(f"✅ Chroma vector store built with {len(ids)} documents (batched, batch_size={batch_size})")
+            collection.upsert(
+                ids=ids[i:i+batch_size],
+                documents=texts[i:i+batch_size],
+                metadatas=metadatas[i:i+batch_size],
+            )
+        print(f"✅ Chroma vector store built with {len(ids)} documents "
+              f"({len(course_docs)} courses + {len(inst_docs)} program chunks)")
         return
     except Exception:
         import traceback
-        print("Batched add failed, falling back to per-document add to locate bad entries.")
+        print("Upsert failed, falling back to per-document upsert to locate bad entries.")
         traceback.print_exc()
 
-    # Fallback: add one-by-one to find failing document(s)
+    # Fallback: upsert one-by-one to find the problem document
     for idx, (_id, txt, meta) in enumerate(zip(ids, texts, metadatas)):
         try:
-            collection.add(ids=[_id], documents=[txt], metadatas=[meta])
+            collection.upsert(ids=[_id], documents=[txt], metadatas=[meta])
         except Exception:
-            print(f"❌ Failed to add document at index {idx}, id={_id!r}")
+            print(f"❌ Failed to upsert document at index {idx}, id={_id!r}")
             import traceback
             traceback.print_exc()
-            # Option: continue to attempt remaining docs or break; we break to let you inspect the failing item
             break
     else:
-        print("✅ All documents added individually (fallback succeeded).")
+        print("✅ All documents upserted individually (fallback succeeded).")
 
-# Step 3️⃣ — Semantic search to find similar courses
-def semantic_search(query: str, n_results: int = 5):
-    """run a semantic query against the persisted Chroma collection and return matching course ids + scores"""
-    '''connects to the same Chroma DB, recreates the embedding model, gets the collection, 
-       soruns a query, and returns a list of dicts with course_id and score'''
+
+def add_institutional_to_vector_store():
+    """Incrementally add institutional program chunks to an existing ChromaDB collection.
+
+    This is the fast path when you've already built the vector store with course docs
+    and just want to add the new program chunks on top — without re-embedding all 8000+
+    course documents.
+
+    Safe to re-run: already-indexed program chunks are skipped via upsert.
+    """
     client = chromadb.PersistentClient(path="./chroma_db")
-    # Recreate the same embedding model used for indexing
-    embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
+    embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
+        model_name="all-MiniLM-L6-v2"
+    )
+    collection = client.get_or_create_collection(
+        name="courses_collection",
+        embedding_function=embedding_fn,
+    )
 
+    inst_docs = load_institutional_docs()
+    if not inst_docs:
+        print("No institutional docs found — run institutional_scraper.py first.")
+        return
+
+    ids = [d["id"] for d in inst_docs]
+    texts = [d["text"] for d in inst_docs]
+    metadatas = [d["metadata"] for d in inst_docs]
+
+    print(f"Upserting {len(inst_docs)} institutional program chunks into ChromaDB ...")
+
+    # upsert handles both insert (new) and update (already exists) gracefully
+    try:
+        batch_size = min(500, len(ids))
+        for i in range(0, len(ids), batch_size):
+            collection.upsert(
+                ids=ids[i:i+batch_size],
+                documents=texts[i:i+batch_size],
+                metadatas=metadatas[i:i+batch_size],
+            )
+        total = collection.count()
+        print(f"✅ Done. ChromaDB now has {total} total documents "
+              f"({total - len(ids)} courses + {len(ids)} program chunks).")
+    except Exception:
+        import traceback
+        traceback.print_exc()
+
+# Step 3️⃣ — Semantic search to find similar courses (and program chunks)
+def semantic_search(query: str, n_results: int = 5):
+    """Query ChromaDB and return the top-N most semantically similar chunks.
+
+    The collection contains two kinds of documents:
+    - Course chunks (id like "COMP 250"): regular course pages from the DB
+    - Program chunks (id like "program::science_computer-science-major-bsc"):
+      institutional knowledge scraped from the course catalogue
+
+    For course chunks, we return {"course_id": ..., "score": ...} as before.
+    For program chunks, we additionally include "program_text" so the caller
+    can inject it directly into the LLM context without a DB lookup.
+    """
+    client = chromadb.PersistentClient(path="./chroma_db")
+    embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
     collection = client.get_or_create_collection(
         name="courses_collection",
         embedding_function=embedding_fn
     )
-    # query means "search" Like saying: “Find courses that mean the same as this sentence.”
+
     results = collection.query(
-        query_texts=[query], # what the user is searching for
-        n_results=n_results # how many similar courses to return
+        query_texts=[query],
+        n_results=n_results,
+        include=["distances", "metadatas"],  # ask Chroma to return metadata
     )
-    out = [
-        {"course_id": id_, "score": float(score)}
-        for id_, score in zip(results["ids"][0], results["distances"][0])
-    ]
+
+    out = []
+    for id_, score, meta in zip(
+        results["ids"][0],
+        results["distances"][0],
+        results["metadatas"][0],
+    ):
+        entry = {"course_id": id_, "score": float(score)}
+
+        # If this is a program chunk, include its prose text and metadata so the
+        # caller can inject it into the LLM context and surface it as a source.
+        if id_.startswith("program::") and meta:
+            entry["program_text"] = meta.get("prose", "")
+            entry["program_name"] = meta.get("program", "")
+            entry["program_faculty"] = meta.get("faculty", "")
+            entry["program_url"] = meta.get("source_url", "")
+
+        out.append(entry)
+
     return out
 
 # Helper function to use LLM to understand query intent and reformulate for better retrieval

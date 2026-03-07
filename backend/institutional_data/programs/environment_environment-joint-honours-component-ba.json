@@ -1,0 +1,22 @@
+{
+  "faculty": "Bieler School of Environment",
+  "program_name": "Environment Joint Honours Component (B.A.) (36 credits)",
+  "program_type": "joint_honours",
+  "description": "",
+  "required_courses": [
+    "ENVR 200",
+    "ENVR 201",
+    "ENVR 202",
+    "ENVR 203",
+    "ENVR 301",
+    "ENVR 400",
+    "ENVR 401"
+  ],
+  "complementary_courses": [
+    "GEOG 202",
+    "MATH 203",
+    "PSYC 204",
+    "ENVR 494"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/environment/programs/joint-honours-component/environment-joint-honours-component-ba/"
+}

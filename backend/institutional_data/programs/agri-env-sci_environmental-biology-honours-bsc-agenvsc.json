@@ -1,0 +1,43 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Environmental Biology Honours (B.Sc.(Ag.Env.Sc.))  (54 credits)",
+  "program_type": "honours",
+  "description": "Students can use their electives to complete the Honours program. The courses credited to the Honours program must be in addition to any required or complementary courses taken to satisfy the requirements of the student's Major and Specialization. In addition to satisfying the Honours requirements, students must apply for the Honours program in March or April of their U2 year. It is the responsibility of the student to find a professor who is willing to support and supervise the research project. No student will be accepted into the program until a supervisor has agreed to supervise the student. Applicants must have a minimum CGPA of 3.3 to enter the Honours program and they must earn a B grade (3.0) or higher in the courses making up the Honours program. Students are required to achieve a minimum overall CGPA of 3.3 at graduation to obtain honours. The Honours program consists of 12 credits of courses that follow one of two plans listed below. Students who meet all the requirements will have the name of their program changed to include the word \"Honours.\" A brief description of the Honours project activities involved will be documented and signed by the Program Director of the student's Major, the supervisor of the Honours project, and the student. The Environmental Biology Major is about the biology, diversity, and ecology of a broad range of organisms, from plant and vertebrate animals to insects, fungi, and microbes. This Major places a strong emphasis on the ecosystems that species inhabit and the constraints imposed by the physical environment and by environmental change. Environmental Biology has significant field components worked into the course sets, and through this experiential learning, biological diversity, and the ways that species interact with their physical environment in a variety of ecosystems will be studied. The Major makes full use of the unique physical setting and faculty expertise of McGill's Macdonald campus to train students to become ecologists, taxonomists, field biologists, and ecosystem scientists. Program Prerequisites Please refer to \"Faculty Information and Regulations\" > \"Minimum Credit Requirements\" in this Course Catalogue for information on prerequisites and minimum credit requirements.",
+  "required_courses": [
+    "AEBI 210",
+    "AEBI 211",
+    "AEBI 212",
+    "AEHM 205",
+    "AEMA 310",
+    "ENVB 210",
+    "ENVB 222",
+    "ENVB 305",
+    "ENVB 410",
+    "LSCI 204",
+    "LSCI 211",
+    "LSCI 230"
+  ],
+  "complementary_courses": [
+    "ENTO 330",
+    "ENVB 301",
+    "ENVB 313",
+    "ENVB 437",
+    "ENVB 497",
+    "ENVB 498",
+    "ENVB 529",
+    "FAES 300",
+    "MICR 331",
+    "PLNT 304",
+    "PLNT 358",
+    "PLNT 460",
+    "SOIL 300",
+    "WILD 302",
+    "WILD 307",
+    "WOOD 441",
+    "ENVB 401",
+    "ENVB 402",
+    "ENVB 405",
+    "ENVB 406"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/natural-resource-sciences/environmental-biology-honours-bsc-agenvsc/"
+}

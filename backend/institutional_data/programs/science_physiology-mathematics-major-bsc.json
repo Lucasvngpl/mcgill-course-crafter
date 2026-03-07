@@ -1,0 +1,41 @@
+{
+  "faculty": "Faculty of Science",
+  "program_name": "Physiology and Mathematics Major (B.Sc.) (79 credits)",
+  "program_type": "major",
+  "description": "The physiology and mathematics major program is an interdisciplinary program that integrates the world of physiology with mathematics. It explores the relationship between Physiological systems and the quantitative principles underpinning them. Physiology covers topics from cellular function to organ systems and behaviour. Mathematics delves into the basis of pure and applied mathematics with a focus on developing analytical, computational and problem-solving skills with an emphasis on nonlinear dynamics. Degree Requirements \u2014 B.Sc. This program is offered as part of a Bachelor of Science (B.Sc.) degree. To graduate, students must satisfy both their program requirements and their degree requirements. The program requirements (i.e., the specific courses that make up this program) are listed under the Course Tab (above). The degree requirements\u2014including the mandatory Foundation program, appropriate degree structure, and any additional components\u2014are outlined on the Degree Requirements page . Students are responsible for ensuring that this program fits within the overall structure of their degree and that all degree requirements are met. Consult the Degree Planning Guide on the SOUSA website for additional guidance.",
+  "required_courses": [
+    "BIOL 219",
+    "BIOL 395",
+    "MATH 222",
+    "MATH 223",
+    "MATH 247",
+    "MATH 315",
+    "MATH 323",
+    "MATH 325",
+    "BIOL 309",
+    "BMDE 519",
+    "MATH 242",
+    "MATH 243",
+    "MATH 248",
+    "MATH 314",
+    "MATH 317",
+    "MATH 319",
+    "MATH 324",
+    "MATH 326",
+    "MATH 437",
+    "PHGY 209",
+    "PHGY 210",
+    "PHGY 212",
+    "PHGY 213",
+    "PHGY 312",
+    "PHGY 313"
+  ],
+  "complementary_courses": [
+    "COMP 204",
+    "COMP 250",
+    "PHGY 311",
+    "PHGY 314",
+    "PHYS 519"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/physiology/physiology-mathematics-major-bsc/"
+}

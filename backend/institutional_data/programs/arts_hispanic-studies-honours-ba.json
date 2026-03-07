@@ -1,0 +1,14 @@
+{
+  "faculty": "Faculty of Arts",
+  "program_name": "Hispanic Studies Honours (B.A.) (60 credits)",
+  "program_type": "honours",
+  "description": "The Honours program in Hispanic Studies offers an in-depth study of the language and culture of Spain and Latin America in the areas of literature, film, digital humanities and intellectual history. The program focuses on skills of communication and critical reasoning through the analysis of Spanish and Latin American languages and cultural production. Prerequisite for admission into Honours Hispanic Studies: a first-year Spanish course with a final grade of B+. Honours students are expected to maintain a program GPA of 3.30 and, according to Faculty regulations, a minimum CGPA of 3.00 in general. Students must take an 18-credit Minor concentration in another area. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning.",
+  "required_courses": [
+    "HISP 245",
+    "HISP 246",
+    "HISP 247",
+    "HISP 248"
+  ],
+  "complementary_courses": [],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/languages-literatures-cultures/hispanic-studies-honours-ba/"
+}

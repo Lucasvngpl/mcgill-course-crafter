@@ -1,0 +1,37 @@
+{
+  "faculty": "Desautels Faculty of Management",
+  "program_name": "Organizational Behaviour and Human Resources Major (B.Com.) (72 credits)",
+  "program_type": "major",
+  "description": "The B.Com.; Major in Organizational Behaviour and Human Resources focuses on analyzing and influencing repeated patterns of action in groups and organizations, including leadership, human resource management, team management and concepts of management at multiple levels of the organization. The program also includes foundational studies in one or more of the following social science disciplines: psychology, sociology, anthropology, or industrial relations.",
+  "required_courses": [
+    "MGCR 211",
+    "MGCR 222",
+    "MGCR 233",
+    "MGCR 250",
+    "MGCR 271",
+    "MGCR 293",
+    "MGCR 294",
+    "MGCR 331",
+    "MGCR 341",
+    "MGCR 352",
+    "MGCR 372",
+    "MGCR 382",
+    "MGCR 423",
+    "MGCR 460",
+    "ORGB 423"
+  ],
+  "complementary_courses": [
+    "ORGB 321",
+    "ORGB 325",
+    "ORGB 330",
+    "ORGB 380",
+    "ORGB 401",
+    "ORGB 420",
+    "ORGB 421",
+    "ORGB 434",
+    "ORGB 440",
+    "ORGB 509",
+    "ORGB 525"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/management/programs/majors/organizational-behaviour-human-resources-major-bcom/"
+}

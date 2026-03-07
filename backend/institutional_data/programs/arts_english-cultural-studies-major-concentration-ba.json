@@ -1,0 +1,42 @@
+{
+  "faculty": "Faculty of Arts",
+  "program_name": "English - Cultural Studies Major Concentration (B.A.) (36 credits)",
+  "program_type": "major",
+  "description": "The Cultural Studies option concentrates on analysis of forms of cultural expression and symbolic interaction, and of the various media through which these may be disseminated and transformed. Such study concerns symbolic form, aesthetically based forms of analysis, and the various modes of criticism and theory relevant to media which contain both verbal and non-verbal elements. The aim is above all to hone students' analytical and interpretive skills while introducing them to specific critical approaches to cultural studies. This is not a major in journalism or communications; and while many of our graduates go on to do creative work in a variety of media, instruction in film and video production is not part of the curriculum. For the most up-to-date information on Department requirements and detailed course descriptions, please see the English Department Handbook at http://www.mcgill.ca/english/ . Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning.",
+  "required_courses": [
+    "ENGL 275",
+    "ENGL 277",
+    "ENGL 359"
+  ],
+  "complementary_courses": [
+    "ENGL 315",
+    "ENGL 381",
+    "ENGL 418",
+    "ENGL 444",
+    "ENGL 481",
+    "ENGL 393",
+    "ENGL 440",
+    "ENGL 441",
+    "ENGL 317",
+    "ENGL 318",
+    "ENGL 319",
+    "ENGL 322",
+    "ENGL 346",
+    "ENGL 352",
+    "ENGL 444",
+    "ENGL 454",
+    "ENGL 479",
+    "ENGL 484",
+    "ENGL 489",
+    "ENGL 490",
+    "ENGL 492",
+    "ENGL 350",
+    "ENGL 351",
+    "ENGL 363",
+    "ENGL 374",
+    "ENGL 444",
+    "ENGL 451",
+    "ENGL 480"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/english/english-cultural-studies-major-concentration-ba/"
+}

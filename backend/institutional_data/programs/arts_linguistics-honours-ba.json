@@ -1,0 +1,33 @@
+{
+  "faculty": "Faculty of Arts",
+  "program_name": "Linguistics Honours (B.A.) (60 credits)",
+  "program_type": "honours",
+  "description": "The B.A. Honours in Linguistics program focuses on the various sub-areas of linguistics with substantial breadth and depth. The program includes an Honours Thesis that emphasizes the process of independent research. Honours students must maintain a GPA of 3.30 (B+ average) in their program courses and a minimum grade of B+ must be obtained in three out of four of the following courses: LING 330 Phonetics. , LING 331 Phonology 1. , LING 360 Introduction to Semantics. , LING 371 Syntax 1. , as well as LING 480D1 Honours Thesis. / LING 480D2 Honours Thesis. . According to Faculty of Arts regulations, Honours students must also maintain a minimum CGPA of 3.00 in general. The requirement for First Class Honours is a CGPA of 3.50 and a minimum grade of A- in the Honours Thesis. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning.",
+  "required_courses": [
+    "LING 201",
+    "LING 330",
+    "LING 331",
+    "LING 360",
+    "LING 371"
+  ],
+  "complementary_courses": [
+    "COMP 230",
+    "MATH 318",
+    "PHIL 210",
+    "COMP 202",
+    "COMP 230",
+    "COMP 250",
+    "FREN 231",
+    "FREN 336",
+    "FREN 434",
+    "MATH 240",
+    "PHIL 306",
+    "PHIL 415",
+    "PSYC 311",
+    "PSYC 340",
+    "PSYC 341",
+    "PSYC 433",
+    "PSYC 530"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/linguistics/linguistics-honours-ba/"
+}

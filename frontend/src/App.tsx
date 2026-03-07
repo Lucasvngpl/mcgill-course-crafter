@@ -16,15 +16,16 @@ import { Toaster } from "sonner";
 
 import QueryForm from "./components/QueryForm";   // The input bar at the bottom
 import AnswerCard from "./components/AnswerCard"; // Each question + answer pair in the chat
-import { askQuestion } from "./lib/api";          // Function that calls our FastAPI backend
+import { askQuestion, type Source } from "./lib/api"; // Function that calls our FastAPI backend + Source type
 import { supabase } from "./lib/supabase";        // Our single Supabase client (auth + DB)
 
 
 // TypeScript: defines the shape of one message object.
-// The "?" means error is optional — not every message will have one.
+// sources holds the courses/programs the backend retrieved — shown in the thinking header.
 type Message = {
   question: string;
   answer: string;
+  sources: Source[];
   error?: string | null;
 };
 
@@ -33,8 +34,8 @@ type Message = {
 const SUGGESTED_PROMPTS = [
   "What are the prerequisites for COMP 251?",
   "I've taken MATH 140 and 141 — what can I take next?",
-  "What's the difference between COMP 202 and COMP 206?",
-  "I'm a U1 CS student. What should I take this semester?",
+  "What's the difference between CS Honours and CS Major?",
+  "What courses do I need to complete the CS Major?",
 ];
 
 export default function App() {
@@ -42,7 +43,7 @@ export default function App() {
   // Calling the setter triggers a re-render with the new value.
 
   const [messages, setMessages] = useState<Message[]>([]); // all chat messages so far
-  const [loading, setLoading] = useState(false);            // true while waiting for the API
+  const [loading, setLoading] = useState(false);            // true while waiting for the API. setLoading(true) shows the typing indicator; setLoading(false) hides it.
   const [user, setUser] = useState<any>(null);              // the signed-in Supabase user, or null
   const [accessToken, setAccessToken] = useState<string | null>(null); // JWT sent to the backend
 
@@ -72,7 +73,7 @@ export default function App() {
   useEffect(() => {
     // .current is the actual DOM element the ref points to.
     // ?. means "only call scrollIntoView if the element exists" (safe navigation).
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); // messagesEndRef is the invisible div at the bottom of the chat. Calling scrollIntoView on it scrolls the page to the bottom.
   }, [messages, loading]);
 
 
@@ -95,21 +96,19 @@ export default function App() {
     // Step 1: immediately add the user's question to the list with an empty answer.
     // This makes the UI feel instant — the bubble appears right away.
     // prev is the previous messages array; we spread it (...prev) and add a new item.
-    setMessages((prev) => [...prev, { question, answer: "", error: null }]);
+    setMessages((prev) => [...prev, { question, answer: "", sources: [], error: null }]);
     setLoading(true); // show the typing dots
 
     try {
       // Step 2: call our backend. This is async — we "await" the response.
       // accessToken is sent so the backend can identify this user.
-      const answer = await askQuestion(question, accessToken);
+      const { answer, sources } = await askQuestion(question, accessToken);
 
-      // Step 3: update ONLY the last message with the real answer.
+      // Step 3: update ONLY the last message with the real answer and sources.
       // .map() creates a new array — we never mutate state directly in React.
-      // For every message, if it's the last one (i === prev.length - 1), replace it; otherwise keep it.
       setMessages((prev) =>
         prev.map((msg, i) =>
-          i === prev.length - 1 ? { ...msg, answer } : msg
-          // { ...msg, answer } = "copy all fields of msg, but override answer with the new value"
+          i === prev.length - 1 ? { ...msg, answer, sources } : msg
         )
       );
     } catch (err) {
@@ -231,7 +230,8 @@ export default function App() {
                 <AnswerCard
                   question={msg.question}
                   answer={msg.answer}
-                  // Only the LAST card shows the loading dots (while we wait for the answer)
+                  sources={msg.sources}
+                  // Only the LAST card shows the loading indicator (while we wait for the answer)
                   loading={loading && index === messages.length - 1}
                   error={msg.error}
                 />
@@ -250,10 +250,20 @@ export default function App() {
           {/* Pass loading state and handleSubmit down to QueryForm as props */}
           <QueryForm loading={loading} onSubmit={handleSubmit} />
           <p className="mt-3 text-center text-xs text-[#5f6368]">
-            CourseCraft may make mistakes. Always verify with the official McGill eCalendar.
+            CourseCraft may make mistakes. Always verify with the official McGill Course Catalogue.
           </p>
         </div>
       </div>
     </div>
   );
 }
+
+
+// learnings
+// - useState for state management (messages, loading, user)
+// - useEffect for side effects (auth listener, auto-scroll)
+// - useRef for DOM access (scrolling to bottom)
+// - Conditional rendering for sign-in/sign-out and empty state
+// - Async/await for API calls with loading/error handling
+// - Framer Motion for animations (message list, empty state)
+// - Component composition: App is the root, passes data/functions down to QueryForm and AnswerCard as props.

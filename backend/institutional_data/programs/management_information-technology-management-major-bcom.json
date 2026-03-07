@@ -1,0 +1,42 @@
+{
+  "faculty": "Desautels Faculty of Management",
+  "program_name": "Information Technology Management Major (B.Com.) (72 credits)",
+  "program_type": "major",
+  "description": "This BCom.; Major Information Technology Management focuses on a blend of theoretical concepts, hands-on tools, and actual case studies to identify business problems and opportunities, analyze business processes, and develop and implement information systems to support them. The Program covers a variety of topics including strategic planning and investment in information technologies, analysis, design, and deployment of information systems, understanding the opportunities and challenges of web-based businesses, and managing resistance to IT-initiated changes in organization.",
+  "required_courses": [
+    "MGCR 211",
+    "MGCR 222",
+    "MGCR 233",
+    "MGCR 250",
+    "MGCR 271",
+    "MGCR 293",
+    "MGCR 294",
+    "MGCR 331",
+    "MGCR 341",
+    "MGCR 352",
+    "MGCR 372",
+    "MGCR 382",
+    "MGCR 423",
+    "MGCR 460",
+    "INSY 331",
+    "INSY 333",
+    "INSY 334",
+    "INSY 341",
+    "INSY 431",
+    "INSY 437",
+    "INSY 450"
+  ],
+  "complementary_courses": [
+    "INSY 339",
+    "INSY 432",
+    "INSY 434",
+    "INSY 440",
+    "INSY 442",
+    "INSY 455",
+    "INSY 336",
+    "INSY 446",
+    "INSY 448",
+    "INSY 463"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/management/programs/majors/information-technology-management-major-bcom/"
+}

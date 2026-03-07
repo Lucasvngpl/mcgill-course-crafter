@@ -1,0 +1,19 @@
+{
+  "faculty": "Faculty of Arts",
+  "program_name": "Economics Joint Honours Component (B.A.) (30 credits)",
+  "program_type": "joint_honours",
+  "description": "Students wishing to study at the Honours level in two disciplines can combine Joint Honours program components in any two approved disciplines. For a list of available Joint Honours programs, see \"Overview of Programs Offered\" and \"Joint Honours Programs\" on the Economics Department webiste. Joint Honours students should consult an adviser in each of the relevant departments to discuss their course selection and their interdisciplinary research project (if applicable) in each year of their program. For the Economics component of this program, Joint Honours students should consult: http://www.mcgill.ca/economics/undergraduates/honours . For the current list of advisers in Economics and their advising times, see the website of the Department of Economics. Continuation in the Economic component of this program from one year to the next requires a minimum grade of B- in ECON 250D1 Introduction to Economic Theory: Honours. / ECON 250D2 Introduction to Economic Theory: Honours. , and a minimum B- average in the required and complementary Honours Economics courses. Students failing to meet these requirements must switch out of the Honours program. If they continue to register in Honours, they will not be allowed to graduate with Honours. Note that graduation with Honours has more stringent requirements (see below) than these. For graduation with the Economics component, a student must also obtain a 3.00 GPA in the required courses, a 3.00 average in the required and complementary credits in Economics, and a CGPA of 3.00. For a First Class Honours degree, the minimum requirements are a 3.50 program GPA in the required courses, a 3.50 average in the required and complementary credits in Economics, and a CGPA of 3.50. In cases where a student takes a Supplemental Exam in an Economics course, both the original and the Supplemental Exam grades will be counted in the calculation of the GPA and CGPA averages. Students also have to meet the requirements of the other component of this program and of the relevant Faculty for Honours and First Class Honours. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning.",
+  "required_courses": [
+    "ECON 353",
+    "ECON 354",
+    "ECON 450",
+    "ECON 452",
+    "ECON 468"
+  ],
+  "complementary_courses": [
+    "ECON 460",
+    "ECON 461",
+    "ECON 469"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/economics/economics-joint-honours-component-ba/"
+}

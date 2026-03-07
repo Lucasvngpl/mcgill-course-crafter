@@ -1,0 +1,33 @@
+{
+  "faculty": "Faculty of Arts; Faculty of Science",
+  "program_name": "Geography Major Concentration (B.A.) (37 credits)",
+  "program_type": "major",
+  "description": "The B.A.; Major Concentration in Geography focuses on the interactions among people, places, and the environment. It includes coursework in human and physical Geography, methodological techniques, and field. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning. Degree Requirements \u2014 B.A. & Sc. students This program is offered as part of a Bachelor of Arts & Science (B.A. & Sc.) degree. To graduate, students must satisfy both their program requirements and their degree requirements. The program requirements (i.e., the specific courses that make up this program) are listed under the Course Tab (above). The degree requirements\u2014including the mandatory Foundation program, appropriate degree structure, and any additional components\u2014are outlined on the Degree Requirements page . Students are responsible for ensuring that this program fits within the overall structure of their degree and that all degree requirements are met. Consult the Degree Planning Guide on the SOUSA website for additional guidance.",
+  "required_courses": [
+    "GEOG 201",
+    "GEOG 216",
+    "GEOG 290"
+  ],
+  "complementary_courses": [
+    "GEOG 203",
+    "GEOG 272",
+    "BIOL 373",
+    "GEOG 202",
+    "MATH 203",
+    "PSYC 204",
+    "SOCI 350",
+    "GEOG 425",
+    "GEOG 475",
+    "GEOG 494",
+    "GEOG 495",
+    "GEOG 496",
+    "GEOG 308",
+    "GEOG 314",
+    "GEOG 333",
+    "GEOG 351",
+    "GEOG 414",
+    "GEOG 506",
+    "GEOG 512"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/geography/geography-major-concentration-ba/"
+}

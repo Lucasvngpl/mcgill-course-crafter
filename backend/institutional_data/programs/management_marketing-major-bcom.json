@@ -1,0 +1,39 @@
+{
+  "faculty": "Desautels Faculty of Management",
+  "program_name": "Marketing Major (B.Com.) (72 credits)",
+  "program_type": "major",
+  "description": "The B.Com.; Major in Marketing is designed to provide a strong background in marketing suitable for a wide variety of careers. The program emphasizes digital marketing, marketing analytics, brand management, advertising, innovation, and sales management.",
+  "required_courses": [
+    "MGCR 211",
+    "MGCR 222",
+    "MGCR 233",
+    "MGCR 250",
+    "MGCR 271",
+    "MGCR 293",
+    "MGCR 294",
+    "MGCR 331",
+    "MGCR 341",
+    "MGCR 352",
+    "MGCR 372",
+    "MGCR 382",
+    "MGCR 423",
+    "MGCR 460",
+    "MRKT 354",
+    "MRKT 451",
+    "MRKT 452"
+  ],
+  "complementary_courses": [
+    "MRKT 351",
+    "MRKT 355",
+    "MRKT 357",
+    "MRKT 365",
+    "MRKT 434",
+    "MRKT 438",
+    "MRKT 440",
+    "MRKT 453",
+    "MRKT 455",
+    "MRKT 459",
+    "MRKT 483"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/management/programs/majors/marketing-major-bcom/"
+}

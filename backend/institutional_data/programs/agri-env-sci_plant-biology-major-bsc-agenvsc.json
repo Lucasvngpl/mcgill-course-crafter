@@ -1,0 +1,22 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Plant Biology Specialization (B.Sc.(Ag.Env.Sc.)) (24 credits)",
+  "program_type": "major",
+  "description": "This specialization emphasizes the study of plants from the cellular to the organismal level. The structure, physiology, development, evolution, and ecology of plants will be studied. Most courses offer laboratory classes that expand on the lecture material and introduce students to the latest techniques in plant biology. Many laboratory exercises use the excellent research and field facilities at the Morgan Arboretum, McGill Herbarium, Emile A. Lods Agronomy Research Centre, the Horticultural Centre and the Plant Science greenhouses as well as McGill field stations. Students may undertake a research project under the guidance of a member of the Plant Science Department as part of their studies. Graduates with the specialization may continue in post-graduate study or work in the fields of botany, mycology, molecular biology, ecology, conservation, or environmental science. For information on academic advising, see: http://www.mcgill.ca/macdonald/studentinfo/advising",
+  "required_courses": [
+    "PLNT 353",
+    "PLNT 358",
+    "PLNT 426"
+  ],
+  "complementary_courses": [
+    "ANSC 326",
+    "BINF 511",
+    "ENVB 313",
+    "PLNT 304",
+    "PLNT 305",
+    "PLNT 310",
+    "PLNT 435",
+    "PLNT 460"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/natural-resource-sciences/plant-biology-major-bsc-agenvsc/"
+}

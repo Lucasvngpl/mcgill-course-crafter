@@ -1,0 +1,24 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Agribusiness Specialization (B.Sc.(Ag.Env.Sc.)) (24 credits)",
+  "program_type": "major",
+  "description": "The development of commercial agriculture relies on a large supporting sector of manufacturing and service companies involved in the supply of inputs to farming and the transportation, processing, and marketing of agricultural and food products. This 24-credit specialization includes courses in agricultural sciences, agribusiness, and courses at the Desautels Faculty of Management. This specialization is limited to students in the Major in Agricultural Economics. For information on academic advising, see: http://www.mcgill.ca/macdonald/studentinfo/advising",
+  "required_courses": [
+    "AEBI 210",
+    "AGEC 450",
+    "AGEC 491",
+    "ANSC 250"
+  ],
+  "complementary_courses": [
+    "ACCT 361",
+    "AGRI 310",
+    "BUSA 364",
+    "MGCR 222",
+    "MGCR 331",
+    "MGCR 341",
+    "MGCR 352",
+    "MGCR 382",
+    "ORGB 321"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/natural-resource-sciences/agribusiness-major-bsc-agenvsc/"
+}

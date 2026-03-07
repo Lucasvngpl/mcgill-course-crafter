@@ -1,0 +1,12 @@
+{
+  "faculty": "Faculty of Arts",
+  "program_name": "Religious Studies Honours (B.Th.) (120 credits)",
+  "program_type": "honours",
+  "description": "Students who have achieved a CGPA of 3.30 at the end of B.Th. Year 2 (U2) may apply to the B.Th. Committee for permission to enter the Honours program. They will be required to complete the normal requirements for the Bachelor of Theology (B.Th.) degree and the honours courses RELG 494 and RELG 495 in the B.Th. Year 3 (U3) with a grade of B or better. Degree Requirements \u2014 B.Th. students To be eligible for a B.Th. degree, a student must fulfil all School and program requirements as indicated below: The B.Th. is either a 120-credit program (if you were admitted from outside Quebec and without a prior bachelor's degree), a 90-credit program (if you were admitted on the basis of a Quebec DCS/DEC or equivalent), or a 60-credit program (if you were admitted on the basis of a recognized bachelor's degree). Qualification for the degree must include Satisfactory Standing (a grade of C or better) in all required courses and the complementary courses specified in Year 3, and the accumulation of enough acceptable credits to make a total of either 60, 90, or 120 credits. It should be noted that if you take the B.Th. program as part of the M.Div. program, you need to maintain a minimum CGPA of 2.5 to be eligible for the M.Div. degree. Normally, the program credits must be earned within five years from the date of entrance.",
+  "required_courses": [
+    "RELG 494",
+    "RELG 495"
+  ],
+  "complementary_courses": [],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/religious-studies/religious-studies-honours-bth/"
+}

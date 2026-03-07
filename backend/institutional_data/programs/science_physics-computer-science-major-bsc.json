@@ -1,0 +1,32 @@
+{
+  "faculty": "Faculty of Science",
+  "program_name": "Physics and Computer Science Major (B.Sc.) (66 credits)",
+  "program_type": "major",
+  "description": "The Major Physics and Computer Science is designed to give motivated students the opportunity to combine the two fields in a way that will distinguish them from the graduates of either field by itself. The two disciplines complement each other, with physics providing an analytic problem-solving outlook and basic understanding of nature, while computer science enhances the ability to make practical and marketable applications, in addition to having its own theoretical interest. Graduates of this program may be able to present themselves as being more immediately useful than a pure physics major, but with more breadth than just a programmer. They will be able to demonstrate their combined expertise in the Special Project course which is the centrepiece of the final year of the program. Degree Requirements \u2014 B.Sc. This program is offered as part of a Bachelor of Science (B.Sc.) degree. To graduate, students must satisfy both their program requirements and their degree requirements. The program requirements (i.e., the specific courses that make up this program) are listed under the Course Tab (above). The degree requirements\u2014including the mandatory Foundation program, appropriate degree structure, and any additional components\u2014are outlined on the Degree Requirements page . Students are responsible for ensuring that this program fits within the overall structure of their degree and that all degree requirements are met. Consult the Degree Planning Guide on the SOUSA website for additional guidance.",
+  "required_courses": [
+    "COMP 250",
+    "MATH 222",
+    "MATH 223",
+    "MATH 240",
+    "PHYS 230",
+    "PHYS 257",
+    "PHYS 258",
+    "COMP 206",
+    "COMP 251",
+    "COMP 302",
+    "COMP 350",
+    "MATH 314",
+    "MATH 315",
+    "PHYS 232",
+    "PHYS 241",
+    "COMP 360",
+    "MATH 323",
+    "PHYS 331",
+    "PHYS 339",
+    "PHYS 340",
+    "PHYS 346",
+    "PHYS 489"
+  ],
+  "complementary_courses": [],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/physics/physics-computer-science-major-bsc/"
+}

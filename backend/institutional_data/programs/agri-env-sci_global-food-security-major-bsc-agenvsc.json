@@ -1,0 +1,16 @@
+{
+  "faculty": "",
+  "program_name": "Global Food Security Specialization (B.Sc.(Ag.Env.Sc.)) (18 credits)",
+  "program_type": "major",
+  "description": "",
+  "required_courses": [
+    "AEIS 230",
+    "AGEC 430",
+    "AGEC 442",
+    "AGRI 411",
+    "AGRI 493",
+    "NUTR 341"
+  ],
+  "complementary_courses": [],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/plant-science/global-food-security-major-bsc-agenvsc/"
+}

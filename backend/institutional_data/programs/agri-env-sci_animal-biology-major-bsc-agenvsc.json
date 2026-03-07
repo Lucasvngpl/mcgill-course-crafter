@@ -1,0 +1,25 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Animal Biology Specialization (B.Sc.(Ag.Env.Sc.)) (24 credits)",
+  "program_type": "major",
+  "description": "The specialization in Animal Biology is intended for students who wish to further their studies in the basic biology of large mammals and birds. Successful completion of the program should enable students to qualify for application to most veterinary colleges in North America, to study in a variety of postgraduate biology programs, and to work in many laboratory settings. For information on academic advising, see: http://www.mcgill.ca/macdonald/studentinfo/advising",
+  "required_courses": [
+    "ANSC 312",
+    "ANSC 323",
+    "ANSC 324",
+    "ANSC 420",
+    "PARA 438"
+  ],
+  "complementary_courses": [
+    "ANSC 234",
+    "ANSC 251",
+    "ANSC 326",
+    "ANSC 400",
+    "ANSC 424",
+    "ANSC 433",
+    "ANSC 555",
+    "ANSC 560",
+    "LSCI 451"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/natural-resource-sciences/animal-biology-major-bsc-agenvsc/"
+}

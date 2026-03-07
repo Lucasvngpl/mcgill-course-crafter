@@ -1,0 +1,42 @@
+{
+  "faculty": "Desautels Faculty of Management",
+  "program_name": "Business Analytics Major (B.Com.) (72 credits)",
+  "program_type": "major",
+  "description": "The Major in Business Analytics offers an interdisciplinary approach to study the evolving field of management analytics with a strong emphasis on experiential learning. The major is designed to address the growing needs of organizations for business analytics, data science, and artificial intelligence. The emphasis of the program will be on managerial issues and use of state-of-the-art data analytics tools to optimize organizational decisions in a variety of managerial settings.",
+  "required_courses": [
+    "MGCR 211",
+    "MGCR 222",
+    "MGCR 233",
+    "MGCR 250",
+    "MGCR 271",
+    "MGCR 293",
+    "MGCR 294",
+    "MGCR 331",
+    "MGCR 341",
+    "MGCR 352",
+    "MGCR 372",
+    "MGCR 382",
+    "MGCR 423",
+    "MGCR 460",
+    "INSY 336",
+    "INSY 446",
+    "MGSC 404",
+    "MGSC 483",
+    "RETL 407"
+  ],
+  "complementary_courses": [
+    "MGSC 401",
+    "MGSC 416",
+    "INSY 437",
+    "INSY 442",
+    "INSY 463",
+    "ACCT 451",
+    "BUSA 471",
+    "FINE 460",
+    "INSY 448",
+    "MRKT 440",
+    "MRKT 442",
+    "ORGB 330"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/management/programs/majors/business-analytics-major-bcom/"
+}

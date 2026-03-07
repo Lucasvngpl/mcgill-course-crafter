@@ -1,0 +1,31 @@
+{
+  "faculty": "Faculty of Science",
+  "program_name": "Biology Honours (B.Sc.) (72 credits)",
+  "program_type": "honours",
+  "description": "The Honours program in Biology is intended for students who are interested in gaining a concentrated research experience. A broad range of fundamental biological concepts spanning molecules and cells to organisms and ecosystems, including development, behaviour and evolution is supplemented with research in a chosen area. Potential areas of focus include: molecular, cellular and developmental biology, conservation, ecology and evolution, and neurobiology and behaviour. Acceptance into the Honours program at the end of U2 requires a CGPA of 3.50 and approval of a 9- or 12-credit Independent Studies proposal (see listing of BIOL 479D1 Honours Research Project 1. / BIOL 479D2 Honours Research Project 1. , BIOL 480D1 Honours Research Project 2. / BIOL 480D2 Honours Research Project 2. for details). For an Honours degree, a minimum CGPA of 3.50 at Graduation and adherence to the program as outlined below are the additional requirements. First Class Honours will be awarded to students graduating with a CGPA of 3.75 or better, and having successfully completed the Honours program Degree Requirements \u2014 B.Sc. This program is offered as part of a Bachelor of Science (B.Sc.) degree. To graduate, students must satisfy both their program requirements and their degree requirements. The program requirements (i.e., the specific courses that make up this program) are listed under the Course Tab (above). The degree requirements\u2014including the mandatory Foundation program, appropriate degree structure, and any additional components\u2014are outlined on the Degree Requirements page . Students are responsible for ensuring that this program fits within the overall structure of their degree and that all degree requirements are met. Consult the Degree Planning Guide on the SOUSA website for additional guidance.",
+  "required_courses": [
+    "BIOL 200",
+    "BIOL 201",
+    "BIOL 205",
+    "BIOL 206",
+    "BIOL 215",
+    "BIOL 216",
+    "BIOL 301",
+    "BIOL 302",
+    "BIOL 311",
+    "COMP 204"
+  ],
+  "complementary_courses": [
+    "CHEM 204",
+    "CHEM 212",
+    "BIOL 304",
+    "BIOL 305",
+    "BIOL 308",
+    "BIOL 300",
+    "BIOL 303",
+    "BIOL 313",
+    "BIOL 306",
+    "BIOL 307"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/biology/honours-biology-bsc/"
+}

@@ -36,6 +36,6 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
 // Without this, Tailwind utilities won’t exist.

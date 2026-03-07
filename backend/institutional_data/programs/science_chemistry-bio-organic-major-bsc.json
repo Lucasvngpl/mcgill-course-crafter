@@ -1,0 +1,37 @@
+{
+  "faculty": "Faculty of Science",
+  "program_name": "Chemistry - Bio-organic Major (B.Sc.) (63 credits)",
+  "program_type": "major",
+  "description": "",
+  "required_courses": [
+    "BIOL 200",
+    "BIOL 201",
+    "CHEM 213",
+    "CHEM 242",
+    "CHEM 252",
+    "CHEM 267",
+    "CHEM 273",
+    "CHEM 281",
+    "CHEM 302",
+    "CHEM 345",
+    "CHEM 355",
+    "CHEM 367",
+    "CHEM 377",
+    "CHEM 381",
+    "CHEM 392",
+    "CHEM 493",
+    "CHEM 502",
+    "MATH 222",
+    "PHYS 242"
+  ],
+  "complementary_courses": [
+    "BIOL 202",
+    "BIOL 301",
+    "CHEM 365",
+    "MATH 315",
+    "MIMM 211",
+    "PHGY 209",
+    "PHGY 210"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/chemistry/chemistry-bio-organic-major-bsc/"
+}

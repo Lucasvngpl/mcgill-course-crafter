@@ -1,0 +1,25 @@
+{
+  "faculty": "Faculty of Arts",
+  "program_name": "Classics Major Concentration (B.A.) (36 credits)",
+  "program_type": "major",
+  "description": "The Major Concentration in Classical Studies is an in-depth study of ancient Greece and Rome. Two Streams are offered. The Classical Languages stream emphasizes ancient Greek and Latin language, requiring advanced coursework in one or both languages. The Classical Studies stream provides a broad foundation in ancient languages and Greek and Roman literature while allowing students greater flexibility to take a variety of courses in translation. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning.",
+  "required_courses": [
+    "CLAS 201"
+  ],
+  "complementary_courses": [
+    "CLAS 410",
+    "CLAS 412",
+    "CLAS 420",
+    "CLAS 422",
+    "CLAS 429",
+    "CLAS 301",
+    "CLAS 302",
+    "CLAS 310",
+    "CLAS 312",
+    "CLAS 315",
+    "CLAS 320",
+    "CLAS 322",
+    "CLAS 326"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/history-classical-studies/classics-major-concentration-ba/"
+}

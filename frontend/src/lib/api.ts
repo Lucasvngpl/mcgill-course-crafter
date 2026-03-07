@@ -2,8 +2,19 @@
 // URL of your FastAPI backend
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"; // Fallback to localhost if env variable is not set
 
+// A source is either a course (code + title) or a program (name + faculty)
+// shown in the "thinking" header after the answer loads.
+export type Source =
+  | { type: "course"; id: string; title: string }
+  | { type: "program"; name: string; faculty: string; url: string };
+
+export type AnswerResult = {
+  answer: string;
+  sources: Source[];
+};
+
 // token is optional — if provided, backend can identify the user and personalize responses
-export async function askQuestion(question: string, token?: string | null): Promise<string> {
+export async function askQuestion(question: string, token?: string | null): Promise<AnswerResult> {
     // Build headers — always include Content-Type, optionally include auth token
     const headers: Record<string, string> = {
         "Content-Type": "application/json",
@@ -18,12 +29,14 @@ export async function askQuestion(question: string, token?: string | null): Prom
         headers,
         body: JSON.stringify({ question }),
     });
-    
+
     if (!response.ok) {
         throw new Error("Failed to fetch answer from the server."); // Error handling
     }
     const data = await response.json(); // Parse the JSON response
-    // FastAPI returns: { "answer": "..." }
-    return (data as any).answer as string;
-
+    // FastAPI returns: { "answer": "...", "sources": [...] }
+    return {
+        answer: data.answer as string,
+        sources: (data.sources ?? []) as Source[],
+    };
 }

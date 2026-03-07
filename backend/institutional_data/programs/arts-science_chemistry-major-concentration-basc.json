@@ -1,0 +1,24 @@
+{
+  "faculty": "Faculty of Science",
+  "program_name": "Chemistry Major Concentration (B.A. & Sc.) (36 credits)",
+  "program_type": "major",
+  "description": "The Major Concentration Chemistry is not certified by the Ordre des Chimistes du Qu\u00e9bec. Students interested in pursuing a career in Chemistry in Quebec are advised to take an appropriate B.Sc. program in Chemistry. The Major Concentration Chemistry, which is restricted to students in the B.A. & Sc. or B.Sc./B.Ed., is a planned sequence of courses designed to permit a degree of specialization in this discipline. Degree Requirements \u2014 B.A. & Sc. students This program is offered as part of a Bachelor of Arts & Science (B.A. & Sc.) degree. To graduate, students must satisfy both their program requirements and their degree requirements. The program requirements (i.e., the specific courses that make up this program) are listed under the Course Tab (above). The degree requirements\u2014including the mandatory Foundation program, appropriate degree structure, and any additional components\u2014are outlined on the Degree Requirements page . Students are responsible for ensuring that this program fits within the overall structure of their degree and that all degree requirements are met. Consult the Degree Planning Guide on the SOUSA website for additional guidance.",
+  "required_courses": [
+    "CHEM 204",
+    "CHEM 212",
+    "CHEM 214",
+    "CHEM 222",
+    "CHEM 253",
+    "CHEM 267",
+    "CHEM 281"
+  ],
+  "complementary_courses": [
+    "CHEM 219",
+    "CHEM 302",
+    "CHEM 332",
+    "CHEM 334",
+    "CHEM 367",
+    "CHEM 381"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts-science/programs/chemistry/chemistry-major-concentration-basc/"
+}

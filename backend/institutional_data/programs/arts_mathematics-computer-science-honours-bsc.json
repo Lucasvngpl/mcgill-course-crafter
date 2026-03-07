@@ -1,0 +1,39 @@
+{
+  "faculty": "Faculty of Science",
+  "program_name": "Mathematics and Computer Science Honours (B.Sc.) (78 credits)",
+  "program_type": "honours",
+  "description": "The B.Sc.; Honours in Mathematics and Computer Science provides a rigorous training, at the honours level, in mathematics and computer science, while exploring the interaction between the two fields. This program may be completed with a minimum of 72 credits or a maximum of 78 credits. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning.",
+  "required_courses": [
+    "COMP\u00a0206",
+    "COMP\u00a0250",
+    "COMP\u00a0252",
+    "COMP\u00a0273",
+    "COMP\u00a0302",
+    "COMP\u00a0310",
+    "COMP\u00a0330",
+    "COMP\u00a0362",
+    "MATH\u00a0222",
+    "MATH\u00a0251",
+    "MATH\u00a0255",
+    "MATH\u00a0350"
+  ],
+  "complementary_courses": [
+    "COMP\u00a0202",
+    "COMP\u00a0204",
+    "COMP\u00a0208",
+    "MATH\u00a0242",
+    "MATH\u00a0254",
+    "MATH\u00a0235",
+    "MATH\u00a0245",
+    "MATH\u00a0248",
+    "MATH\u00a0358",
+    "MATH\u00a0356",
+    "MATH\u00a0357",
+    "MATH\u00a0387",
+    "MATH\u00a0454",
+    "MATH\u00a0455",
+    "MATH\u00a0456",
+    "MATH\u00a0457"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/mathematics-statistics/mathematics-computer-science-honours-bsc/"
+}

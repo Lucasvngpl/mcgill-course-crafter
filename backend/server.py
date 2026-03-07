@@ -174,8 +174,9 @@ async def handle_query(request: Request, body: QueryRequest):
             user_context = build_user_context(user_id)
 
         # Pass user context to the LLM (None for anonymous = no personalization)
-        answer = generate_answer(body.question, user_context=user_context)
-        return {"answer": answer}
+        # generate_answer now returns {"answer": str, "sources": list}
+        result = generate_answer(body.question, user_context=user_context)
+        return {"answer": result["answer"], "sources": result["sources"]}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

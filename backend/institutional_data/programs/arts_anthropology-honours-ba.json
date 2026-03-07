@@ -1,0 +1,17 @@
+{
+  "faculty": "Faculty of Arts",
+  "program_name": "Anthropology Honours (B.A.) (60 credits)",
+  "program_type": "honours",
+  "description": "The Honours Program in Anthropology provides a greater focus on Anthropology with substantial breadth and depth. The completion of an Honours program is an asset when applying to graduate or professional schools. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning.",
+  "required_courses": [
+    "ANTH 490"
+  ],
+  "complementary_courses": [
+    "ANTH 352",
+    "ANTH 355",
+    "ANTH 357",
+    "ANTH 358",
+    "ANTH 359"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/anthropology/anthropology-honours-ba/"
+}

@@ -1,0 +1,41 @@
+{
+  "faculty": "Faculty of Science",
+  "program_name": "Physiology and Physics Major (B.Sc.) (82 credits)",
+  "program_type": "major",
+  "description": "This program provides a firm foundation in physics, mathematics, and physiology. It is appropriate for students interested in applying methods of the physical sciences to problems in physiology and allied biological sciences. Degree Requirements \u2014 B.Sc. This program is offered as part of a Bachelor of Science (B.Sc.) degree. To graduate, students must satisfy both their program requirements and their degree requirements. The program requirements (i.e., the specific courses that make up this program) are listed under the Course Tab (above). The degree requirements\u2014including the mandatory Foundation program, appropriate degree structure, and any additional components\u2014are outlined on the Degree Requirements page . Students are responsible for ensuring that this program fits within the overall structure of their degree and that all degree requirements are met. Consult the Degree Planning Guide on the SOUSA website for additional guidance.",
+  "required_courses": [
+    "BIOL 219",
+    "BIOL 395",
+    "MATH 222",
+    "MATH 223",
+    "MATH 247",
+    "MATH 315",
+    "MATH 325",
+    "PHYS 329",
+    "BMDE 519",
+    "MATH 248",
+    "MATH 314",
+    "MATH 326",
+    "MATH 437",
+    "PHGY 209",
+    "PHGY 210",
+    "PHGY 212",
+    "PHGY 213",
+    "PHGY 312",
+    "PHGY 313",
+    "PHYS 230",
+    "PHYS 232",
+    "PHYS 241",
+    "PHYS 257",
+    "PHYS 258",
+    "PHYS 339",
+    "PHYS 340",
+    "PHYS 346"
+  ],
+  "complementary_courses": [
+    "PHGY 311",
+    "PHGY 314",
+    "PHYS 519"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/physiology/physiology-physics-major-bsc/"
+}

@@ -1,0 +1,19 @@
+{
+  "faculty": "Faculty of Arts",
+  "program_name": "Linguistics Joint Honours Component (B.A.) (36 credits)",
+  "program_type": "joint_honours",
+  "description": "Students who wish to study at the Honours level in two disciplines can combine Joint Honours program components in any two Arts disciplines. For a list of available Joint Honours programs, see the \" Overview of Programs Offered \" page. Joint Honours students should consult an adviser in each department to discuss their course selection and their interdisciplinary research project (if applicable). Joint Honours students must maintain a GPA of 3.30 (B+ average) in their program courses and a minimum grade of B+ must be obtained in three out of four of the following courses: LING 330 Phonetics. , LING 331 Phonology 1. , LING 360 Introduction to Semantics. , LING 371 Syntax 1. , as well as in the Joint Honours Thesis, LING 481D1 Joint Honours Thesis. / LING 481D2 Joint Honours Thesis. . According to Faculty of Arts regulations, Joint Honours students must also maintain a minimum CGPA of 3.00 in general. The requirement for First Class Honours is a CGPA of 3.50 and a minimum grade of A- in the Joint Honours Thesis. Inquiries may be addressed to the departmental office or to the Adviser for Undergraduate Studies. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning.",
+  "required_courses": [
+    "LING 201",
+    "LING 330",
+    "LING 331",
+    "LING 360",
+    "LING 371"
+  ],
+  "complementary_courses": [
+    "COMP 230",
+    "MATH 318",
+    "PHIL 210"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/linguistics/linguistics-joint-honours-component-ba/"
+}

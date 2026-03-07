@@ -1,0 +1,19 @@
+{
+  "faculty": "Faculty of Arts",
+  "program_name": "Linguistics Major Concentration (B.A.) (36 credits)",
+  "program_type": "major",
+  "description": "The Major Concentration in Linguistics focuses on various aspects of linguistics, including theoretical linguistics (phonology, syntax and semantics); experimental linguistics (phonetics, laboratory phonology, language acquisition and psycholinguistics); computational linguistics; linguistic fieldwork and language revitalization; and language variation and change (sociolinguistics, dialectology and historical linguistics). Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning.",
+  "required_courses": [
+    "LING 201",
+    "LING 330",
+    "LING 331",
+    "LING 360",
+    "LING 371"
+  ],
+  "complementary_courses": [
+    "COMP 230",
+    "MATH 318",
+    "PHIL 210"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/linguistics/linguistics-major-concentration-ba/"
+}

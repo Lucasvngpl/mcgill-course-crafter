@@ -1,0 +1,43 @@
+{
+  "faculty": "Faculty of Arts",
+  "program_name": "Philosophy Honours (B.A.) (60 credits)",
+  "program_type": "honours",
+  "description": "According to Faculty regulations, Honours students must maintain a minimum CGPA of 3.00 and maintain a minimum program GPA of 3.00. Admission to Honours: Students must attain a 3.00 CGPA and have a 3.00 GPA in Philosophy courses. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning.",
+  "required_courses": [
+    "PHIL 210",
+    "PHIL 301",
+    "PHIL 334",
+    "PHIL 499"
+  ],
+  "complementary_courses": [
+    "PHIL 306",
+    "PHIL 310",
+    "PHIL 411",
+    "PHIL 415",
+    "PHIL 419",
+    "PHIL 421",
+    "PHIL 470",
+    "PHIL 230",
+    "PHIL 237",
+    "PHIL 240",
+    "PHIL 242",
+    "PHIL 345",
+    "PHIL 350",
+    "PHIL 353",
+    "PHIL 354",
+    "PHIL 355",
+    "PHIL 452",
+    "PHIL 453",
+    "PHIL 454",
+    "PHIL 360",
+    "PHIL 361",
+    "PHIL 366",
+    "PHIL 367",
+    "PHIL 444",
+    "PHIL 445",
+    "PHIL 375",
+    "PHIL 474",
+    "PHIL 475"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/philosophy/philosophy-honours-ba/"
+}

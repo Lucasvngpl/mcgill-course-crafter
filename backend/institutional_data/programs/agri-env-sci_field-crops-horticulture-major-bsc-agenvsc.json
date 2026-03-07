@@ -1,0 +1,16 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Field Crops and Horticulture Specialization (B.Sc.(Ag.Env.Sc.)) (18 credits)",
+  "program_type": "major",
+  "description": "The Specialization in Field Crops and Horticulture focuses on the biology and physiology, breeding, propagation, and management of domesticated crops and vegetables. This Specialization may be taken under the Major in Sustainable Agricultural Systems, and offers the opportunity to take dedicated agronomic content leading to an additional Specialization in Professional Agrology, thereby meeting the eligibility requirements for the Ordre des agronomes du Qu\u00e9bec.",
+  "required_courses": [
+    "PLNT 302",
+    "PLNT 305",
+    "PLNT 307",
+    "PLNT 353",
+    "PLNT 434",
+    "PLNT 435"
+  ],
+  "complementary_courses": [],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/plant-science/field-crops-horticulture-major-bsc-agenvsc/"
+}

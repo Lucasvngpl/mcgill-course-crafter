@@ -1,0 +1,25 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Wildlife Biology Specialization (B.Sc.(Ag.Env.Sc.)) (24 credits)",
+  "program_type": "major",
+  "description": "This specialization focuses on the ecology of vertebrate animals, their biological and physical environment, and the interactions that are important in the management of ecological communities and wildlife species. Students have access to local wildlife resources including the Avian Science and Conservation Centre, the McGill Arboretum, the Stonycroft Wildlife Area, the Molson Reserve, and the Ecomuseum. For information on academic advising, see: http://www.mcgill.ca/macdonald/studentinfo/advising",
+  "required_courses": [
+    "ENVB 529",
+    "WILD 307",
+    "WILD 350",
+    "WILD 401",
+    "WILD 420"
+  ],
+  "complementary_courses": [
+    "BIOL 307",
+    "BIOL 427",
+    "ENVB 437",
+    "ENVB 506",
+    "PARA 424",
+    "PLNT 358",
+    "WILD 302",
+    "WILD 421",
+    "WILD 475"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/natural-resource-sciences/wildlife-biology-major-bsc-agenvsc/"
+}

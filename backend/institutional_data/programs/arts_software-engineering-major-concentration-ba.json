@@ -1,0 +1,27 @@
+{
+  "faculty": "Faculty of Science",
+  "program_name": "Software Engineering Major Concentration (B.A.) (36 credits)",
+  "program_type": "major",
+  "description": "The Major Concentration Software Engineering focuses on the techniques and methodology required to design and develop complex software systems and covers the subject commonly known as \"Software Engineering\". Arts students that are interested in further study in Computer Science can combine the Major Concentration in Software Engineering with the Supplementary Minor Concentration in Computer Science. For further information, please consult the Program Adviser. Students with two programs in the same department/unit must have a third program in a different department/unit to be eligible to graduate. Please refer to the Faculty of Arts regulations for \"Faculty Degree Requirements\", \"About Program Requirements\", and \"Departmental Programs\" for the Multi-track System options. MATH 133 Linear Algebra and Geometry. , MATH 140 Calculus 1. , and MATH 141 Calculus 2. (or their equivalents) must be completed prior to taking courses in this program. Note: This program does not lead to certification as a Professional Engineer. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning.",
+  "required_courses": [
+    "COMP 202",
+    "COMP 206",
+    "COMP 250",
+    "COMP 251",
+    "COMP 273",
+    "COMP 302",
+    "COMP 303",
+    "COMP 421",
+    "MATH 223",
+    "MATH 240"
+  ],
+  "complementary_courses": [
+    "ECSE 326",
+    "ECSE 437",
+    "ECSE 539",
+    "COMP 322",
+    "COMP 529",
+    "COMP 533"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/computer-science/software-engineering-major-concentration-ba/"
+}

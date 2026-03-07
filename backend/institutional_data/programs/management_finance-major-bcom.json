@@ -1,0 +1,36 @@
+{
+  "faculty": "Desautels Faculty of Management",
+  "program_name": "Finance Major (B.Com.) (72 credits)",
+  "program_type": "major",
+  "description": "The 30-credit Finance Major has been designed to meet the increasing demand for expertise in this rapidly growing functional area of business. This major is designed to provide in-depth knowledge of finance theory, financial institutions, investment analysis, risk management, and applied techniques. Employment for graduates is most often obtained in investment and commercial banking, manufacturing and service firms, non-profit organizations and governments, and non-financial firms. All BCom students take a Core curriculum in addition to this Major.",
+  "required_courses": [
+    "MGCR 211",
+    "MGCR 222",
+    "MGCR 233",
+    "MGCR 250",
+    "MGCR 271",
+    "MGCR 293",
+    "MGCR 294",
+    "MGCR 331",
+    "MGCR 341",
+    "MGCR 352",
+    "MGCR 372",
+    "MGCR 382",
+    "MGCR 423",
+    "MGCR 460",
+    "FINE 342",
+    "FINE 441",
+    "FINE 443",
+    "FINE 448",
+    "FINE 482",
+    "MGSC 372"
+  ],
+  "complementary_courses": [
+    "ACCT 351",
+    "ACCT 352",
+    "ACCT 354",
+    "ACCT 385",
+    "ACCT 452"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/management/programs/majors/finance-major-bcom/"
+}

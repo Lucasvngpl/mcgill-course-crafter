@@ -1,0 +1,29 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Environmental Economics Specialization (B.Sc.(Ag.Env.Sc.)) (24 credits)",
+  "program_type": "major",
+  "description": "This specialization integrates environmental sciences and decision making with the economics of environment and sustainable development. It is designed to prepare students for careers in natural resource management and the analysis of environmental problems and policies. This specialization is limited to students in the Major Agricultural Economics. For information on academic advising, see: http://www.mcgill.ca/macdonald/studentinfo/advising",
+  "required_courses": [
+    "AGEC 491",
+    "ENVB 305",
+    "ENVB 437",
+    "ENVB 506"
+  ],
+  "complementary_courses": [
+    "AGRI 310",
+    "BREE 217",
+    "BREE 327",
+    "ECON 225",
+    "ECON 326",
+    "ECON 405",
+    "ENVB 222",
+    "ENVB 301",
+    "ENVB 529",
+    "ENVR 203",
+    "MGPO 440",
+    "MICR 331",
+    "NRSC 333",
+    "WILD 421"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/natural-resource-sciences/environmental-economics-major-bsc-agenvsc/"
+}

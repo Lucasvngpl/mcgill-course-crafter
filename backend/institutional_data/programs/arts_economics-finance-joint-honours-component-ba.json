@@ -1,0 +1,30 @@
+{
+  "faculty": "Desautels Faculty of Management",
+  "program_name": "Economics / Finance Joint Honours Component (B.A.) (60 credits)",
+  "program_type": "joint_honours",
+  "description": "The B.A. Joint Honours in Economics and Finance is offered jointly by the Economics Department and the Desautels Faculty of Management. Students in this program should see an Economics adviser and a Management adviser. For the economics part, they should consult: http://www.mcgill.ca/economics/undergraduates/honours . For the current list of advisers in Economics and their advising times, see the website of the Department of Economics. For the Management component of this Joint Honours program, students should see the Honours program adviser in the Desautels Faculty of Management. All Joint Honours students should consult the Economics Honours and Joint Honours programs at http://www.mcgill.ca/economics/undergraduates/honours . The B.A. Joint Honours in Economics and Finance requires the completion of 30 specified credits of Honours Economics courses listed in the Economics Honours Program and 30 specified credits for Finance. This program is designed to take advantage of both McGill's Finance and Economics course offerings to produce a student who is well trained in these two complementary areas. To enter this Joint Honours program, students must have completed two terms of Calculus. Continuation from one year to the next in the Economics part of this Joint Honours program requires a minimum grade of B- in ECON 250D1 Introduction to Economic Theory: Honours. / ECON 250D2 Introduction to Economic Theory: Honours. , and a minimum B- average in the required and complementary Honours Economics courses. For the Economics component, a student must also obtain a 3.00 GPA in the required courses, a 3.00 average in the required and complementary credits in Economics, and a CGPA of 3.00. For a First Class Honours degree, the minimum requirements are a 3.50 program GPA in the required courses, a 3.50 average in the required and complementary credits in Economics, and a CGPA of 3.50. In cases where a student takes a Supplemental Exam in a course, both the initial and the Supplemental Exam grades will be counted in the calculation of the GPA and CGPA averages. For the Management part of this program, students also have to meet the requirements of the Faculty of Management for Honours and First Class Honours. To earn the Honours in Economics and Finance, the Faculty of Management requires that students must achieve a grade of B- or better in all courses in the Finance component of this program. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning.",
+  "required_courses": [
+    "ECON 353",
+    "ECON 354",
+    "ECON 450",
+    "ECON 452",
+    "ECON 468",
+    "FINE 342",
+    "FINE 441",
+    "FINE 443",
+    "FINE 547",
+    "MGCR 211",
+    "MGCR 341"
+  ],
+  "complementary_courses": [
+    "ECON 460",
+    "ECON 461",
+    "ECON 469",
+    "FINE 442",
+    "FINE 448",
+    "FINE 449",
+    "FINE 451",
+    "FINE 452"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/economics/economics-finance-joint-honours-component-ba/"
+}

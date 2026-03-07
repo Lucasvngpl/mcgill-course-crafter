@@ -1,0 +1,26 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Microbiology and Molecular Biotechnology Specialization (B.Sc.(Ag.Env.Sc.)) (24 credits)",
+  "program_type": "major",
+  "description": "Students following this specialization receive education and training in fundamental principles and applied aspects of microbiology. Complementary courses allow students to focus on basic microbial sciences or applied areas such as biotechnology. Successful graduates may work in university, government and industrial research laboratories, in the pharmaceutical, fermentation and food industries, and with an appropriate CGPA proceed to post-graduate studies or professional biomedical schools. For information on academic advising, see: http://www.mcgill.ca/macdonald/studentinfo/advising",
+  "required_courses": [
+    "BTEC 306",
+    "MICR 331",
+    "MICR 338",
+    "MICR 341",
+    "MICR 450",
+    "PARA 424"
+  ],
+  "complementary_courses": [
+    "ANSC 350",
+    "ANSC 420",
+    "BINF 511",
+    "BTEC 501",
+    "BTEC 535",
+    "BTEC 555",
+    "FDSC 442",
+    "MIMM 324",
+    "PLNT 304"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/natural-resource-sciences/microbiology-molecular-biotechnology-major-bsc-agenvsc/"
+}

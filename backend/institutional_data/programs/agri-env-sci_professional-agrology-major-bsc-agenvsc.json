@@ -1,0 +1,33 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Professional Agrology Specialization  (B.Sc.(Ag.Env.Sc.)) (24 credits)",
+  "program_type": "major",
+  "description": "The Specialization in Professional Agrology focuses on agricultural legislation, professional conduct, and working in the professional agrology industry. This Specialization may be taken with the Major in Sustainable Agricultural Systems. Taken in addition with a Specialization in Field Crops and Horticulture, Global Food Security, or Livestock, the eligibility requirements for the Ordre des agronomes du Qu\u00e9bec will be met. For information on academic advising, see: http://www.mcgill.ca/macdonald/studentinfo/advising .",
+  "required_courses": [
+    "AGRI 330",
+    "AGRI 430",
+    "AGRI 490",
+    "PLNT 430"
+  ],
+  "complementary_courses": [
+    "PLNT 302",
+    "PLNT 305",
+    "PLNT 307",
+    "PLNT 353",
+    "PLNT 434",
+    "PLNT 435",
+    "AEIS 230",
+    "AGEC 430",
+    "AGEC 442",
+    "AGRI 411",
+    "AGRI 493",
+    "NUTR 341",
+    "ANSC 301",
+    "ANSC 303",
+    "ANSC 324",
+    "ANSC 433",
+    "ANSC 458",
+    "ANSC 555"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/natural-resource-sciences/professional-agrology-major-bsc-agenvsc/"
+}

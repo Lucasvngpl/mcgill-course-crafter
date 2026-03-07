@@ -1,0 +1,35 @@
+{
+  "faculty": "Faculty of Science",
+  "program_name": "Geography - Physical Geography Major Concentration (B.A. & Sc.) (36 credits)",
+  "program_type": "major",
+  "description": "The Major Concentration Geography - Physical Geography, which is restricted to students in the B.A. & Sc., is a planned sequence of courses designed to permit a degree of specialization in this discipline. Degree Requirements \u2014 B.A. & Sc. students This program is offered as part of a Bachelor of Arts & Science (B.A. & Sc.) degree. To graduate, students must satisfy both their program requirements and their degree requirements. The program requirements (i.e., the specific courses that make up this program) are listed under the Course Tab (above). The degree requirements\u2014including the mandatory Foundation program, appropriate degree structure, and any additional components\u2014are outlined on the Degree Requirements page . Students are responsible for ensuring that this program fits within the overall structure of their degree and that all degree requirements are met. Consult the Degree Planning Guide on the SOUSA website for additional guidance.",
+  "required_courses": [
+    "GEOG 201",
+    "GEOG 202",
+    "GEOG 203",
+    "GEOG 272"
+  ],
+  "complementary_courses": [
+    "GEOG 308",
+    "GEOG 314",
+    "GEOG 351",
+    "GEOG 414",
+    "GEOG 495",
+    "GEOG 496",
+    "GEOG 305",
+    "GEOG 321",
+    "GEOG 322",
+    "GEOG 372",
+    "GEOG 470",
+    "GEOG 471",
+    "GEOG 302",
+    "GEOG 401",
+    "GEOG 438",
+    "GEOG 505",
+    "GEOG 506",
+    "GEOG 536",
+    "GEOG 550",
+    "GEOG 555"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts-science/programs/geography/geography-physical-major-concentration-basc/"
+}

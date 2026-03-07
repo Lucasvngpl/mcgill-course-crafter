@@ -1,0 +1,40 @@
+{
+  "faculty": "Desautels Faculty of Management",
+  "program_name": "Accounting Major (B.Com.) (72 credits)",
+  "program_type": "major",
+  "description": "The B.Com.; Major in Accounting focuses on preparing, interpreting, and utilizing the financial and managerial information of an organization. The program includes financial and managerial accounting, auditing, and taxation.",
+  "required_courses": [
+    "MGCR 211",
+    "MGCR 222",
+    "MGCR 233",
+    "MGCR 250",
+    "MGCR 271",
+    "MGCR 293",
+    "MGCR 294",
+    "MGCR 331",
+    "MGCR 341",
+    "MGCR 352",
+    "MGCR 372",
+    "MGCR 382",
+    "MGCR 423",
+    "MGCR 460",
+    "ACCT 351",
+    "ACCT 352",
+    "ACCT 361",
+    "ACCT 362",
+    "ACCT 385",
+    "ACCT 455"
+  ],
+  "complementary_courses": [
+    "ACCT 354",
+    "ACCT 401",
+    "ACCT 434",
+    "ACCT 451",
+    "ACCT 452",
+    "ACCT 453",
+    "ACCT 463",
+    "ACCT 475",
+    "ACCT 486"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/management/programs/majors/accounting-major-bcom/"
+}

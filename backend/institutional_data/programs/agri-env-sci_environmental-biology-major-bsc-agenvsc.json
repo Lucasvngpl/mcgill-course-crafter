@@ -1,0 +1,38 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Environmental Biology Major (B.Sc.(Ag.Env.Sc.)) (42 credits)",
+  "program_type": "major",
+  "description": "The Environmental Biology Major is about the biology, diversity, and ecology of a broad range of organisms, from plant and vertebrate animals to insects, fungi, and microbes. This Major places a strong emphasis on the ecosystems that species inhabit and the constraints imposed by the physical environment and by environmental change. Environmental Biology has significant field components worked into the course sets, and through this experiential learning, biological diversity, and the ways that species interact with their physical environment in a variety of ecosystems will be studied. The Major makes full use of the unique physical setting and faculty expertise of McGill's Macdonald campus to train students to become ecologists, taxonomists, field biologists, and ecosystem scientists. For information on academic advising, see: http://www.mcgill.ca/macdonald/studentinfo/advising Program Prerequisites Please refer to \"Faculty Information and Regulations\" > \"Minimum Credit Requirements\", in this Course Catalogue for information on prerequisites and minimum credit requirements.",
+  "required_courses": [
+    "AEBI 210",
+    "AEBI 211",
+    "AEBI 212",
+    "AEHM 205",
+    "AEMA 310",
+    "ENVB 210",
+    "ENVB 222",
+    "ENVB 305",
+    "ENVB 410",
+    "LSCI 204",
+    "LSCI 211",
+    "LSCI 230"
+  ],
+  "complementary_courses": [
+    "ENTO 330",
+    "ENVB 301",
+    "ENVB 313",
+    "ENVB 437",
+    "ENVB 497",
+    "ENVB 498",
+    "FAES 300",
+    "MICR 331",
+    "PLNT 304",
+    "PLNT 358",
+    "PLNT 460",
+    "SOIL 300",
+    "WILD 302",
+    "WILD 307",
+    "WOOD 441"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/natural-resource-sciences/environmental-biology-major-bsc-agenvsc/"
+}

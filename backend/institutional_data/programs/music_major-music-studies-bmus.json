@@ -1,0 +1,39 @@
+{
+  "faculty": "Schulich School of Music",
+  "program_name": "Music Studies Major (B.Mus.) (123 credits)",
+  "program_type": "major",
+  "description": "The Bachelor of Music (B.Mus.); Major in Music Studies focuses on interdisciplinary aspects of music, including the core music areas such as: music theory, music history, musicianship, and professional development.",
+  "required_courses": [
+    "MUTH 250",
+    "MUTH 251",
+    "MUSP 240",
+    "MUSP 241",
+    "MUHL 286",
+    "MUIN 280",
+    "MUIN 281",
+    "MUIN 283",
+    "MUPD 245",
+    "MUPD 350"
+  ],
+  "complementary_courses": [
+    "MUSP 324",
+    "MUSP 346",
+    "MUSP 353",
+    "MUSP 354",
+    "MUSP 355",
+    "MUSP 361",
+    "MUSP 363",
+    "MUSP 381",
+    "MUEN 563",
+    "MUEN 572",
+    "MUEN 573",
+    "MUEN 587",
+    "MUEN 590",
+    "MUEN 592",
+    "MUEN 593",
+    "MUEN 594",
+    "MUEN 595",
+    "MUEN 597"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/music/programs/music-research/major-music-studies-bmus/"
+}

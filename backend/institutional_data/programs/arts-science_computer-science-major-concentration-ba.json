@@ -1,0 +1,28 @@
+{
+  "faculty": "Faculty of Science",
+  "program_name": "Computer Science Major Concentration (B.A. & Sc.) (36 credits)",
+  "program_type": "major",
+  "description": "This Major concentration represents an in-depth introduction to computer science and its sub-areas. Students that are interested in further study in Computer Science can combine the Major Concentration Computer Science with the Supplementary Minor in Computer Science to constitute a program very close to the Major Computer Science offered by the Faculty of Science. For further information, please consult the Program Adviser. Students with two programs in the same department/unit must have a third program in a different department/unit to be eligible to graduate. Please refer to the Faculty of Arts regulations for \"Faculty Degree Requirements,\" \"About Program Requirements,\" and \"Departmental Programs\" for the Multi-track System options. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning. Degree Requirements \u2014 B.A. & Sc. students This program is offered as part of a Bachelor of Arts & Science (B.A. & Sc.) degree. To graduate, students must satisfy both their program requirements and their degree requirements. The program requirements (i.e., the specific courses that make up this program) are listed under the Course Tab (above). The degree requirements\u2014including the mandatory Foundation program, appropriate degree structure, and any additional components\u2014are outlined on the Degree Requirements page . Students are responsible for ensuring that this program fits within the overall structure of their degree and that all degree requirements are met. Consult the Degree Planning Guide on the SOUSA website for additional guidance.",
+  "required_courses": [
+    "COMP 202",
+    "COMP 206",
+    "COMP 250",
+    "COMP 251",
+    "COMP 273",
+    "MATH 240"
+  ],
+  "complementary_courses": [
+    "MATH 222",
+    "MATH 323",
+    "MATH 324",
+    "MATH 223",
+    "MATH 318",
+    "MATH 340",
+    "COMP 330",
+    "COMP 350",
+    "COMP 360",
+    "COMP 302",
+    "COMP 303"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts-science/programs/computer-science/computer-science-major-concentration-ba/"
+}

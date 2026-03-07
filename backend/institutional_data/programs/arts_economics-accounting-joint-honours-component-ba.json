@@ -1,0 +1,33 @@
+{
+  "faculty": "Desautels Faculty of Management",
+  "program_name": "Economics / Accounting Joint Honours Component (B.A.) (60 credits)",
+  "program_type": "joint_honours",
+  "description": "The B.A. Joint Honours in Economics and Accounting is offered jointly by the Economics Department and the Desautels Faculty of Management. Students in this program should see an Economics adviser and a Management adviser. For the economics part, they should consult: http://www.mcgill.ca/economics/undergraduates/honours . For the current list of advisers in Economics and their advising times, see the website of the Department of Economics. For the Management component of this Joint Honours program, students should see the Honours program adviser in the Desautels Faculty of Management. All Joint Honours students should consult the Economics Honours and Joint Honours programs at http://www.mcgill.ca/economics/undergraduates/honours . The B.A. Joint Honours in Economics and Accounting requires the completion of 30 specified credits of Honours economics courses and 30 specified credits for Accounting. Continuation from one year to the next in the Economics part of this Joint Honours program requires a minimum grade of B- in ECON 250D1 Introduction to Economic Theory: Honours. / ECON 250D2 Introduction to Economic Theory: Honours. , and a minimum B- average in the required and complementary Honours Economics courses. Note that graduation with Honours has more stringent requirements than these (see below). For graduation with Honours in the Economics component, a student must obtain a 3.00 GPA in the required courses, a 3.00 average in the required and complementary credits in Economics, and a CGPA of 3.00. For a First Class Honours degree, the minimum requirements are a 3.50 program GPA in the required courses, a 3.50 average in the required and complementary credits in Economics, and a CGPA of 3.50. In cases where a student takes a Supplemental Exam in an Economics course, both the initial and the Supplemental Exam grades will be counted in the calculation of the GPA and CGPA averages. For the Management part of this program, students also have to meet the requirements of the Faculty of Management for Honours and First Class Honours. To earn Honours in Economics and Accounting, the Faculty of Management requires that students must achieve a grade of B- or better in all courses of the Accounting component of this program. Degree Requirements \u2014 B.A. students To be eligible for a B.A. degree, a student must fulfil all Faculty and program requirements as indicated in Degree Requirements for the Faculty of Arts . We recommend that students consult an Arts OASIS advisor for degree planning.",
+  "required_courses": [
+    "ECON 353",
+    "ECON 354",
+    "ECON 450",
+    "ECON 452",
+    "ECON 468",
+    "ACCT 351",
+    "ACCT 352",
+    "ACCT 361",
+    "ACCT 455",
+    "MGCR 211",
+    "MGCR 341"
+  ],
+  "complementary_courses": [
+    "ECON 460",
+    "ECON 461",
+    "ECON 469",
+    "ACCT 354",
+    "ACCT 362",
+    "ACCT 385",
+    "ACCT 452",
+    "ACCT 453",
+    "ACCT 463",
+    "ACCT 475",
+    "ACCT 486"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/economics/economics-accounting-joint-honours-component-ba/"
+}

@@ -1,0 +1,22 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Agricultural Economics Major (B.Sc.(Ag.Env.Sc.)) (42 credits)",
+  "program_type": "major",
+  "description": "The B.Sc.(Agr.Env.Sc.); Major in Agricultural Economics is designed to meet the demand for sustainable development as it relates to the environment and resource use, and the economics and management of the global agriculture and food system. This multidisciplinary program in applied economics involves the application of theory and analytical methods to environmental issues and the agricultural and food system. Training in economic theory and applied areas such as marketing, finance, farm management, public policy, ecology, natural resources, and international development. Program Prerequisites Refer to \"Faculty Information and Regulations\" > \"Minimum Credit Requirements\", in this Course Catalogue for prerequisites and minimum credit requirements.",
+  "required_courses": [
+    "AGEC 200",
+    "AGEC 201",
+    "AGEC 231",
+    "AGEC 320",
+    "AGEC 330",
+    "AGEC 332",
+    "AGEC 333",
+    "AGEC 425",
+    "AGEC 430",
+    "AGEC 442",
+    "ENVB 210",
+    "MGCR 211"
+  ],
+  "complementary_courses": [],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/natural-resource-sciences/agricultural-economics-major-bsc-agenvsc/"
+}

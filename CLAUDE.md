@@ -112,7 +112,7 @@ The goal is not to hardcode handlers for specific question patterns. The LLM sho
 
 For example, once you scrape the eCalendar program/major requirement pages for business and store that context, the LLM will just know "management major → Desautels → here are the relevant course prefixes and required courses" the same way a real advisor would — without needing any hardcoded regex mappings, which we ideally want to avoid entirely. That's the right fix for MGMT and the whole class of similar problems.
 
-> **Scraping strategy is TBD** — which eCalendar pages to target, how to structure the data, and how to chunk it for retrieval all need further discussion before implementation.
+> **Full plan in `tasks/institutional-knowledge-plan.md`** — scraping strategy, storage format, retrieval integration, and implementation order all decided. Start there.
 
 ### Step 1: Institutional Knowledge Scraping
 
@@ -229,7 +229,7 @@ When working on a multi-step task:
 
 ## Important Patterns
 
-- Course IDs are formatted like "COMP-250" in the database
+- Course IDs are formatted like "COMP 250" in the database (space-separated, NOT hyphen)
 - Course aliases exist (e.g., "calc 3" -> "MATH 222") in qa_agent.py
 - PrereqEdge uses composite primary key (src_course_id, dst_course_id, kind)
 - Prerequisite chain traversal is currently single-level only (no recursive resolution)

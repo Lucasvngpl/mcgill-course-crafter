@@ -1,0 +1,42 @@
+{
+  "faculty": "Faculty of Science",
+  "program_name": "Chemistry - Bio-organic Honours (B.Sc.) (75 credits)",
+  "program_type": "honours",
+  "description": "Note: Attainment of the Honours degree requires a CGPA of at least 3.00. Degree Requirements \u2014 B.Sc. This program is offered as part of a Bachelor of Science (B.Sc.) degree. To graduate, students must satisfy both their program requirements and their degree requirements. The program requirements (i.e., the specific courses that make up this program) are listed under the Course Tab (above). The degree requirements\u2014including the mandatory Foundation program, appropriate degree structure, and any additional components\u2014are outlined on the Degree Requirements page . Students are responsible for ensuring that this program fits within the overall structure of their degree and that all degree requirements are met. Consult the Degree Planning Guide on the SOUSA website for additional guidance.",
+  "required_courses": [
+    "BIOL 200",
+    "BIOL 201",
+    "CHEM 213",
+    "CHEM 242",
+    "CHEM 252",
+    "CHEM 267",
+    "CHEM 273",
+    "CHEM 281",
+    "CHEM 302",
+    "CHEM 345",
+    "CHEM 355",
+    "CHEM 367",
+    "CHEM 377",
+    "CHEM 381",
+    "CHEM 392",
+    "CHEM 493",
+    "CHEM 502",
+    "MATH 222",
+    "PHYS 242"
+  ],
+  "complementary_courses": [
+    "CHEM 470",
+    "CHEM 480",
+    "BIOL 202",
+    "BIOL 301",
+    "CHEM 365",
+    "MATH 315",
+    "MIMM 211",
+    "MIMM 214",
+    "MIMM 314",
+    "MIMM 323",
+    "PHGY 209",
+    "PHGY 210"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/chemistry/chemistry-bio-organic-honours-bsc/"
+}

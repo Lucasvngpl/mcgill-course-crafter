@@ -1,0 +1,16 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Livestock Specialization (B.Sc.(Ag.Env.Sc.)) (18 credits)",
+  "program_type": "major",
+  "description": "The Specialization in Livestock focuses on essentials of livestock production as it relates to providing food and other resources to consumers. The key components of livestock management (reproductive physiology, breeding and genomics, nutrition, and welfare with hands-on farm experience),including precision animal agriculture and highlights provincial and national livestock industries in a global context. This Specialization may be taken with the Major in Sustainable Agricultural Systems with connections to Crops, Vegetables, and Global Food Security, as well as an opportunity to take dedicated agronomic content leading to an additional Specialization in Professional Agrology, thereby meeting the eligibility requirements for the Ordre des agronomes du Qu\u00e9bec.",
+  "required_courses": [
+    "ANSC 301",
+    "ANSC 303",
+    "ANSC 324",
+    "ANSC 433",
+    "ANSC 458",
+    "ANSC 555"
+  ],
+  "complementary_courses": [],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/animal-science/livestock-major-bsc-agenvsc/"
+}

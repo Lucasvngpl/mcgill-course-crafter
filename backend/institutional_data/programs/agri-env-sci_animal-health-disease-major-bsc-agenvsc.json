@@ -1,0 +1,23 @@
+{
+  "faculty": "Faculty of Agricultural and Environmental Sciences",
+  "program_name": "Animal Health and Disease Specialization (B.Sc.(Ag.Env.Sc.)) (24 credits)",
+  "program_type": "major",
+  "description": "This specialization is offered for students wishing to understand general animal physiology and function; the susceptibility of animals to various diseases; methods for limiting and controlling potential outbreaks; and the resulting implications for the animal, the consumer and the environment. It is an ideal choice for students interested in the care of animals, or in working in laboratories where diseases are being researched. For information on academic advising, see: http://www.mcgill.ca/macdonald/studentinfo/advising",
+  "required_courses": [
+    "ANSC 312",
+    "ANSC 323",
+    "ANSC 350",
+    "ANSC 424",
+    "MICR 341",
+    "PARA 424"
+  ],
+  "complementary_courses": [
+    "ANSC 234",
+    "ANSC 251",
+    "ANSC 303",
+    "ANSC 324",
+    "ANSC 433",
+    "ANSC 555"
+  ],
+  "source_url": "https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/natural-resource-sciences/animal-health-disease-major-bsc-agenvsc/"
+}
