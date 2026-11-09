@@ -11,7 +11,7 @@ A full-stack RAG-powered course planning assistant for McGill University student
 - **Entry point:** `backend/server.py` - FastAPI app with endpoints
 - **RAG pipeline:** `backend/rag_layer.py` - hybrid search (semantic + SQL)
 - **LLM layer:** `backend/qa_agent.py` - GPT-4o-mini via LangChain
-- **Course logic:** `backend/course_logic.py` + `backend/deterministic_logic.py` - prereq queries, eligibility checks
+- **Course logic:** `backend/deterministic_logic.py` - finds courses that list a given course as a prerequisite
 - **Database:** `backend/db_setup.py` - SQLAlchemy models (Course, PrereqEdge)
 - **Scraper:** `backend/scraper.py` - BeautifulSoup scraper for McGill course catalogue
 
@@ -26,7 +26,7 @@ A full-stack RAG-powered course planning assistant for McGill University student
 
 ### Database (PostgreSQL — Supabase)
 
-- **Course tables:** `courses` (8065 courses), `prereq_edge` (prereq relationships)
+- **Course tables:** `courses` (8065 courses), `prereq_edge` (empty, unused: answers read `courses.prereq_text`)
 - **User tables:** `user_profiles`, `user_courses`, `chat_messages` (live in Supabase)
 
 ### Deployment
@@ -233,4 +233,3 @@ When working on a multi-step task:
 - Course aliases exist (e.g., "calc 3" -> "MATH 222") in qa_agent.py
 - PrereqEdge uses composite primary key (src_course_id, dst_course_id, kind)
 - Prerequisite chain traversal is currently single-level only (no recursive resolution)
-- `can_take_course()` in course_logic.py validates eligibility but only checks immediate prereqs
