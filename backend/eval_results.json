@@ -1,0 +1,357 @@
+[
+ {
+  "type": "prereqs_of",
+  "q": "What are the prerequisites for ENGL 203?",
+  "gold": [
+   "ENGL 202"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 2370,
+   "answer": "The prerequisites for ENGL 203 (Departmental Survey of English Literature 2) are ENGL 202 (Departmental Survey of English Literature 1) or permission of the instructor."
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 4315,
+   "answer": "The context does not provide information about the prerequisites for ENGL 203."
+  }
+ },
+ {
+  "type": "prereqs_of",
+  "q": "What are the prerequisites for CHEE 474?",
+  "gold": [
+   "CHEE 370"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 1818,
+   "answer": "The prerequisites for CHEE 474 (Biochemical Engineering) are: CHEE 370 (Elements of Biotechnology). You also need to take CHEE 315 (Heat and Mass Transfer) as a corequisite."
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 1294,
+   "answer": "The context provided does not include any information about CHEE 474 or its prerequisites. Therefore, I cannot provide the prerequisites for CHEE 474."
+  }
+ },
+ {
+  "type": "prereqs_of",
+  "q": "What are the prerequisites for GPHL 400?",
+  "gold": [
+   "GPHL 301",
+   "GPHL 303"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 1519,
+   "answer": "The prerequisites for GPHL 400 (Critical Perspectives in Global Health) are GPHL 301 (Introduction to Research Methods) and GPHL 303 (Community Engaged Learning)."
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 1239,
+   "answer": "The context does not provide information about the prerequisites for GPHL 400. Please check the relevant course details or contact the appropriate department for that information."
+  }
+ },
+ {
+  "type": "prereqs_of",
+  "q": "What are the prerequisites for ARCH 535?",
+  "gold": [
+   "ARCH 251"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 975,
+   "answer": "The prerequisites for ARCH 535 (History of Architecture in Canada) are ARCH 251 (Architectural History 2) or permission of the instructor."
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 930,
+   "answer": "The context does not provide information about the prerequisites for ARCH 535. It only mentions the prerequisite for ARCH 712, which is ARCH 711."
+  }
+ },
+ {
+  "type": "prereqs_of",
+  "q": "What are the prerequisites for BIOL 350?",
+  "gold": [
+   "BIOL 205"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 1126,
+   "answer": "The prerequisites for BIOL 350 (Insect Biology and Control) are: BIOL 205 (Functional Biology of Plants and Animals) or permission of the instructor."
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 632,
+   "answer": "The context does not provide information about the prerequisites for BIOL 350."
+  }
+ },
+ {
+  "type": "prereqs_of",
+  "q": "What are the prerequisites for NUTR 655?",
+  "gold": [
+   "NUTR 654"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 1118,
+   "answer": "The prerequisites for NUTR 655 (M.Sc. (Applied) Project 4) are NUTR 654 (M.Sc. (Applied) Project 3)."
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 914,
+   "answer": "The prerequisites for NUTR 655 are NUTR 550 and NUTR 651."
+  }
+ },
+ {
+  "type": "prereqs_of",
+  "q": "What are the prerequisites for BREE 453?",
+  "gold": [
+   "BREE 452"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 1193,
+   "answer": "The prerequisites for BREE 453 (Undergraduate Seminar 3 - Scientific Writing) are: BREE 452 (Undergraduate Seminar 2 Poster Presentation)."
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 705,
+   "answer": "The prerequisites for BREE 453 are BREE 350 and BREE 351."
+  }
+ },
+ {
+  "type": "prereqs_of",
+  "q": "What are the prerequisites for FINE 547?",
+  "gold": [
+   "FINE 441",
+   "FINE 443"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 956,
+   "answer": "The prerequisites for FINE 547 (Advanced Finance Seminar) are FINE 441 (Investment Management) and FINE 443 (Applied Corporate Finance)."
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 686,
+   "answer": "The prerequisites for FINE 547 are FINE 540 and FINE 541."
+  }
+ },
+ {
+  "type": "prereqs_of",
+  "q": "What are the prerequisites for PSYC 782?",
+  "gold": [
+   "PSYC 781"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 1253,
+   "answer": "The prerequisites for PSYC 782 (Behavioural Neuroscience Advanced Seminar) are: Prerequisite: PSYC 781 (Behavioural Neuroscience Special Topics)."
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 1082,
+   "answer": "The prerequisites for PSYC 782 are PSYC 580 and PSYC 581."
+  }
+ },
+ {
+  "type": "prereqs_of",
+  "q": "What are the prerequisites for BIEN 267?",
+  "gold": [
+   "BIEN 290"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 1134,
+   "answer": "The prerequisites for BIEN 267 (Bioanalytical Methods in Bioengineering) are BIEN 290 (Bioengineering Measurement Laboratory)."
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 837,
+   "answer": "The prerequisites for BIEN 267 are MATH 133 and PHYS 101."
+  }
+ },
+ {
+  "type": "requires",
+  "q": "What courses require FRSL 104?",
+  "gold": [
+   "FRSL 206",
+   "FRSL 208"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 22,
+   "answer": "After completing FRSL 104 (Corrective French Pronunciation), you can take:\n\n\u2022 FRSL 206 (Elementary French)\n\u2022 FRSL 208 (Intensive Elementary French)"
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 1122,
+   "answer": "The provided context does not mention any courses that require FRSL 104."
+  }
+ },
+ {
+  "type": "requires",
+  "q": "What can I take after CIVE 206?",
+  "gold": [
+   "CIVE 327",
+   "CIVE 460"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 20,
+   "answer": "After completing CIVE 206 (Dynamics), you can take:\n\n\u2022 CIVE 327 (Fluid Mechanics and Hydraulics)\n\u2022 CIVE 460 (Matrix Structural Analysis)"
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 1071,
+   "answer": "The context provided does not include information about CIVE 206 or any courses that can be taken after it. Please refer to the specific course requirements or program guidelines for further details."
+  }
+ },
+ {
+  "type": "requires",
+  "q": "What courses require ANSC 323?",
+  "gold": [
+   "ANSC 424",
+   "NUTR 344",
+   "NUTR 503"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 21,
+   "answer": "After completing ANSC 323 (Mammalian Physiology), you can take:\n\n\u2022 ANSC 424 (Metabolic Endocrinology)\n\u2022 NUTR 503 (Nutrition and Exercise)\n\u2022 NUTR 344 (Clinical Nutrition 1)"
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 834,
+   "answer": "The courses that require ANSC 323 are ANSC 424 and ANSC 425."
+  }
+ },
+ {
+  "type": "requires",
+  "q": "What can I take after BIOL 305?",
+  "gold": [
+   "BIOL 427",
+   "BIOL 428",
+   "REDM 400"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 20,
+   "answer": "After completing BIOL 305 (Animal Diversity), you can take:\n\n\u2022 BIOL 427 (Herpetology)\n\u2022 BIOL 428 (Biological Diversity in Africa)\n\u2022 REDM 400 (Science and Museums)"
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 902,
+   "answer": "After BIOL 305, you can take courses that require it as a prerequisite. Please check the specific course listings for options available in your program."
+  }
+ },
+ {
+  "type": "requires",
+  "q": "What courses require ELEC 400?",
+  "gold": [
+   "ELEC 403",
+   "ELEC 404",
+   "ELEC 405"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 21,
+   "answer": "After completing ELEC 400 (Elective 1 Clerkship), you can take:\n\n\u2022 ELEC 403 (Elective 4 Clerkship)\n\u2022 ELEC 404 (Elective 5 Clerkship)\n\u2022 ELEC 405 (Elective 5 - Senior Clerkships)"
+  },
+  "vector_only": {
+   "correct": true,
+   "ms": 932,
+   "answer": "ELEC 403, ELEC 404, and ELEC 405 require ELEC 400 as a prerequisite."
+  }
+ },
+ {
+  "type": "requires",
+  "q": "What can I take after EDSL 315?",
+  "gold": [
+   "EDFE 459",
+   "EDSL 415"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 21,
+   "answer": "After completing EDSL 315 (Third Year Professional Seminar), you can take:\n\n\u2022 EDFE 459 (Fourth Field Experience (TESL))\n\u2022 EDSL 415 (Fourth Professional Seminar)"
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 710,
+   "answer": "After EDSL 315, you can take EDSL 410 or EDSL 420."
+  }
+ },
+ {
+  "type": "requires",
+  "q": "What courses require BASC 201?",
+  "gold": [
+   "BASC 396",
+   "BASC 449"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 21,
+   "answer": "After completing BASC 201 (Arts and Science Integrative Topics), you can take:\n\n\u2022 BASC 396 (Undergraduate Research Project)\n\u2022 BASC 449 (Integrative Research Project)"
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 953,
+   "answer": "The course BASC 396: Undergraduate Research Project requires BASC 201 as a prerequisite."
+  }
+ },
+ {
+  "type": "requires",
+  "q": "What can I take after CLAS 240?",
+  "gold": [
+   "CLAS 341",
+   "CLAS 342"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 20,
+   "answer": "After completing CLAS 240 (Introduction to Classical Archaeology), you can take:\n\n\u2022 CLAS 341 (Life in the Ancient Greek and Roman City)\n\u2022 CLAS 342 (People and Environment in the Ancient World)"
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 1156,
+   "answer": "After CLAS 240, you can take CLAS 201, CLAS 310, CLAS 320, or any of the complementary/elective courses such as CLAS 410, CLAS 412, CLAS 420, CLAS 422, or CLAS 429."
+  }
+ },
+ {
+  "type": "requires",
+  "q": "What courses require BIOL 309?",
+  "gold": [
+   "COMP 462",
+   "COMP 561"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 21,
+   "answer": "After completing BIOL 309 (Mathematical Models in Biology), you can take:\n\n\u2022 COMP 462 (Computational Biology Methods)\n\u2022 COMP 561 (Computational Biology Methods and Research)"
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 2115,
+   "answer": "The courses that require BIOL 309 are not explicitly listed in the provided context. However, BIOL 309 is mentioned as a complementary/elective course in both the Computer Science and Biology Major and the Biochemistry Major programs. Therefore, it may be a prerequisite for certain advanced courses within those programs, but specific courses requiring BIOL 309 are not detailed in the context."
+  }
+ },
+ {
+  "type": "requires",
+  "q": "What can I take after GPHL 303?",
+  "gold": [
+   "GPHL 400",
+   "GPHL 401"
+  ],
+  "pipeline": {
+   "correct": true,
+   "ms": 12,
+   "answer": "After completing GPHL 303 (Community Engaged Learning), you can take:\n\n\u2022 GPHL 401 (Experiential Learning)\n\u2022 GPHL 400 (Critical Perspectives in Global Health)"
+  },
+  "vector_only": {
+   "correct": false,
+   "ms": 1144,
+   "answer": "The context provided does not mention GPHL 303 or any specific courses that can be taken after it. Please consult the course catalog or your academic advisor for information regarding courses following GPHL 303."
+  }
+ }
+]
