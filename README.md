@@ -105,6 +105,23 @@ Fast, cheap, and smart enough for this use case. The RAG pipeline does the heavy
 
 ---
 
+## Evaluation
+
+`backend/eval_retrieval.py` samples 20 prerequisite questions from the catalogue at random (fixed seed).
+An answer counts only if it names every course code in the official prerequisite text.
+The baseline is plain RAG: top-5 ChromaDB hits and the same gpt-4o-mini, with no router or SQL.
+
+| Question type | CourseCraft | Vector search only |
+|---|---|---|
+| "What are the prerequisites for X?" | 10/10 | 0/10 |
+| "What courses require X?" / "What can I take after X?" | 10/10 (median 21 ms, no LLM call) | 1/10 |
+
+Vector search alone rarely retrieves the right course for a code like "ENGL 203", so the model answers that it has no information.
+Every answer is in `backend/eval_results.json`.
+Rerun with `cd backend && python eval_retrieval.py`.
+
+---
+
 ## Future Improvements
 
 - [ ] Video game skill-tree style course completion integration + Degree requirement tracking
